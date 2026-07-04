@@ -58,12 +58,18 @@
         padding: 1px 6px;
         border-radius: 4px;
     }
-    .actions-bar {
+    .control-panel {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 12px 14px;
+        margin-bottom: 20px;
+    }
+    .control-row {
         display: flex;
         gap: 8px;
         justify-content: center;
         flex-wrap: wrap;
-        margin-bottom: 20px;
     }
     .action-btn {
         background: rgba(88, 166, 255, 0.12);
@@ -79,6 +85,61 @@
     }
     .action-btn:hover {
         background: rgba(88, 166, 255, 0.25);
+    }
+    .action-btn:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+    }
+    .control-status {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        justify-content: center;
+        margin-top: 10px;
+        font-size: 13px;
+        color: var(--text-dim);
+    }
+    .control-status a {
+        color: var(--accent);
+    }
+    .status-dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: var(--text-dim);
+        flex-shrink: 0;
+    }
+    .status-dot.idle { background: var(--green); }
+    .status-dot.error { background: var(--red); }
+    .status-dot.running {
+        background: var(--orange);
+        animation: pulse 1.2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.4; transform: scale(0.8); }
+    }
+    .control-log {
+        margin-top: 10px;
+    }
+    .control-log summary {
+        font-size: 12px;
+        color: var(--text-dim);
+        cursor: pointer;
+        text-align: center;
+    }
+    .control-log pre {
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 10px;
+        margin-top: 8px;
+        font-size: 10px;
+        line-height: 1.4;
+        max-height: 260px;
+        overflow: auto;
+        white-space: pre-wrap;
+        word-break: break-word;
     }
     .summary {
         display: grid;
@@ -403,14 +464,23 @@
     <span class="emoji">&#9918;</span>
     <h1>MLB Predictions</h1>
     <div class="date">Saturday, July 04, 2026</div>
-    <div class="updated">Updated Jul 4, 5:01 PM ET &middot; <span class="commit">dea9c9a</span></div>
+    <div class="updated">Updated Jul 4, 5:18 PM ET &middot; <span class="commit">86f94e7</span></div>
 </div>
 
 
-<div class="actions-bar">
-    <button class="action-btn" onclick="ctlRun('/run/predict', null)">&#9654; Run Predictions</button>
-    <button class="action-btn" onclick="ctlRun('/run/train', 'Start a full model retrain? This takes several minutes on the VM.')">&#8635; Retrain Model</button>
-    <button class="action-btn" onclick="ctlRun('/status', null)">&#128202; Status</button>
+<div class="control-panel">
+    <div class="control-row">
+        <button class="action-btn" id="btn-predict" onclick="ctlRun('predict', null)">&#9654; Run Predictions</button>
+        <button class="action-btn" id="btn-train" onclick="ctlRun('train', 'Start a full model retrain? This takes several minutes on the VM.')">&#8635; Retrain Model</button>
+    </div>
+    <div class="control-status">
+        <span class="status-dot" id="ctl-dot"></span>
+        <span id="ctl-text">Remote control ready</span>
+    </div>
+    <details class="control-log">
+        <summary>View run log</summary>
+        <pre id="ctl-log">(no log loaded yet)</pre>
+    </details>
 </div>
 
 
@@ -443,16 +513,8 @@
         <div class="top-play">
             <span class="play-matchup">Minnesota Twins @ New York Yankees</span>
             <span class="play-team">NYY</span>
-            <span class="play-prob">71.7%</span>
-            <span class="play-edge">+14.2%</span>
-            <span class="play-kelly">—</span>
-        </div>
-        
-        <div class="top-play">
-            <span class="play-matchup">Minnesota Twins @ New York Yankees</span>
-            <span class="play-team">NYY</span>
-            <span class="play-prob">71.7%</span>
-            <span class="play-edge">+14.2%</span>
+            <span class="play-prob">71.6%</span>
+            <span class="play-edge">+14.1%</span>
             <span class="play-kelly">—</span>
         </div>
         
@@ -472,14 +534,22 @@
             <span class="play-kelly">5.00% $250</span>
         </div>
         
+        <div class="top-play">
+            <span class="play-matchup">San Diego Padres @ Los Angeles Dodgers</span>
+            <span class="play-team">SD</span>
+            <span class="play-prob">40.5%</span>
+            <span class="play-edge">+10.0%</span>
+            <span class="play-kelly">3.61% $180</span>
+        </div>
+        
 </div>
 
 <div class="section-title">All Games</div>
 
 <div class="filter-bar">
     <button class="filter-pill active" data-filter="all">All Games <span class="badge">44</span></button>
-    <button class="filter-pill" data-filter="completed">Completed <span class="badge">15</span></button>
-    <button class="filter-pill" data-filter="live">Live <span class="badge">3</span></button>
+    <button class="filter-pill" data-filter="completed">Completed <span class="badge">16</span></button>
+    <button class="filter-pill" data-filter="live">Live <span class="badge">2</span></button>
     <button class="filter-pill" data-filter="upcoming">Upcoming <span class="badge">26</span></button>
 </div>
 
@@ -521,35 +591,6 @@
             </div>
         </div>
         
-        <div class="game-card" data-status="live" data-gametime="2026-07-04T17:35:00Z">
-            <div class="game-header">
-                <div class="game-header-left">
-                    <span class="matchup">Minnesota Twins <span class="at">@</span> New York Yankees</span>
-                    <span class="game-time">Sat Jul 04, 1:35 PM ET</span>
-                </div>
-                <span class="signal signal-strong">&#9733; STRONG</span>
-            </div>
-            <div class="game-result live">Live: MIN 11 — NYY 4</div>
-            <div class="game-body">
-                <div class="team-row">
-                    <span class="team-name">MIN</span>
-                    <span class="prob">28.3%</span>
-                    <span class="market">42.5%</span>
-                    <span class="edge edge-negative">-14.2%</span>
-                </div>
-                <div class="team-row">
-                    <span class="team-name">NYY</span>
-                    <span class="prob">71.7%</span>
-                    <span class="market">57.5%</span>
-                    <span class="edge edge-positive">+14.2%</span>
-                </div>
-                
-                <div class="confidence-bar-container">
-                    <div class="confidence-bar" style="width: 43%"></div>
-                </div>
-            </div>
-        </div>
-        
         <div class="game-card" data-status="upcoming" data-gametime="2026-07-05T17:35:00Z">
             <div class="game-header">
                 <div class="game-header-left">
@@ -562,15 +603,15 @@
             <div class="game-body">
                 <div class="team-row">
                     <span class="team-name">MIN</span>
-                    <span class="prob">28.3%</span>
+                    <span class="prob">28.4%</span>
                     <span class="market">42.5%</span>
-                    <span class="edge edge-negative">-14.2%</span>
+                    <span class="edge edge-negative">-14.1%</span>
                 </div>
                 <div class="team-row">
                     <span class="team-name">NYY</span>
-                    <span class="prob">71.7%</span>
+                    <span class="prob">71.6%</span>
                     <span class="market">57.5%</span>
-                    <span class="edge edge-positive">+14.2%</span>
+                    <span class="edge edge-positive">+14.1%</span>
                 </div>
                 
                 <div class="confidence-bar-container">
@@ -637,11 +678,11 @@
             </div>
         </div>
         
-        <div class="game-card" data-status="upcoming" data-gametime="2026-07-05T23:20:00Z">
+        <div class="game-card" data-status="upcoming" data-gametime="2026-07-05T02:10:00Z">
             <div class="game-header">
                 <div class="game-header-left">
                     <span class="matchup">San Diego Padres <span class="at">@</span> Los Angeles Dodgers</span>
-                    <span class="game-time">Sun Jul 05, 7:20 PM ET</span>
+                    <span class="game-time">Sat Jul 04, 10:10 PM ET</span>
                 </div>
                 <span class="signal signal-strong">&#9733; STRONG</span>
             </div>
@@ -666,11 +707,11 @@
             </div>
         </div>
         
-        <div class="game-card" data-status="upcoming" data-gametime="2026-07-05T02:10:00Z">
+        <div class="game-card" data-status="upcoming" data-gametime="2026-07-05T23:20:00Z">
             <div class="game-header">
                 <div class="game-header-left">
                     <span class="matchup">San Diego Padres <span class="at">@</span> Los Angeles Dodgers</span>
-                    <span class="game-time">Sat Jul 04, 10:10 PM ET</span>
+                    <span class="game-time">Sun Jul 05, 7:20 PM ET</span>
                 </div>
                 <span class="signal signal-strong">&#9733; STRONG</span>
             </div>
@@ -720,6 +761,35 @@
                 <div class="kelly-line"><span class="kelly-label">Kelly (STRONG)</span> <span class="kelly-value">OAK 4.0% of bankroll ($198)</span></div>
                 <div class="confidence-bar-container">
                     <div class="confidence-bar" style="width: 6%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="game-card" data-status="completed" data-gametime="2026-07-04T17:35:00Z">
+            <div class="game-header">
+                <div class="game-header-left">
+                    <span class="matchup">Minnesota Twins <span class="at">@</span> New York Yankees</span>
+                    <span class="game-time">Sat Jul 04, 1:35 PM ET</span>
+                </div>
+                <span class="signal signal-strong">&#9733; STRONG</span>
+            </div>
+            <div class="game-result final">Final: MIN 11 — NYY 4 (W: Minnesota Twins)</div>
+            <div class="game-body">
+                <div class="team-row">
+                    <span class="team-name">MIN</span>
+                    <span class="prob">34.7%</span>
+                    <span class="market">42.5%</span>
+                    <span class="edge edge-negative">-7.8%</span>
+                </div>
+                <div class="team-row">
+                    <span class="team-name">NYY</span>
+                    <span class="prob">65.3%</span>
+                    <span class="market">57.5%</span>
+                    <span class="edge edge-positive">+7.8%</span>
+                </div>
+                
+                <div class="confidence-bar-container">
+                    <div class="confidence-bar" style="width: 30%"></div>
                 </div>
             </div>
         </div>
@@ -782,11 +852,11 @@
             </div>
         </div>
         
-        <div class="game-card" data-status="upcoming" data-gametime="2026-07-06T01:30:00Z">
+        <div class="game-card" data-status="upcoming" data-gametime="2026-07-05T01:38:00Z">
             <div class="game-header">
                 <div class="game-header-left">
                     <span class="matchup">Boston Red Sox <span class="at">@</span> Los Angeles Angels</span>
-                    <span class="game-time">Sun Jul 05, 9:30 PM ET</span>
+                    <span class="game-time">Sat Jul 04, 9:38 PM ET</span>
                 </div>
                 <span class="signal signal-moderate">&#9679; MODERATE</span>
             </div>
@@ -811,11 +881,11 @@
             </div>
         </div>
         
-        <div class="game-card" data-status="upcoming" data-gametime="2026-07-05T01:38:00Z">
+        <div class="game-card" data-status="upcoming" data-gametime="2026-07-06T01:30:00Z">
             <div class="game-header">
                 <div class="game-header-left">
                     <span class="matchup">Boston Red Sox <span class="at">@</span> Los Angeles Angels</span>
-                    <span class="game-time">Sat Jul 04, 9:38 PM ET</span>
+                    <span class="game-time">Sun Jul 05, 9:30 PM ET</span>
                 </div>
                 <span class="signal signal-moderate">&#9679; MODERATE</span>
             </div>
@@ -1771,22 +1841,132 @@
 </div>
 
 <div class="footer">
-    MLB Prediction Model v2.0 &mdash; Updated Jul 4, 5:01 PM ET &mdash; commit dea9c9a<br>
+    MLB Prediction Model v2.0 &mdash; Updated Jul 4, 5:18 PM ET &mdash; commit 86f94e7<br>
     Stacked Ensemble: LR + XGB + LGB + RF + LGB-Recent + LGB-NoWeight + RunDiff + Poisson | Calibrated
 </div>
 
 <script>
-function ctlRun(path, confirmMsg) {
-    if (confirmMsg && !confirm(confirmMsg)) { return; }
-    var t = localStorage.getItem('mlb_ctl_token');
-    if (!t) {
-        t = prompt('Enter control token (one-time on this device):');
-        if (!t) { return; }
-        t = t.trim();
-        localStorage.setItem('mlb_ctl_token', t);
+(function() {
+    var BASE = 'https://35-190-130-187.sslip.io';
+    var pollTimer = null;
+    var weStarted = false;
+
+    var dot = document.getElementById('ctl-dot');
+    var text = document.getElementById('ctl-text');
+    var logPre = document.getElementById('ctl-log');
+    var btns = [document.getElementById('btn-predict'),
+                document.getElementById('btn-train')];
+
+    function getToken(promptIfMissing) {
+        var t = localStorage.getItem('mlb_ctl_token');
+        if (!t && promptIfMissing) {
+            t = prompt('Enter control token (one-time on this device):');
+            if (t) { t = t.trim(); localStorage.setItem('mlb_ctl_token', t); }
+        }
+        return t;
     }
-    window.open('http://35.190.130.187:8787' + path + '?token=' + encodeURIComponent(t), '_blank');
-}
+
+    function setButtons(disabled) {
+        btns.forEach(function(b) { if (b) b.disabled = disabled; });
+    }
+
+    function setStatus(cls, msg, htmlOk) {
+        dot.className = 'status-dot ' + cls;
+        if (htmlOk) { text.innerHTML = msg; } else { text.textContent = msg; }
+    }
+
+    function elapsedStr(epoch) {
+        if (!epoch) return '';
+        var s = Math.max(0, Math.round(Date.now() / 1000 - epoch));
+        if (s < 60) return s + 's';
+        return Math.floor(s / 60) + 'm ' + (s % 60) + 's';
+    }
+
+    function render(st) {
+        if (st.log) {
+            logPre.textContent = st.log;
+            logPre.scrollTop = logPre.scrollHeight;
+        }
+        if (st.running) {
+            setButtons(true);
+            setStatus('running', 'Running: ' + st.label + ' \u00b7 started ' +
+                      st.started_et + ' (' + elapsedStr(st.started_epoch) + ')');
+        } else {
+            setButtons(false);
+            if (st.action && weStarted) {
+                var ok = st.exit_code === 0;
+                setStatus(ok ? 'idle' : 'error',
+                    (ok ? '\u2713 ' : '\u2717 ') + st.label +
+                    ' finished ' + (st.finished_et || '') +
+                    (ok ? '' : ' (exit ' + st.exit_code + ')') +
+                    ' \u00b7 <a href="#" onclick="location.reload(); return false;">Reload report</a>',
+                    true);
+            } else if (st.action) {
+                setStatus('idle', 'Idle \u00b7 last run: ' + st.label +
+                          ' finished ' + (st.finished_et || st.started_et || ''));
+            } else {
+                setStatus('idle', 'Idle \u00b7 no runs since server start');
+            }
+        }
+    }
+
+    function api(path, token) {
+        return fetch(BASE + '/api' + path + '?token=' + encodeURIComponent(token))
+            .then(function(r) {
+                if (r.status === 401) {
+                    localStorage.removeItem('mlb_ctl_token');
+                    throw new Error('bad-token');
+                }
+                return r.json();
+            });
+    }
+
+    function poll() {
+        var t = getToken(false);
+        if (!t) return;
+        api('/status', t).then(function(st) {
+            render(st);
+            if (st.running) { startPolling(); } else { stopPolling(); }
+        }).catch(function(e) {
+            stopPolling();
+            if (e.message === 'bad-token') {
+                setStatus('error', 'Token rejected \u2014 tap Run to re-enter');
+            } else {
+                setStatus('error', 'Control server unreachable');
+            }
+        });
+    }
+
+    function startPolling() {
+        if (!pollTimer) { pollTimer = setInterval(poll, 3000); }
+    }
+    function stopPolling() {
+        if (pollTimer) { clearInterval(pollTimer); pollTimer = null; }
+    }
+
+    window.ctlRun = function(action, confirmMsg) {
+        if (confirmMsg && !confirm(confirmMsg)) { return; }
+        var t = getToken(true);
+        if (!t) { return; }
+        setButtons(true);
+        setStatus('running', 'Starting\u2026');
+        api('/run/' + action, t).then(function(st) {
+            weStarted = true;
+            render(st);
+            startPolling();
+        }).catch(function(e) {
+            setButtons(false);
+            if (e.message === 'bad-token') {
+                setStatus('error', 'Token rejected \u2014 tap Run to re-enter');
+            } else {
+                setStatus('error', 'Could not reach control server');
+            }
+        });
+    };
+
+    // On load: if this device already has a token, show live status
+    if (getToken(false)) { poll(); }
+})();
 </script>
 
 
