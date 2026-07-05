@@ -225,6 +225,116 @@
         color: var(--purple);
         font-weight: 700;
     }
+    .agents-line {
+        margin-top: 8px;
+        padding: 6px 10px;
+        background: rgba(88, 166, 255, 0.06);
+        border: 1px solid rgba(88, 166, 255, 0.2);
+        border-radius: 6px;
+        font-size: 12px;
+        color: var(--text);
+    }
+    .agents-line .agents-label {
+        color: var(--text-dim);
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-right: 4px;
+    }
+    .agent-panel {
+        margin-bottom: 24px;
+    }
+    .agent-row {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 10px 12px;
+        margin-bottom: 6px;
+    }
+    .agent-head {
+        display: flex;
+        gap: 8px;
+        align-items: baseline;
+        font-size: 14px;
+    }
+    .agent-rank {
+        color: var(--text-dim);
+        font-size: 12px;
+    }
+    .agent-name {
+        font-weight: 700;
+    }
+    .agent-acc {
+        margin-left: auto;
+        color: var(--text-dim);
+        font-size: 12px;
+    }
+    .agent-picks {
+        color: var(--accent);
+        font-size: 13px;
+        margin-top: 4px;
+    }
+    .agent-reason {
+        color: var(--text-dim);
+        font-size: 12px;
+        font-style: italic;
+        margin-top: 4px;
+    }
+    .agent-ops {
+        margin-top: 6px;
+    }
+    .agent-op {
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        margin-top: 4px;
+        background: rgba(139, 148, 158, 0.04);
+    }
+    .agent-op summary {
+        cursor: pointer;
+        padding: 5px 10px;
+        font-size: 12px;
+        color: var(--text);
+    }
+    .agent-op[open] summary {
+        border-bottom: 1px solid var(--border);
+    }
+    .agent-op .op-reason {
+        padding: 6px 10px;
+        font-size: 12px;
+        color: var(--text-dim);
+        line-height: 1.45;
+    }
+    .db-embed {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 12px 14px;
+        margin-bottom: 24px;
+    }
+    .db-embed summary {
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 600;
+    }
+    .db-embed .db-hint {
+        color: var(--text-dim);
+        font-size: 12px;
+        font-weight: 400;
+    }
+    .db-frame {
+        width: 100%;
+        height: 75vh;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        margin-top: 10px;
+        background: var(--bg);
+    }
+    .db-open-link {
+        display: inline-block;
+        margin-top: 8px;
+        font-size: 12px;
+        color: var(--accent);
+    }
     .no-plays {
         color: var(--text-dim);
         text-align: center;
@@ -464,7 +574,7 @@
     <span class="emoji">&#9918;</span>
     <h1>MLB Predictions</h1>
     <div class="date">Sunday, July 05, 2026</div>
-    <div class="updated">Updated Jul 5, 10:00 AM ET &middot; <span class="commit">9496c4d</span></div>
+    <div class="updated">Updated Jul 5, 4:31 PM ET &middot; <span class="commit">52883e9</span></div>
 </div>
 
 
@@ -472,6 +582,7 @@
     <div class="control-row">
         <button class="action-btn" id="btn-predict" onclick="ctlRun('predict', null)">&#9654; Run Predictions</button>
         <button class="action-btn" id="btn-train" onclick="ctlRun('train', 'Start a full model retrain? This takes several minutes on the VM.')">&#8635; Retrain Model</button>
+        <button class="action-btn" id="btn-evolve" onclick="ctlRun('evolve', 'Run the strategy evolution cycle for all six agents? Costs roughly $1.50 of API spend and takes a while.')">&#129504; Evolve Agents</button>
     </div>
     <div class="control-status">
         <span class="status-dot" id="ctl-dot"></span>
@@ -490,11 +601,11 @@
         <div class="label">Games</div>
     </div>
     <div class="stat-box">
-        <div class="number">14</div>
+        <div class="number">6</div>
         <div class="label">Strong Edges</div>
     </div>
     <div class="stat-box">
-        <div class="number">8</div>
+        <div class="number">9</div>
         <div class="label">Moderate</div>
     </div>
 </div>
@@ -503,18 +614,10 @@
     <div class="section-title">Top Plays</div>
     
         <div class="top-play">
-            <span class="play-matchup">Minnesota Twins @ New York Yankees</span>
-            <span class="play-team">NYY</span>
-            <span class="play-prob">71.6%</span>
-            <span class="play-edge">+16.1%</span>
-            <span class="play-kelly">—</span>
-        </div>
-        
-        <div class="top-play">
             <span class="play-matchup">Boston Red Sox @ Los Angeles Angels</span>
             <span class="play-team">LAA</span>
             <span class="play-prob">53.3%</span>
-            <span class="play-edge">+12.8%</span>
+            <span class="play-edge">+11.8%</span>
             <span class="play-kelly">5.00% $250</span>
         </div>
         
@@ -522,35 +625,53 @@
             <span class="play-matchup">Houston Astros @ Washington Nationals</span>
             <span class="play-team">HOU</span>
             <span class="play-prob">55.3%</span>
-            <span class="play-edge">+12.0%</span>
+            <span class="play-edge">+11.4%</span>
             <span class="play-kelly">5.00% $250</span>
         </div>
         
         <div class="top-play">
-            <span class="play-matchup">Pittsburgh Pirates @ Washington Nationals</span>
-            <span class="play-team">PIT</span>
-            <span class="play-prob">57.3%</span>
-            <span class="play-edge">+11.8%</span>
+            <span class="play-matchup">Miami Marlins @ Athletics</span>
+            <span class="play-team">OAK</span>
+            <span class="play-prob">62.8%</span>
+            <span class="play-edge">+10.3%</span>
             <span class="play-kelly">5.00% $250</span>
         </div>
         
         <div class="top-play">
-            <span class="play-matchup">Chicago White Sox @ Cleveland Guardians</span>
-            <span class="play-team">CWS</span>
-            <span class="play-prob">53.7%</span>
-            <span class="play-edge">+11.2%</span>
-            <span class="play-kelly">4.88% $244</span>
+            <span class="play-matchup">Miami Marlins @ Athletics</span>
+            <span class="play-team">OAK</span>
+            <span class="play-prob">61.6%</span>
+            <span class="play-edge">+9.1%</span>
+            <span class="play-kelly">4.80% $240</span>
+        </div>
+        
+        <div class="top-play">
+            <span class="play-matchup">Miami Marlins @ Athletics</span>
+            <span class="play-team">OAK</span>
+            <span class="play-prob">61.0%</span>
+            <span class="play-edge">+8.5%</span>
+            <span class="play-kelly">4.46% $223</span>
         </div>
         
 </div>
+
+
+
+
+<details class="db-embed" id="db-embed">
+    <summary>&#128202; Database Explorer <span class="db-hint">teams &middot; players &middot; games</span></summary>
+    <div id="db-frame-holder"></div>
+    <a id="db-open-tab" class="db-open-link" target="_blank" href="#">Open full screen &#8599;</a>
+</details>
+
 
 <div class="section-title">All Games</div>
 
 <div class="filter-bar">
     <button class="filter-pill active" data-filter="all">All Games <span class="badge">42</span></button>
-    <button class="filter-pill" data-filter="completed">Completed <span class="badge">19</span></button>
-    <button class="filter-pill" data-filter="live">Live <span class="badge">0</span></button>
-    <button class="filter-pill" data-filter="upcoming">Upcoming <span class="badge">23</span></button>
+    <button class="filter-pill" data-filter="completed">Completed <span class="badge">20</span></button>
+    <button class="filter-pill" data-filter="live">Live <span class="badge">10</span></button>
+    <button class="filter-pill" data-filter="upcoming">Upcoming <span class="badge">12</span></button>
 </div>
 
 <div class="column-labels">
@@ -562,35 +683,6 @@
 
 <div id="games-container">
 
-        <div class="game-card" data-status="upcoming" data-gametime="2026-07-05T17:35:00Z">
-            <div class="game-header">
-                <div class="game-header-left">
-                    <span class="matchup">Minnesota Twins <span class="at">@</span> New York Yankees</span>
-                    <span class="game-time">Sun Jul 05, 1:35 PM ET</span>
-                </div>
-                <span class="signal signal-strong">&#9733; STRONG</span>
-            </div>
-            
-            <div class="game-body">
-                <div class="team-row">
-                    <span class="team-name">MIN</span>
-                    <span class="prob">28.4%</span>
-                    <span class="market">44.5%</span>
-                    <span class="edge edge-negative">-16.1%</span>
-                </div>
-                <div class="team-row">
-                    <span class="team-name">NYY</span>
-                    <span class="prob">71.6%</span>
-                    <span class="market">55.5%</span>
-                    <span class="edge edge-positive">+16.1%</span>
-                </div>
-                
-                <div class="confidence-bar-container">
-                    <div class="confidence-bar" style="width: 43%"></div>
-                </div>
-            </div>
-        </div>
-        
         <div class="game-card" data-status="completed" data-gametime="2026-07-05T01:38:00Z">
             <div class="game-header">
                 <div class="game-header-left">
@@ -604,15 +696,17 @@
                 <div class="team-row">
                     <span class="team-name">BOS</span>
                     <span class="prob">46.7%</span>
-                    <span class="market">59.5%</span>
-                    <span class="edge edge-negative">-12.8%</span>
+                    <span class="market">58.5%</span>
+                    <span class="edge edge-negative">-11.8%</span>
                 </div>
                 <div class="team-row">
                     <span class="team-name">LAA</span>
                     <span class="prob">53.3%</span>
-                    <span class="market">40.5%</span>
-                    <span class="edge edge-positive">+12.8%</span>
+                    <span class="market">41.5%</span>
+                    <span class="edge edge-positive">+11.8%</span>
                 </div>
+                
+                
                 <div class="kelly-line"><span class="kelly-label">Kelly (STRONG)</span> <span class="kelly-value">LAA 5.0% of bankroll ($250)</span></div>
                 <div class="confidence-bar-container">
                     <div class="confidence-bar" style="width: 6%"></div>
@@ -633,76 +727,20 @@
                 <div class="team-row">
                     <span class="team-name">HOU</span>
                     <span class="prob">55.3%</span>
-                    <span class="market">43.4%</span>
-                    <span class="edge edge-positive">+12.0%</span>
+                    <span class="market">43.9%</span>
+                    <span class="edge edge-positive">+11.4%</span>
                 </div>
                 <div class="team-row">
                     <span class="team-name">WSH</span>
                     <span class="prob">44.7%</span>
-                    <span class="market">56.6%</span>
-                    <span class="edge edge-negative">-12.0%</span>
+                    <span class="market">56.1%</span>
+                    <span class="edge edge-negative">-11.4%</span>
                 </div>
+                
+                
                 <div class="kelly-line"><span class="kelly-label">Kelly (STRONG)</span> <span class="kelly-value">HOU 5.0% of bankroll ($250)</span></div>
                 <div class="confidence-bar-container">
                     <div class="confidence-bar" style="width: 10%"></div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="game-card" data-status="upcoming" data-gametime="2026-07-05T17:00:00Z">
-            <div class="game-header">
-                <div class="game-header-left">
-                    <span class="matchup">Pittsburgh Pirates <span class="at">@</span> Washington Nationals</span>
-                    <span class="game-time">Sun Jul 05, 1:00 PM ET</span>
-                </div>
-                <span class="signal signal-strong">&#9733; STRONG</span>
-            </div>
-            
-            <div class="game-body">
-                <div class="team-row">
-                    <span class="team-name">PIT</span>
-                    <span class="prob">57.3%</span>
-                    <span class="market">45.5%</span>
-                    <span class="edge edge-positive">+11.8%</span>
-                </div>
-                <div class="team-row">
-                    <span class="team-name">WSH</span>
-                    <span class="prob">42.7%</span>
-                    <span class="market">54.5%</span>
-                    <span class="edge edge-negative">-11.8%</span>
-                </div>
-                <div class="kelly-line"><span class="kelly-label">Kelly (STRONG)</span> <span class="kelly-value">PIT 5.0% of bankroll ($250)</span></div>
-                <div class="confidence-bar-container">
-                    <div class="confidence-bar" style="width: 14%"></div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="game-card" data-status="upcoming" data-gametime="2026-07-05T18:00:00Z">
-            <div class="game-header">
-                <div class="game-header-left">
-                    <span class="matchup">Chicago White Sox <span class="at">@</span> Cleveland Guardians</span>
-                    <span class="game-time">Sun Jul 05, 2:00 PM ET</span>
-                </div>
-                <span class="signal signal-strong">&#9733; STRONG</span>
-            </div>
-            
-            <div class="game-body">
-                <div class="team-row">
-                    <span class="team-name">CWS</span>
-                    <span class="prob">53.7%</span>
-                    <span class="market">42.5%</span>
-                    <span class="edge edge-positive">+11.2%</span>
-                </div>
-                <div class="team-row">
-                    <span class="team-name">CLE</span>
-                    <span class="prob">46.3%</span>
-                    <span class="market">57.5%</span>
-                    <span class="edge edge-negative">-11.2%</span>
-                </div>
-                <div class="kelly-line"><span class="kelly-label">Kelly (STRONG)</span> <span class="kelly-value">CWS 4.9% of bankroll ($244)</span></div>
-                <div class="confidence-bar-container">
-                    <div class="confidence-bar" style="width: 7%"></div>
                 </div>
             </div>
         </div>
@@ -729,67 +767,11 @@
                     <span class="market">52.5%</span>
                     <span class="edge edge-positive">+10.3%</span>
                 </div>
+                
+                
                 <div class="kelly-line"><span class="kelly-label">Kelly (STRONG)</span> <span class="kelly-value">OAK 5.0% of bankroll ($250)</span></div>
                 <div class="confidence-bar-container">
                     <div class="confidence-bar" style="width: 25%"></div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="game-card" data-status="completed" data-gametime="2026-07-04T20:05:00Z">
-            <div class="game-header">
-                <div class="game-header-left">
-                    <span class="matchup">Detroit Tigers <span class="at">@</span> Texas Rangers</span>
-                    <span class="game-time">Sat Jul 04, 4:05 PM ET</span>
-                </div>
-                <span class="signal signal-strong">&#9733; STRONG</span>
-            </div>
-            <div class="game-result final">Final: DET 3 — TEX 0 (W: Detroit Tigers)</div>
-            <div class="game-body">
-                <div class="team-row">
-                    <span class="team-name">DET</span>
-                    <span class="prob">62.7%</span>
-                    <span class="market">52.5%</span>
-                    <span class="edge edge-positive">+10.2%</span>
-                </div>
-                <div class="team-row">
-                    <span class="team-name">TEX</span>
-                    <span class="prob">37.3%</span>
-                    <span class="market">47.5%</span>
-                    <span class="edge edge-negative">-10.2%</span>
-                </div>
-                <div class="kelly-line"><span class="kelly-label">Kelly (STRONG)</span> <span class="kelly-value">DET 5.0% of bankroll ($250)</span></div>
-                <div class="confidence-bar-container">
-                    <div class="confidence-bar" style="width: 25%"></div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="game-card" data-status="completed" data-gametime="2026-07-04T17:35:00Z">
-            <div class="game-header">
-                <div class="game-header-left">
-                    <span class="matchup">Minnesota Twins <span class="at">@</span> New York Yankees</span>
-                    <span class="game-time">Sat Jul 04, 1:35 PM ET</span>
-                </div>
-                <span class="signal signal-strong">&#9733; STRONG</span>
-            </div>
-            <div class="game-result final">Final: MIN 11 — NYY 4 (W: Minnesota Twins)</div>
-            <div class="game-body">
-                <div class="team-row">
-                    <span class="team-name">MIN</span>
-                    <span class="prob">34.7%</span>
-                    <span class="market">44.5%</span>
-                    <span class="edge edge-negative">-9.8%</span>
-                </div>
-                <div class="team-row">
-                    <span class="team-name">NYY</span>
-                    <span class="prob">65.3%</span>
-                    <span class="market">55.5%</span>
-                    <span class="edge edge-positive">+9.8%</span>
-                </div>
-                
-                <div class="confidence-bar-container">
-                    <div class="confidence-bar" style="width: 30%"></div>
                 </div>
             </div>
         </div>
@@ -816,38 +798,11 @@
                     <span class="market">52.5%</span>
                     <span class="edge edge-positive">+9.1%</span>
                 </div>
+                
+                
                 <div class="kelly-line"><span class="kelly-label">Kelly (STRONG)</span> <span class="kelly-value">OAK 4.8% of bankroll ($240)</span></div>
                 <div class="confidence-bar-container">
                     <div class="confidence-bar" style="width: 23%"></div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="game-card" data-status="completed" data-gametime="2026-07-04T15:05:00Z">
-            <div class="game-header">
-                <div class="game-header-left">
-                    <span class="matchup">Pittsburgh Pirates <span class="at">@</span> Washington Nationals</span>
-                    <span class="game-time">Sat Jul 04, 11:05 AM ET</span>
-                </div>
-                <span class="signal signal-strong">&#9733; STRONG</span>
-            </div>
-            <div class="game-result final">Final: PIT 7 — WSH 1 (W: Pittsburgh Pirates)</div>
-            <div class="game-body">
-                <div class="team-row">
-                    <span class="team-name">PIT</span>
-                    <span class="prob">54.3%</span>
-                    <span class="market">45.5%</span>
-                    <span class="edge edge-positive">+8.8%</span>
-                </div>
-                <div class="team-row">
-                    <span class="team-name">WSH</span>
-                    <span class="prob">45.7%</span>
-                    <span class="market">54.5%</span>
-                    <span class="edge edge-negative">-8.8%</span>
-                </div>
-                <div class="kelly-line"><span class="kelly-label">Kelly (STRONG)</span> <span class="kelly-value">PIT 4.1% of bankroll ($203)</span></div>
-                <div class="confidence-bar-container">
-                    <div class="confidence-bar" style="width: 8%"></div>
                 </div>
             </div>
         </div>
@@ -874,6 +829,8 @@
                     <span class="market">52.5%</span>
                     <span class="edge edge-positive">+8.5%</span>
                 </div>
+                
+                
                 <div class="kelly-line"><span class="kelly-label">Kelly (STRONG)</span> <span class="kelly-value">OAK 4.5% of bankroll ($223)</span></div>
                 <div class="confidence-bar-container">
                     <div class="confidence-bar" style="width: 21%"></div>
@@ -903,6 +860,8 @@
                     <span class="market">66.5%</span>
                     <span class="edge edge-negative">-7.5%</span>
                 </div>
+                
+                
                 <div class="kelly-line"><span class="kelly-label">Kelly (STRONG)</span> <span class="kelly-value">SD 2.8% of bankroll ($141)</span></div>
                 <div class="confidence-bar-container">
                     <div class="confidence-bar" style="width: 18%"></div>
@@ -910,31 +869,64 @@
             </div>
         </div>
         
-        <div class="game-card" data-status="upcoming" data-gametime="2026-07-05T16:30:00Z">
+        <div class="game-card" data-status="live" data-gametime="2026-07-05T19:00:00Z">
             <div class="game-header">
                 <div class="game-header-left">
-                    <span class="matchup">New York Mets <span class="at">@</span> Atlanta Braves</span>
-                    <span class="game-time">Sun Jul 05, 12:30 PM ET</span>
+                    <span class="matchup">Philadelphia Phillies <span class="at">@</span> Kansas City Royals</span>
+                    <span class="game-time">Sun Jul 05, 3:00 PM ET</span>
                 </div>
-                <span class="signal signal-strong">&#9733; STRONG</span>
+                <span class="signal signal-moderate">&#9679; MODERATE</span>
+            </div>
+            <div class="game-result live">Live: PHI 1 — KC 3</div>
+            <div class="game-body">
+                <div class="team-row">
+                    <span class="team-name">PHI</span>
+                    <span class="prob">54.3%</span>
+                    <span class="market">60.5%</span>
+                    <span class="edge edge-negative">-6.2%</span>
+                </div>
+                <div class="team-row">
+                    <span class="team-name">KC</span>
+                    <span class="prob">45.7%</span>
+                    <span class="market">39.5%</span>
+                    <span class="edge edge-positive">+6.2%</span>
+                </div>
+                
+                
+                <div class="kelly-line"><span class="kelly-label">Kelly (MODERATE)</span> <span class="kelly-value">KC 2.5% of bankroll ($127)</span></div>
+                <div class="confidence-bar-container">
+                    <div class="confidence-bar" style="width: 8%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="game-card" data-status="upcoming" data-gametime="2026-07-06T18:10:00Z">
+            <div class="game-header">
+                <div class="game-header-left">
+                    <span class="matchup">Philadelphia Phillies <span class="at">@</span> Kansas City Royals</span>
+                    <span class="game-time">Mon Jul 06, 2:10 PM ET</span>
+                </div>
+                <span class="signal signal-moderate">&#9679; MODERATE</span>
             </div>
             
             <div class="game-body">
                 <div class="team-row">
-                    <span class="team-name">NYM</span>
-                    <span class="prob">41.1%</span>
-                    <span class="market">48.5%</span>
-                    <span class="edge edge-negative">-7.4%</span>
+                    <span class="team-name">PHI</span>
+                    <span class="prob">54.7%</span>
+                    <span class="market">60.5%</span>
+                    <span class="edge edge-negative">-5.8%</span>
                 </div>
                 <div class="team-row">
-                    <span class="team-name">ATL</span>
-                    <span class="prob">58.9%</span>
-                    <span class="market">51.5%</span>
-                    <span class="edge edge-positive">+7.4%</span>
+                    <span class="team-name">KC</span>
+                    <span class="prob">45.3%</span>
+                    <span class="market">39.5%</span>
+                    <span class="edge edge-positive">+5.8%</span>
                 </div>
-                <div class="kelly-line"><span class="kelly-label">Kelly (STRONG)</span> <span class="kelly-value">ATL 3.8% of bankroll ($190)</span></div>
+                
+                
+                <div class="kelly-line"><span class="kelly-label">Kelly (MODERATE)</span> <span class="kelly-value">KC 2.4% of bankroll ($119)</span></div>
                 <div class="confidence-bar-container">
-                    <div class="confidence-bar" style="width: 17%"></div>
+                    <div class="confidence-bar" style="width: 9%"></div>
                 </div>
             </div>
         </div>
@@ -945,199 +937,89 @@
                     <span class="matchup">New York Mets <span class="at">@</span> Atlanta Braves</span>
                     <span class="game-time">Mon Jul 06, 7:15 PM ET</span>
                 </div>
-                <span class="signal signal-strong">&#9733; STRONG</span>
+                <span class="signal signal-moderate">&#9679; MODERATE</span>
             </div>
             
             <div class="game-body">
                 <div class="team-row">
                     <span class="team-name">NYM</span>
+                    <span class="prob">41.0%</span>
+                    <span class="market">46.5%</span>
+                    <span class="edge edge-negative">-5.5%</span>
+                </div>
+                <div class="team-row">
+                    <span class="team-name">ATL</span>
+                    <span class="prob">59.0%</span>
+                    <span class="market">53.5%</span>
+                    <span class="edge edge-positive">+5.5%</span>
+                </div>
+                
+                
+                <div class="kelly-line"><span class="kelly-label">Kelly (MODERATE)</span> <span class="kelly-value">ATL 3.0% of bankroll ($148)</span></div>
+                <div class="confidence-bar-container">
+                    <div class="confidence-bar" style="width: 18%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="game-card" data-status="live" data-gametime="2026-07-05T16:30:00Z">
+            <div class="game-header">
+                <div class="game-header-left">
+                    <span class="matchup">New York Mets <span class="at">@</span> Atlanta Braves</span>
+                    <span class="game-time">Sun Jul 05, 12:30 PM ET</span>
+                </div>
+                <span class="signal signal-moderate">&#9679; MODERATE</span>
+            </div>
+            <div class="game-result live">Live: NYM 5 — ATL 3</div>
+            <div class="game-body">
+                <div class="team-row">
+                    <span class="team-name">NYM</span>
                     <span class="prob">41.1%</span>
-                    <span class="market">48.5%</span>
-                    <span class="edge edge-negative">-7.4%</span>
+                    <span class="market">46.5%</span>
+                    <span class="edge edge-negative">-5.4%</span>
                 </div>
                 <div class="team-row">
                     <span class="team-name">ATL</span>
                     <span class="prob">58.9%</span>
-                    <span class="market">51.5%</span>
-                    <span class="edge edge-positive">+7.4%</span>
+                    <span class="market">53.5%</span>
+                    <span class="edge edge-positive">+5.4%</span>
                 </div>
-                <div class="kelly-line"><span class="kelly-label">Kelly (STRONG)</span> <span class="kelly-value">ATL 3.8% of bankroll ($190)</span></div>
+                
+                
+                <div class="kelly-line"><span class="kelly-label">Kelly (MODERATE)</span> <span class="kelly-value">ATL 2.9% of bankroll ($145)</span></div>
                 <div class="confidence-bar-container">
                     <div class="confidence-bar" style="width: 17%"></div>
                 </div>
             </div>
         </div>
         
-        <div class="game-card" data-status="completed" data-gametime="2026-07-04T23:10:00Z">
+        <div class="game-card" data-status="completed" data-gametime="2026-07-05T00:10:00Z">
             <div class="game-header">
                 <div class="game-header-left">
-                    <span class="matchup">Baltimore Orioles <span class="at">@</span> Cincinnati Reds</span>
-                    <span class="game-time">Sat Jul 04, 7:10 PM ET</span>
+                    <span class="matchup">Philadelphia Phillies <span class="at">@</span> Kansas City Royals</span>
+                    <span class="game-time">Sat Jul 04, 8:10 PM ET</span>
                 </div>
                 <span class="signal signal-moderate">&#9679; MODERATE</span>
             </div>
-            <div class="game-result final">Final: BAL 8 — CIN 5 (W: Baltimore Orioles)</div>
+            <div class="game-result final">Final: PHI 6 — KC 1 (W: Philadelphia Phillies)</div>
             <div class="game-body">
                 <div class="team-row">
-                    <span class="team-name">BAL</span>
-                    <span class="prob">43.5%</span>
-                    <span class="market">49.5%</span>
-                    <span class="edge edge-negative">-6.0%</span>
-                </div>
-                <div class="team-row">
-                    <span class="team-name">CIN</span>
-                    <span class="prob">56.5%</span>
-                    <span class="market">50.5%</span>
-                    <span class="edge edge-positive">+6.0%</span>
-                </div>
-                <div class="kelly-line"><span class="kelly-label">Kelly (MODERATE)</span> <span class="kelly-value">CIN 3.0% of bankroll ($152)</span></div>
-                <div class="confidence-bar-container">
-                    <div class="confidence-bar" style="width: 13%"></div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="game-card" data-status="completed" data-gametime="2026-07-04T20:10:00Z">
-            <div class="game-header">
-                <div class="game-header-left">
-                    <span class="matchup">Toronto Blue Jays <span class="at">@</span> Seattle Mariners</span>
-                    <span class="game-time">Sat Jul 04, 4:10 PM ET</span>
-                </div>
-                <span class="signal signal-moderate">&#9679; MODERATE</span>
-            </div>
-            <div class="game-result final">Final: TOR 0 — SEA 11 (W: Seattle Mariners)</div>
-            <div class="game-body">
-                <div class="team-row">
-                    <span class="team-name">TOR</span>
-                    <span class="prob">51.1%</span>
-                    <span class="market">45.5%</span>
-                    <span class="edge edge-positive">+5.6%</span>
-                </div>
-                <div class="team-row">
-                    <span class="team-name">SEA</span>
-                    <span class="prob">48.9%</span>
-                    <span class="market">54.5%</span>
-                    <span class="edge edge-negative">-5.6%</span>
-                </div>
-                <div class="kelly-line"><span class="kelly-label">Kelly (MODERATE)</span> <span class="kelly-value">TOR 2.6% of bankroll ($128)</span></div>
-                <div class="confidence-bar-container">
-                    <div class="confidence-bar" style="width: 2%"></div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="game-card" data-status="completed" data-gametime="2026-07-04T23:10:00Z">
-            <div class="game-header">
-                <div class="game-header-left">
-                    <span class="matchup">Chicago White Sox <span class="at">@</span> Cleveland Guardians</span>
-                    <span class="game-time">Sat Jul 04, 7:10 PM ET</span>
-                </div>
-                <span class="signal signal-moderate">&#9679; MODERATE</span>
-            </div>
-            <div class="game-result final">Final: CWS 3 — CLE 1 (W: Chicago White Sox)</div>
-            <div class="game-body">
-                <div class="team-row">
-                    <span class="team-name">CWS</span>
-                    <span class="prob">48.0%</span>
-                    <span class="market">42.5%</span>
-                    <span class="edge edge-positive">+5.5%</span>
-                </div>
-                <div class="team-row">
-                    <span class="team-name">CLE</span>
-                    <span class="prob">52.0%</span>
-                    <span class="market">57.5%</span>
-                    <span class="edge edge-negative">-5.5%</span>
-                </div>
-                <div class="kelly-line"><span class="kelly-label">Kelly (MODERATE)</span> <span class="kelly-value">CWS 2.4% of bankroll ($120)</span></div>
-                <div class="confidence-bar-container">
-                    <div class="confidence-bar" style="width: 3%"></div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="game-card" data-status="upcoming" data-gametime="2026-07-05T18:30:00Z">
-            <div class="game-header">
-                <div class="game-header-left">
-                    <span class="matchup">St. Louis Cardinals <span class="at">@</span> Chicago Cubs</span>
-                    <span class="game-time">Sun Jul 05, 2:30 PM ET</span>
-                </div>
-                <span class="signal signal-moderate">&#9679; MODERATE</span>
-            </div>
-            
-            <div class="game-body">
-                <div class="team-row">
-                    <span class="team-name">STL</span>
-                    <span class="prob">48.0%</span>
-                    <span class="market">42.5%</span>
-                    <span class="edge edge-positive">+5.5%</span>
-                </div>
-                <div class="team-row">
-                    <span class="team-name">CHC</span>
-                    <span class="prob">52.0%</span>
-                    <span class="market">57.5%</span>
-                    <span class="edge edge-negative">-5.5%</span>
-                </div>
-                <div class="kelly-line"><span class="kelly-label">Kelly (MODERATE)</span> <span class="kelly-value">STL 2.4% of bankroll ($120)</span></div>
-                <div class="confidence-bar-container">
-                    <div class="confidence-bar" style="width: 3%"></div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="game-card" data-status="upcoming" data-gametime="2026-07-06T01:30:00Z">
-            <div class="game-header">
-                <div class="game-header-left">
-                    <span class="matchup">Boston Red Sox <span class="at">@</span> Los Angeles Angels</span>
-                    <span class="game-time">Sun Jul 05, 9:30 PM ET</span>
-                </div>
-                <span class="signal signal-moderate">&#9679; MODERATE</span>
-            </div>
-            
-            <div class="game-body">
-                <div class="team-row">
-                    <span class="team-name">BOS</span>
-                    <span class="prob">54.3%</span>
-                    <span class="market">59.5%</span>
+                    <span class="team-name">PHI</span>
+                    <span class="prob">55.3%</span>
+                    <span class="market">60.5%</span>
                     <span class="edge edge-negative">-5.2%</span>
                 </div>
                 <div class="team-row">
-                    <span class="team-name">LAA</span>
-                    <span class="prob">45.7%</span>
-                    <span class="market">40.5%</span>
+                    <span class="team-name">KC</span>
+                    <span class="prob">44.7%</span>
+                    <span class="market">39.5%</span>
                     <span class="edge edge-positive">+5.2%</span>
                 </div>
-                <div class="kelly-line"><span class="kelly-label">Kelly (MODERATE)</span> <span class="kelly-value">LAA 2.2% of bankroll ($108)</span></div>
+                
+                
+                <div class="kelly-line"><span class="kelly-label">Kelly (MODERATE)</span> <span class="kelly-value">KC 2.2% of bankroll ($108)</span></div>
                 <div class="confidence-bar-container">
-                    <div class="confidence-bar" style="width: 8%"></div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="game-card" data-status="completed" data-gametime="2026-07-05T00:08:00Z">
-            <div class="game-header">
-                <div class="game-header-left">
-                    <span class="matchup">St. Louis Cardinals <span class="at">@</span> Chicago Cubs</span>
-                    <span class="game-time">Sat Jul 04, 8:08 PM ET</span>
-                </div>
-                <span class="signal signal-moderate">&#9679; MODERATE</span>
-            </div>
-            <div class="game-result final">Final: STL 3 — CHC 0 (W: St. Louis Cardinals)</div>
-            <div class="game-body">
-                <div class="team-row">
-                    <span class="team-name">STL</span>
-                    <span class="prob">47.1%</span>
-                    <span class="market">42.5%</span>
-                    <span class="edge edge-positive">+4.6%</span>
-                </div>
-                <div class="team-row">
-                    <span class="team-name">CHC</span>
-                    <span class="prob">52.9%</span>
-                    <span class="market">57.5%</span>
-                    <span class="edge edge-negative">-4.6%</span>
-                </div>
-                <div class="kelly-line"><span class="kelly-label">Kelly (MODERATE)</span> <span class="kelly-value">STL 2.0% of bankroll ($101)</span></div>
-                <div class="confidence-bar-container">
-                    <div class="confidence-bar" style="width: 5%"></div>
+                    <div class="confidence-bar" style="width: 10%"></div>
                 </div>
             </div>
         </div>
@@ -1164,9 +1046,73 @@
                     <span class="market">66.5%</span>
                     <span class="edge edge-negative">-4.4%</span>
                 </div>
+                
+                
                 <div class="kelly-line"><span class="kelly-label">Kelly (MODERATE)</span> <span class="kelly-value">SD 1.6% of bankroll ($82)</span></div>
                 <div class="confidence-bar-container">
                     <div class="confidence-bar" style="width: 24%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="game-card" data-status="upcoming" data-gametime="2026-07-06T01:30:00Z">
+            <div class="game-header">
+                <div class="game-header-left">
+                    <span class="matchup">Boston Red Sox <span class="at">@</span> Los Angeles Angels</span>
+                    <span class="game-time">Sun Jul 05, 9:30 PM ET</span>
+                </div>
+                <span class="signal signal-moderate">&#9679; MODERATE</span>
+            </div>
+            
+            <div class="game-body">
+                <div class="team-row">
+                    <span class="team-name">BOS</span>
+                    <span class="prob">54.3%</span>
+                    <span class="market">58.5%</span>
+                    <span class="edge edge-negative">-4.2%</span>
+                </div>
+                <div class="team-row">
+                    <span class="team-name">LAA</span>
+                    <span class="prob">45.7%</span>
+                    <span class="market">41.5%</span>
+                    <span class="edge edge-positive">+4.2%</span>
+                </div>
+                
+                
+                <div class="kelly-line"><span class="kelly-label">Kelly (MODERATE)</span> <span class="kelly-value">LAA 1.8% of bankroll ($89)</span></div>
+                <div class="confidence-bar-container">
+                    <div class="confidence-bar" style="width: 8%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="game-card" data-status="completed" data-gametime="2026-07-04T20:10:00Z">
+            <div class="game-header">
+                <div class="game-header-left">
+                    <span class="matchup">Toronto Blue Jays <span class="at">@</span> Seattle Mariners</span>
+                    <span class="game-time">Sat Jul 04, 4:10 PM ET</span>
+                </div>
+                <span class="signal signal-moderate">&#9679; MODERATE</span>
+            </div>
+            <div class="game-result final">Final: TOR 0 — SEA 11 (W: Seattle Mariners)</div>
+            <div class="game-body">
+                <div class="team-row">
+                    <span class="team-name">TOR</span>
+                    <span class="prob">51.1%</span>
+                    <span class="market">47.5%</span>
+                    <span class="edge edge-positive">+3.6%</span>
+                </div>
+                <div class="team-row">
+                    <span class="team-name">SEA</span>
+                    <span class="prob">48.9%</span>
+                    <span class="market">52.5%</span>
+                    <span class="edge edge-negative">-3.6%</span>
+                </div>
+                
+                
+                <div class="kelly-line"><span class="kelly-label">Kelly (MODERATE)</span> <span class="kelly-value">TOR 1.7% of bankroll ($85)</span></div>
+                <div class="confidence-bar-container">
+                    <div class="confidence-bar" style="width: 2%"></div>
                 </div>
             </div>
         </div>
@@ -1183,77 +1129,21 @@
             <div class="game-body">
                 <div class="team-row">
                     <span class="team-name">TOR</span>
-                    <span class="prob">52.0%</span>
-                    <span class="market">48.5%</span>
-                    <span class="edge edge-positive">+3.5%</span>
-                </div>
-                <div class="team-row">
-                    <span class="team-name">SF</span>
-                    <span class="prob">48.0%</span>
-                    <span class="market">51.5%</span>
-                    <span class="edge edge-negative">-3.5%</span>
-                </div>
-                <div class="kelly-line"><span class="kelly-label">Kelly (MODERATE)</span> <span class="kelly-value">TOR 1.7% of bankroll ($84)</span></div>
-                <div class="confidence-bar-container">
-                    <div class="confidence-bar" style="width: 3%"></div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="game-card" data-status="upcoming" data-gametime="2026-07-05T17:05:00Z">
-            <div class="game-header">
-                <div class="game-header-left">
-                    <span class="matchup">Baltimore Orioles <span class="at">@</span> Cincinnati Reds</span>
-                    <span class="game-time">Sun Jul 05, 1:05 PM ET</span>
-                </div>
-                <span class="signal signal-pass">&#8212; PASS</span>
-            </div>
-            
-            <div class="game-body">
-                <div class="team-row">
-                    <span class="team-name">BAL</span>
-                    <span class="prob">52.3%</span>
+                    <span class="prob">52.6%</span>
                     <span class="market">49.5%</span>
-                    <span class="edge ">+2.8%</span>
+                    <span class="edge edge-positive">+3.1%</span>
                 </div>
-                <div class="team-row">
-                    <span class="team-name">CIN</span>
-                    <span class="prob">47.7%</span>
-                    <span class="market">50.5%</span>
-                    <span class="edge ">-2.8%</span>
-                </div>
-                
-                <div class="confidence-bar-container">
-                    <div class="confidence-bar" style="width: 4%"></div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="game-card" data-status="completed" data-gametime="2026-07-05T00:10:00Z">
-            <div class="game-header">
-                <div class="game-header-left">
-                    <span class="matchup">San Francisco Giants <span class="at">@</span> Colorado Rockies</span>
-                    <span class="game-time">Sat Jul 04, 8:10 PM ET</span>
-                </div>
-                <span class="signal signal-pass">&#8212; PASS</span>
-            </div>
-            <div class="game-result final">Final: SF 6 — COL 4 (W: San Francisco Giants)</div>
-            <div class="game-body">
                 <div class="team-row">
                     <span class="team-name">SF</span>
-                    <span class="prob">49.7%</span>
-                    <span class="market">52.5%</span>
-                    <span class="edge ">-2.8%</span>
-                </div>
-                <div class="team-row">
-                    <span class="team-name">COL</span>
-                    <span class="prob">50.3%</span>
-                    <span class="market">47.5%</span>
-                    <span class="edge ">+2.8%</span>
+                    <span class="prob">47.4%</span>
+                    <span class="market">50.5%</span>
+                    <span class="edge edge-negative">-3.1%</span>
                 </div>
                 
+                
+                <div class="kelly-line"><span class="kelly-label">Kelly (MODERATE)</span> <span class="kelly-value">TOR 1.6% of bankroll ($78)</span></div>
                 <div class="confidence-bar-container">
-                    <div class="confidence-bar" style="width: 0%"></div>
+                    <div class="confidence-bar" style="width: 5%"></div>
                 </div>
             </div>
         </div>
@@ -1270,19 +1160,52 @@
             <div class="game-body">
                 <div class="team-row">
                     <span class="team-name">NYY</span>
-                    <span class="prob">48.0%</span>
-                    <span class="market">45.4%</span>
-                    <span class="edge ">+2.7%</span>
+                    <span class="prob">44.8%</span>
+                    <span class="market">47.0%</span>
+                    <span class="edge ">-2.3%</span>
                 </div>
                 <div class="team-row">
                     <span class="team-name">TB</span>
-                    <span class="prob">52.0%</span>
-                    <span class="market">54.6%</span>
-                    <span class="edge ">-2.7%</span>
+                    <span class="prob">55.2%</span>
+                    <span class="market">52.9%</span>
+                    <span class="edge ">+2.3%</span>
                 </div>
                 
+                
+                
                 <div class="confidence-bar-container">
-                    <div class="confidence-bar" style="width: 3%"></div>
+                    <div class="confidence-bar" style="width: 10%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="game-card" data-status="upcoming" data-gametime="2026-07-07T02:10:00Z">
+            <div class="game-header">
+                <div class="game-header-left">
+                    <span class="matchup">Colorado Rockies <span class="at">@</span> Los Angeles Dodgers</span>
+                    <span class="game-time">Mon Jul 06, 10:10 PM ET</span>
+                </div>
+                <span class="signal signal-pass">&#8212; PASS</span>
+            </div>
+            
+            <div class="game-body">
+                <div class="team-row">
+                    <span class="team-name">COL</span>
+                    <span class="prob">31.4%</span>
+                    <span class="market">29.5%</span>
+                    <span class="edge ">+1.9%</span>
+                </div>
+                <div class="team-row">
+                    <span class="team-name">LAD</span>
+                    <span class="prob">68.6%</span>
+                    <span class="market">70.5%</span>
+                    <span class="edge ">-1.9%</span>
+                </div>
+                
+                
+                
+                <div class="confidence-bar-container">
+                    <div class="confidence-bar" style="width: 37%"></div>
                 </div>
             </div>
         </div>
@@ -1300,363 +1223,17 @@
                 <div class="team-row">
                     <span class="team-name">TOR</span>
                     <span class="prob">48.0%</span>
-                    <span class="market">45.5%</span>
-                    <span class="edge ">+2.5%</span>
+                    <span class="market">47.5%</span>
+                    <span class="edge ">+0.5%</span>
                 </div>
                 <div class="team-row">
                     <span class="team-name">SEA</span>
                     <span class="prob">52.0%</span>
-                    <span class="market">54.5%</span>
-                    <span class="edge ">-2.5%</span>
-                </div>
-                
-                <div class="confidence-bar-container">
-                    <div class="confidence-bar" style="width: 3%"></div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="game-card" data-status="upcoming" data-gametime="2026-07-05T19:30:00Z">
-            <div class="game-header">
-                <div class="game-header-left">
-                    <span class="matchup">Detroit Tigers <span class="at">@</span> Texas Rangers</span>
-                    <span class="game-time">Sun Jul 05, 3:30 PM ET</span>
-                </div>
-                <span class="signal signal-pass">&#8212; PASS</span>
-            </div>
-            
-            <div class="game-body">
-                <div class="team-row">
-                    <span class="team-name">DET</span>
-                    <span class="prob">54.8%</span>
                     <span class="market">52.5%</span>
-                    <span class="edge ">+2.3%</span>
-                </div>
-                <div class="team-row">
-                    <span class="team-name">TEX</span>
-                    <span class="prob">45.2%</span>
-                    <span class="market">47.5%</span>
-                    <span class="edge ">-2.3%</span>
+                    <span class="edge ">-0.5%</span>
                 </div>
                 
-                <div class="confidence-bar-container">
-                    <div class="confidence-bar" style="width: 9%"></div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="game-card" data-status="completed" data-gametime="2026-07-04T20:05:00Z">
-            <div class="game-header">
-                <div class="game-header-left">
-                    <span class="matchup">Detroit Tigers <span class="at">@</span> Texas Rangers</span>
-                    <span class="game-time">Sat Jul 04, 4:05 PM ET</span>
-                </div>
-                <span class="signal signal-pass">&#8212; PASS</span>
-            </div>
-            <div class="game-result final">Final: DET 3 — TEX 0 (W: Detroit Tigers)</div>
-            <div class="game-body">
-                <div class="team-row">
-                    <span class="team-name">DET</span>
-                    <span class="prob">54.4%</span>
-                    <span class="market">52.5%</span>
-                    <span class="edge ">+1.9%</span>
-                </div>
-                <div class="team-row">
-                    <span class="team-name">TEX</span>
-                    <span class="prob">45.6%</span>
-                    <span class="market">47.5%</span>
-                    <span class="edge ">-1.9%</span>
-                </div>
                 
-                <div class="confidence-bar-container">
-                    <div class="confidence-bar" style="width: 8%"></div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="game-card" data-status="completed" data-gametime="2026-07-05T01:40:00Z">
-            <div class="game-header">
-                <div class="game-header-left">
-                    <span class="matchup">Milwaukee Brewers <span class="at">@</span> Arizona Diamondbacks</span>
-                    <span class="game-time">Sat Jul 04, 9:40 PM ET</span>
-                </div>
-                <span class="signal signal-pass">&#8212; PASS</span>
-            </div>
-            <div class="game-result final">Final: MIL 3 — ARI 4 (W: Arizona Diamondbacks)</div>
-            <div class="game-body">
-                <div class="team-row">
-                    <span class="team-name">MIL</span>
-                    <span class="prob">54.3%</span>
-                    <span class="market">52.5%</span>
-                    <span class="edge ">+1.8%</span>
-                </div>
-                <div class="team-row">
-                    <span class="team-name">ARI</span>
-                    <span class="prob">45.7%</span>
-                    <span class="market">47.5%</span>
-                    <span class="edge ">-1.8%</span>
-                </div>
-                
-                <div class="confidence-bar-container">
-                    <div class="confidence-bar" style="width: 8%"></div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="game-card" data-status="completed" data-gametime="2026-07-05T00:08:00Z">
-            <div class="game-header">
-                <div class="game-header-left">
-                    <span class="matchup">New York Mets <span class="at">@</span> Atlanta Braves</span>
-                    <span class="game-time">Sat Jul 04, 8:08 PM ET</span>
-                </div>
-                <span class="signal signal-pass">&#8212; PASS</span>
-            </div>
-            <div class="game-result final">Final: NYM 3 — ATL 14 (W: Atlanta Braves)</div>
-            <div class="game-body">
-                <div class="team-row">
-                    <span class="team-name">NYM</span>
-                    <span class="prob">46.7%</span>
-                    <span class="market">48.5%</span>
-                    <span class="edge ">-1.8%</span>
-                </div>
-                <div class="team-row">
-                    <span class="team-name">ATL</span>
-                    <span class="prob">53.3%</span>
-                    <span class="market">51.5%</span>
-                    <span class="edge ">+1.8%</span>
-                </div>
-                
-                <div class="confidence-bar-container">
-                    <div class="confidence-bar" style="width: 6%"></div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="game-card" data-status="completed" data-gametime="2026-07-05T01:40:00Z">
-            <div class="game-header">
-                <div class="game-header-left">
-                    <span class="matchup">Milwaukee Brewers <span class="at">@</span> Arizona Diamondbacks</span>
-                    <span class="game-time">Sat Jul 04, 9:40 PM ET</span>
-                </div>
-                <span class="signal signal-pass">&#8212; PASS</span>
-            </div>
-            <div class="game-result final">Final: MIL 3 — ARI 4 (W: Arizona Diamondbacks)</div>
-            <div class="game-body">
-                <div class="team-row">
-                    <span class="team-name">MIL</span>
-                    <span class="prob">54.2%</span>
-                    <span class="market">52.5%</span>
-                    <span class="edge ">+1.7%</span>
-                </div>
-                <div class="team-row">
-                    <span class="team-name">ARI</span>
-                    <span class="prob">45.8%</span>
-                    <span class="market">47.5%</span>
-                    <span class="edge ">-1.7%</span>
-                </div>
-                
-                <div class="confidence-bar-container">
-                    <div class="confidence-bar" style="width: 8%"></div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="game-card" data-status="upcoming" data-gametime="2026-07-07T02:10:00Z">
-            <div class="game-header">
-                <div class="game-header-left">
-                    <span class="matchup">Colorado Rockies <span class="at">@</span> Los Angeles Dodgers</span>
-                    <span class="game-time">Mon Jul 06, 10:10 PM ET</span>
-                </div>
-                <span class="signal signal-pass">&#8212; PASS</span>
-            </div>
-            
-            <div class="game-body">
-                <div class="team-row">
-                    <span class="team-name">COL</span>
-                    <span class="prob">31.6%</span>
-                    <span class="market">30.0%</span>
-                    <span class="edge ">+1.6%</span>
-                </div>
-                <div class="team-row">
-                    <span class="team-name">LAD</span>
-                    <span class="prob">68.4%</span>
-                    <span class="market">70.0%</span>
-                    <span class="edge ">-1.6%</span>
-                </div>
-                
-                <div class="confidence-bar-container">
-                    <div class="confidence-bar" style="width: 36%"></div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="game-card" data-status="completed" data-gametime="2026-07-04T23:10:00Z">
-            <div class="game-header">
-                <div class="game-header-left">
-                    <span class="matchup">Tampa Bay Rays <span class="at">@</span> Houston Astros</span>
-                    <span class="game-time">Sat Jul 04, 7:10 PM ET</span>
-                </div>
-                <span class="signal signal-pass">&#8212; PASS</span>
-            </div>
-            <div class="game-result final">Final: TB 8 — HOU 10 (W: Houston Astros)</div>
-            <div class="game-body">
-                <div class="team-row">
-                    <span class="team-name">TB</span>
-                    <span class="prob">54.3%</span>
-                    <span class="market">52.9%</span>
-                    <span class="edge ">+1.4%</span>
-                </div>
-                <div class="team-row">
-                    <span class="team-name">HOU</span>
-                    <span class="prob">45.7%</span>
-                    <span class="market">47.1%</span>
-                    <span class="edge ">-1.4%</span>
-                </div>
-                
-                <div class="confidence-bar-container">
-                    <div class="confidence-bar" style="width: 8%"></div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="game-card" data-status="upcoming" data-gametime="2026-07-06T23:45:00Z">
-            <div class="game-header">
-                <div class="game-header-left">
-                    <span class="matchup">Milwaukee Brewers <span class="at">@</span> St. Louis Cardinals</span>
-                    <span class="game-time">Mon Jul 06, 7:45 PM ET</span>
-                </div>
-                <span class="signal signal-pass">&#8212; PASS</span>
-            </div>
-            
-            <div class="game-body">
-                <div class="team-row">
-                    <span class="team-name">MIL</span>
-                    <span class="prob">51.1%</span>
-                    <span class="market">52.5%</span>
-                    <span class="edge ">-1.4%</span>
-                </div>
-                <div class="team-row">
-                    <span class="team-name">STL</span>
-                    <span class="prob">48.9%</span>
-                    <span class="market">47.5%</span>
-                    <span class="edge ">+1.4%</span>
-                </div>
-                
-                <div class="confidence-bar-container">
-                    <div class="confidence-bar" style="width: 2%"></div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="game-card" data-status="upcoming" data-gametime="2026-07-05T20:00:00Z">
-            <div class="game-header">
-                <div class="game-header-left">
-                    <span class="matchup">San Francisco Giants <span class="at">@</span> Colorado Rockies</span>
-                    <span class="game-time">Sun Jul 05, 4:00 PM ET</span>
-                </div>
-                <span class="signal signal-pass">&#8212; PASS</span>
-            </div>
-            
-            <div class="game-body">
-                <div class="team-row">
-                    <span class="team-name">SF</span>
-                    <span class="prob">53.7%</span>
-                    <span class="market">52.5%</span>
-                    <span class="edge ">+1.2%</span>
-                </div>
-                <div class="team-row">
-                    <span class="team-name">COL</span>
-                    <span class="prob">46.3%</span>
-                    <span class="market">47.5%</span>
-                    <span class="edge ">-1.2%</span>
-                </div>
-                
-                <div class="confidence-bar-container">
-                    <div class="confidence-bar" style="width: 7%"></div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="game-card" data-status="upcoming" data-gametime="2026-07-06T18:10:00Z">
-            <div class="game-header">
-                <div class="game-header-left">
-                    <span class="matchup">Philadelphia Phillies <span class="at">@</span> Kansas City Royals</span>
-                    <span class="game-time">Mon Jul 06, 2:10 PM ET</span>
-                </div>
-                <span class="signal signal-pass">&#8212; PASS</span>
-            </div>
-            
-            <div class="game-body">
-                <div class="team-row">
-                    <span class="team-name">PHI</span>
-                    <span class="prob">54.3%</span>
-                    <span class="market">55.5%</span>
-                    <span class="edge ">-1.2%</span>
-                </div>
-                <div class="team-row">
-                    <span class="team-name">KC</span>
-                    <span class="prob">45.7%</span>
-                    <span class="market">44.5%</span>
-                    <span class="edge ">+1.2%</span>
-                </div>
-                
-                <div class="confidence-bar-container">
-                    <div class="confidence-bar" style="width: 8%"></div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="game-card" data-status="upcoming" data-gametime="2026-07-05T19:00:00Z">
-            <div class="game-header">
-                <div class="game-header-left">
-                    <span class="matchup">Philadelphia Phillies <span class="at">@</span> Kansas City Royals</span>
-                    <span class="game-time">Sun Jul 05, 3:00 PM ET</span>
-                </div>
-                <span class="signal signal-pass">&#8212; PASS</span>
-            </div>
-            
-            <div class="game-body">
-                <div class="team-row">
-                    <span class="team-name">PHI</span>
-                    <span class="prob">54.3%</span>
-                    <span class="market">55.5%</span>
-                    <span class="edge ">-1.2%</span>
-                </div>
-                <div class="team-row">
-                    <span class="team-name">KC</span>
-                    <span class="prob">45.7%</span>
-                    <span class="market">44.5%</span>
-                    <span class="edge ">+1.2%</span>
-                </div>
-                
-                <div class="confidence-bar-container">
-                    <div class="confidence-bar" style="width: 8%"></div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="game-card" data-status="upcoming" data-gametime="2026-07-07T01:40:00Z">
-            <div class="game-header">
-                <div class="game-header-left">
-                    <span class="matchup">Arizona Diamondbacks <span class="at">@</span> San Diego Padres</span>
-                    <span class="game-time">Mon Jul 06, 9:40 PM ET</span>
-                </div>
-                <span class="signal signal-pass">&#8212; PASS</span>
-            </div>
-            
-            <div class="game-body">
-                <div class="team-row">
-                    <span class="team-name">ARI</span>
-                    <span class="prob">48.0%</span>
-                    <span class="market">48.6%</span>
-                    <span class="edge ">-0.6%</span>
-                </div>
-                <div class="team-row">
-                    <span class="team-name">SD</span>
-                    <span class="prob">52.0%</span>
-                    <span class="market">51.3%</span>
-                    <span class="edge ">+0.6%</span>
-                </div>
                 
                 <div class="confidence-bar-container">
                     <div class="confidence-bar" style="width: 3%"></div>
@@ -1687,75 +1264,19 @@
                     <span class="edge ">-0.5%</span>
                 </div>
                 
+                
+                
                 <div class="confidence-bar-container">
                     <div class="confidence-bar" style="width: 3%"></div>
                 </div>
             </div>
         </div>
         
-        <div class="game-card" data-status="upcoming" data-gametime="2026-07-05T19:30:00Z">
+        <div class="game-card" data-status="upcoming" data-gametime="2026-07-06T23:45:00Z">
             <div class="game-header">
                 <div class="game-header-left">
-                    <span class="matchup">Tampa Bay Rays <span class="at">@</span> Houston Astros</span>
-                    <span class="game-time">Sun Jul 05, 3:30 PM ET</span>
-                </div>
-                <span class="signal signal-pass">&#8212; PASS</span>
-            </div>
-            
-            <div class="game-body">
-                <div class="team-row">
-                    <span class="team-name">TB</span>
-                    <span class="prob">52.6%</span>
-                    <span class="market">52.9%</span>
-                    <span class="edge ">-0.3%</span>
-                </div>
-                <div class="team-row">
-                    <span class="team-name">HOU</span>
-                    <span class="prob">47.4%</span>
-                    <span class="market">47.1%</span>
-                    <span class="edge ">+0.3%</span>
-                </div>
-                
-                <div class="confidence-bar-container">
-                    <div class="confidence-bar" style="width: 5%"></div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="game-card" data-status="completed" data-gametime="2026-07-05T00:10:00Z">
-            <div class="game-header">
-                <div class="game-header-left">
-                    <span class="matchup">Philadelphia Phillies <span class="at">@</span> Kansas City Royals</span>
-                    <span class="game-time">Sat Jul 04, 8:10 PM ET</span>
-                </div>
-                <span class="signal signal-pass">&#8212; PASS</span>
-            </div>
-            <div class="game-result final">Final: PHI 6 — KC 1 (W: Philadelphia Phillies)</div>
-            <div class="game-body">
-                <div class="team-row">
-                    <span class="team-name">PHI</span>
-                    <span class="prob">55.3%</span>
-                    <span class="market">55.5%</span>
-                    <span class="edge ">-0.2%</span>
-                </div>
-                <div class="team-row">
-                    <span class="team-name">KC</span>
-                    <span class="prob">44.7%</span>
-                    <span class="market">44.5%</span>
-                    <span class="edge ">+0.2%</span>
-                </div>
-                
-                <div class="confidence-bar-container">
-                    <div class="confidence-bar" style="width: 10%"></div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="game-card" data-status="upcoming" data-gametime="2026-07-05T20:00:00Z">
-            <div class="game-header">
-                <div class="game-header-left">
-                    <span class="matchup">Milwaukee Brewers <span class="at">@</span> Arizona Diamondbacks</span>
-                    <span class="game-time">Sun Jul 05, 4:00 PM ET</span>
+                    <span class="matchup">Milwaukee Brewers <span class="at">@</span> St. Louis Cardinals</span>
+                    <span class="game-time">Mon Jul 06, 7:45 PM ET</span>
                 </div>
                 <span class="signal signal-pass">&#8212; PASS</span>
             </div>
@@ -1763,16 +1284,204 @@
             <div class="game-body">
                 <div class="team-row">
                     <span class="team-name">MIL</span>
-                    <span class="prob">52.6%</span>
-                    <span class="market">52.5%</span>
+                    <span class="prob">51.1%</span>
+                    <span class="market">51.5%</span>
+                    <span class="edge ">-0.4%</span>
+                </div>
+                <div class="team-row">
+                    <span class="team-name">STL</span>
+                    <span class="prob">48.9%</span>
+                    <span class="market">48.5%</span>
+                    <span class="edge ">+0.4%</span>
+                </div>
+                
+                
+                
+                <div class="confidence-bar-container">
+                    <div class="confidence-bar" style="width: 2%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="game-card" data-status="completed" data-gametime="2026-07-05T00:08:00Z">
+            <div class="game-header">
+                <div class="game-header-left">
+                    <span class="matchup">New York Mets <span class="at">@</span> Atlanta Braves</span>
+                    <span class="game-time">Sat Jul 04, 8:08 PM ET</span>
+                </div>
+                <span class="signal signal-pass">&#8212; PASS</span>
+            </div>
+            <div class="game-result final">Final: NYM 3 — ATL 14 (W: Atlanta Braves)</div>
+            <div class="game-body">
+                <div class="team-row">
+                    <span class="team-name">NYM</span>
+                    <span class="prob">46.7%</span>
+                    <span class="market">46.5%</span>
+                    <span class="edge ">+0.2%</span>
+                </div>
+                <div class="team-row">
+                    <span class="team-name">ATL</span>
+                    <span class="prob">53.3%</span>
+                    <span class="market">53.5%</span>
+                    <span class="edge ">-0.2%</span>
+                </div>
+                
+                
+                
+                <div class="confidence-bar-container">
+                    <div class="confidence-bar" style="width: 6%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="game-card" data-status="upcoming" data-gametime="2026-07-07T01:40:00Z">
+            <div class="game-header">
+                <div class="game-header-left">
+                    <span class="matchup">Arizona Diamondbacks <span class="at">@</span> San Diego Padres</span>
+                    <span class="game-time">Mon Jul 06, 9:40 PM ET</span>
+                </div>
+                <span class="signal signal-pass">&#8212; PASS</span>
+            </div>
+            
+            <div class="game-body">
+                <div class="team-row">
+                    <span class="team-name">ARI</span>
+                    <span class="prob">48.0%</span>
+                    <span class="market">48.1%</span>
+                    <span class="edge ">-0.1%</span>
+                </div>
+                <div class="team-row">
+                    <span class="team-name">SD</span>
+                    <span class="prob">52.0%</span>
+                    <span class="market">51.9%</span>
                     <span class="edge ">+0.1%</span>
+                </div>
+                
+                
+                
+                <div class="confidence-bar-container">
+                    <div class="confidence-bar" style="width: 3%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="game-card" data-status="completed" data-gametime="2026-07-05T01:40:00Z">
+            <div class="game-header">
+                <div class="game-header-left">
+                    <span class="matchup">Milwaukee Brewers <span class="at">@</span> Arizona Diamondbacks</span>
+                    <span class="game-time">Sat Jul 04, 9:40 PM ET</span>
+                </div>
+                <span class="signal signal-pass">&#8212; NO_ODDS</span>
+            </div>
+            <div class="game-result final">Final: MIL 3 — ARI 4 (W: Arizona Diamondbacks)</div>
+            <div class="game-body">
+                <div class="team-row">
+                    <span class="team-name">MIL</span>
+                    <span class="prob">54.3%</span>
+                    <span class="market">—</span>
+                    <span class="edge ">—</span>
                 </div>
                 <div class="team-row">
                     <span class="team-name">ARI</span>
-                    <span class="prob">47.4%</span>
-                    <span class="market">47.5%</span>
-                    <span class="edge ">-0.1%</span>
+                    <span class="prob">45.7%</span>
+                    <span class="market">—</span>
+                    <span class="edge ">—</span>
                 </div>
+                
+                
+                
+                <div class="confidence-bar-container">
+                    <div class="confidence-bar" style="width: 8%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="game-card" data-status="completed" data-gametime="2026-07-05T01:40:00Z">
+            <div class="game-header">
+                <div class="game-header-left">
+                    <span class="matchup">Milwaukee Brewers <span class="at">@</span> Arizona Diamondbacks</span>
+                    <span class="game-time">Sat Jul 04, 9:40 PM ET</span>
+                </div>
+                <span class="signal signal-pass">&#8212; NO_ODDS</span>
+            </div>
+            <div class="game-result final">Final: MIL 3 — ARI 4 (W: Arizona Diamondbacks)</div>
+            <div class="game-body">
+                <div class="team-row">
+                    <span class="team-name">MIL</span>
+                    <span class="prob">54.2%</span>
+                    <span class="market">—</span>
+                    <span class="edge ">—</span>
+                </div>
+                <div class="team-row">
+                    <span class="team-name">ARI</span>
+                    <span class="prob">45.8%</span>
+                    <span class="market">—</span>
+                    <span class="edge ">—</span>
+                </div>
+                
+                
+                
+                <div class="confidence-bar-container">
+                    <div class="confidence-bar" style="width: 8%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="game-card" data-status="completed" data-gametime="2026-07-04T15:05:00Z">
+            <div class="game-header">
+                <div class="game-header-left">
+                    <span class="matchup">Pittsburgh Pirates <span class="at">@</span> Washington Nationals</span>
+                    <span class="game-time">Sat Jul 04, 11:05 AM ET</span>
+                </div>
+                <span class="signal signal-pass">&#8212; NO_ODDS</span>
+            </div>
+            <div class="game-result final">Final: PIT 7 — WSH 1 (W: Pittsburgh Pirates)</div>
+            <div class="game-body">
+                <div class="team-row">
+                    <span class="team-name">PIT</span>
+                    <span class="prob">54.3%</span>
+                    <span class="market">—</span>
+                    <span class="edge ">—</span>
+                </div>
+                <div class="team-row">
+                    <span class="team-name">WSH</span>
+                    <span class="prob">45.7%</span>
+                    <span class="market">—</span>
+                    <span class="edge ">—</span>
+                </div>
+                
+                
+                
+                <div class="confidence-bar-container">
+                    <div class="confidence-bar" style="width: 8%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="game-card" data-status="completed" data-gametime="2026-07-05T00:08:00Z">
+            <div class="game-header">
+                <div class="game-header-left">
+                    <span class="matchup">St. Louis Cardinals <span class="at">@</span> Chicago Cubs</span>
+                    <span class="game-time">Sat Jul 04, 8:08 PM ET</span>
+                </div>
+                <span class="signal signal-pass">&#8212; NO_ODDS</span>
+            </div>
+            <div class="game-result final">Final: STL 3 — CHC 0 (W: St. Louis Cardinals)</div>
+            <div class="game-body">
+                <div class="team-row">
+                    <span class="team-name">STL</span>
+                    <span class="prob">47.1%</span>
+                    <span class="market">—</span>
+                    <span class="edge ">—</span>
+                </div>
+                <div class="team-row">
+                    <span class="team-name">CHC</span>
+                    <span class="prob">52.9%</span>
+                    <span class="market">—</span>
+                    <span class="edge ">—</span>
+                </div>
+                
+                
                 
                 <div class="confidence-bar-container">
                     <div class="confidence-bar" style="width: 5%"></div>
@@ -1780,10 +1489,506 @@
             </div>
         </div>
         
+        <div class="game-card" data-status="completed" data-gametime="2026-07-04T20:05:00Z">
+            <div class="game-header">
+                <div class="game-header-left">
+                    <span class="matchup">Detroit Tigers <span class="at">@</span> Texas Rangers</span>
+                    <span class="game-time">Sat Jul 04, 4:05 PM ET</span>
+                </div>
+                <span class="signal signal-pass">&#8212; NO_ODDS</span>
+            </div>
+            <div class="game-result final">Final: DET 3 — TEX 0 (W: Detroit Tigers)</div>
+            <div class="game-body">
+                <div class="team-row">
+                    <span class="team-name">DET</span>
+                    <span class="prob">62.7%</span>
+                    <span class="market">—</span>
+                    <span class="edge ">—</span>
+                </div>
+                <div class="team-row">
+                    <span class="team-name">TEX</span>
+                    <span class="prob">37.3%</span>
+                    <span class="market">—</span>
+                    <span class="edge ">—</span>
+                </div>
+                
+                
+                
+                <div class="confidence-bar-container">
+                    <div class="confidence-bar" style="width: 25%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="game-card" data-status="completed" data-gametime="2026-07-04T20:05:00Z">
+            <div class="game-header">
+                <div class="game-header-left">
+                    <span class="matchup">Detroit Tigers <span class="at">@</span> Texas Rangers</span>
+                    <span class="game-time">Sat Jul 04, 4:05 PM ET</span>
+                </div>
+                <span class="signal signal-pass">&#8212; NO_ODDS</span>
+            </div>
+            <div class="game-result final">Final: DET 3 — TEX 0 (W: Detroit Tigers)</div>
+            <div class="game-body">
+                <div class="team-row">
+                    <span class="team-name">DET</span>
+                    <span class="prob">54.4%</span>
+                    <span class="market">—</span>
+                    <span class="edge ">—</span>
+                </div>
+                <div class="team-row">
+                    <span class="team-name">TEX</span>
+                    <span class="prob">45.6%</span>
+                    <span class="market">—</span>
+                    <span class="edge ">—</span>
+                </div>
+                
+                
+                
+                <div class="confidence-bar-container">
+                    <div class="confidence-bar" style="width: 8%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="game-card" data-status="completed" data-gametime="2026-07-04T23:10:00Z">
+            <div class="game-header">
+                <div class="game-header-left">
+                    <span class="matchup">Chicago White Sox <span class="at">@</span> Cleveland Guardians</span>
+                    <span class="game-time">Sat Jul 04, 7:10 PM ET</span>
+                </div>
+                <span class="signal signal-pass">&#8212; NO_ODDS</span>
+            </div>
+            <div class="game-result final">Final: CWS 3 — CLE 1 (W: Chicago White Sox)</div>
+            <div class="game-body">
+                <div class="team-row">
+                    <span class="team-name">CWS</span>
+                    <span class="prob">48.0%</span>
+                    <span class="market">—</span>
+                    <span class="edge ">—</span>
+                </div>
+                <div class="team-row">
+                    <span class="team-name">CLE</span>
+                    <span class="prob">52.0%</span>
+                    <span class="market">—</span>
+                    <span class="edge ">—</span>
+                </div>
+                
+                
+                
+                <div class="confidence-bar-container">
+                    <div class="confidence-bar" style="width: 3%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="game-card" data-status="completed" data-gametime="2026-07-05T00:10:00Z">
+            <div class="game-header">
+                <div class="game-header-left">
+                    <span class="matchup">San Francisco Giants <span class="at">@</span> Colorado Rockies</span>
+                    <span class="game-time">Sat Jul 04, 8:10 PM ET</span>
+                </div>
+                <span class="signal signal-pass">&#8212; NO_ODDS</span>
+            </div>
+            <div class="game-result final">Final: SF 6 — COL 4 (W: San Francisco Giants)</div>
+            <div class="game-body">
+                <div class="team-row">
+                    <span class="team-name">SF</span>
+                    <span class="prob">49.7%</span>
+                    <span class="market">—</span>
+                    <span class="edge ">—</span>
+                </div>
+                <div class="team-row">
+                    <span class="team-name">COL</span>
+                    <span class="prob">50.3%</span>
+                    <span class="market">—</span>
+                    <span class="edge ">—</span>
+                </div>
+                
+                
+                
+                <div class="confidence-bar-container">
+                    <div class="confidence-bar" style="width: 0%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="game-card" data-status="completed" data-gametime="2026-07-04T23:10:00Z">
+            <div class="game-header">
+                <div class="game-header-left">
+                    <span class="matchup">Tampa Bay Rays <span class="at">@</span> Houston Astros</span>
+                    <span class="game-time">Sat Jul 04, 7:10 PM ET</span>
+                </div>
+                <span class="signal signal-pass">&#8212; NO_ODDS</span>
+            </div>
+            <div class="game-result final">Final: TB 8 — HOU 10 (W: Houston Astros)</div>
+            <div class="game-body">
+                <div class="team-row">
+                    <span class="team-name">TB</span>
+                    <span class="prob">54.3%</span>
+                    <span class="market">—</span>
+                    <span class="edge ">—</span>
+                </div>
+                <div class="team-row">
+                    <span class="team-name">HOU</span>
+                    <span class="prob">45.7%</span>
+                    <span class="market">—</span>
+                    <span class="edge ">—</span>
+                </div>
+                
+                
+                
+                <div class="confidence-bar-container">
+                    <div class="confidence-bar" style="width: 8%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="game-card" data-status="completed" data-gametime="2026-07-04T17:35:00Z">
+            <div class="game-header">
+                <div class="game-header-left">
+                    <span class="matchup">Minnesota Twins <span class="at">@</span> New York Yankees</span>
+                    <span class="game-time">Sat Jul 04, 1:35 PM ET</span>
+                </div>
+                <span class="signal signal-pass">&#8212; NO_ODDS</span>
+            </div>
+            <div class="game-result final">Final: MIN 11 — NYY 4 (W: Minnesota Twins)</div>
+            <div class="game-body">
+                <div class="team-row">
+                    <span class="team-name">MIN</span>
+                    <span class="prob">34.7%</span>
+                    <span class="market">—</span>
+                    <span class="edge ">—</span>
+                </div>
+                <div class="team-row">
+                    <span class="team-name">NYY</span>
+                    <span class="prob">65.3%</span>
+                    <span class="market">—</span>
+                    <span class="edge ">—</span>
+                </div>
+                
+                
+                
+                <div class="confidence-bar-container">
+                    <div class="confidence-bar" style="width: 30%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="game-card" data-status="completed" data-gametime="2026-07-04T23:10:00Z">
+            <div class="game-header">
+                <div class="game-header-left">
+                    <span class="matchup">Baltimore Orioles <span class="at">@</span> Cincinnati Reds</span>
+                    <span class="game-time">Sat Jul 04, 7:10 PM ET</span>
+                </div>
+                <span class="signal signal-pass">&#8212; NO_ODDS</span>
+            </div>
+            <div class="game-result final">Final: BAL 8 — CIN 5 (W: Baltimore Orioles)</div>
+            <div class="game-body">
+                <div class="team-row">
+                    <span class="team-name">BAL</span>
+                    <span class="prob">43.5%</span>
+                    <span class="market">—</span>
+                    <span class="edge ">—</span>
+                </div>
+                <div class="team-row">
+                    <span class="team-name">CIN</span>
+                    <span class="prob">56.5%</span>
+                    <span class="market">—</span>
+                    <span class="edge ">—</span>
+                </div>
+                
+                
+                
+                <div class="confidence-bar-container">
+                    <div class="confidence-bar" style="width: 13%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="game-card" data-status="live" data-gametime="2026-07-05T20:00:00Z">
+            <div class="game-header">
+                <div class="game-header-left">
+                    <span class="matchup">Milwaukee Brewers <span class="at">@</span> Arizona Diamondbacks</span>
+                    <span class="game-time">Sun Jul 05, 4:00 PM ET</span>
+                </div>
+                <span class="signal signal-pass">&#8212; NO_ODDS</span>
+            </div>
+            <div class="game-result live">Live: MIL 0 — ARI 1</div>
+            <div class="game-body">
+                <div class="team-row">
+                    <span class="team-name">MIL</span>
+                    <span class="prob">52.6%</span>
+                    <span class="market">—</span>
+                    <span class="edge ">—</span>
+                </div>
+                <div class="team-row">
+                    <span class="team-name">ARI</span>
+                    <span class="prob">47.4%</span>
+                    <span class="market">—</span>
+                    <span class="edge ">—</span>
+                </div>
+                
+                
+                
+                <div class="confidence-bar-container">
+                    <div class="confidence-bar" style="width: 5%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="game-card" data-status="live" data-gametime="2026-07-05T18:30:00Z">
+            <div class="game-header">
+                <div class="game-header-left">
+                    <span class="matchup">St. Louis Cardinals <span class="at">@</span> Chicago Cubs</span>
+                    <span class="game-time">Sun Jul 05, 2:30 PM ET</span>
+                </div>
+                <span class="signal signal-pass">&#8212; NO_ODDS</span>
+            </div>
+            <div class="game-result live">Live: STL 3 — CHC 6</div>
+            <div class="game-body">
+                <div class="team-row">
+                    <span class="team-name">STL</span>
+                    <span class="prob">48.0%</span>
+                    <span class="market">—</span>
+                    <span class="edge ">—</span>
+                </div>
+                <div class="team-row">
+                    <span class="team-name">CHC</span>
+                    <span class="prob">52.0%</span>
+                    <span class="market">—</span>
+                    <span class="edge ">—</span>
+                </div>
+                
+                
+                
+                <div class="confidence-bar-container">
+                    <div class="confidence-bar" style="width: 3%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="game-card" data-status="live" data-gametime="2026-07-05T18:00:00Z">
+            <div class="game-header">
+                <div class="game-header-left">
+                    <span class="matchup">Chicago White Sox <span class="at">@</span> Cleveland Guardians</span>
+                    <span class="game-time">Sun Jul 05, 2:00 PM ET</span>
+                </div>
+                <span class="signal signal-pass">&#8212; NO_ODDS</span>
+            </div>
+            <div class="game-result live">Live: CWS 6 — CLE 3</div>
+            <div class="game-body">
+                <div class="team-row">
+                    <span class="team-name">CWS</span>
+                    <span class="prob">53.7%</span>
+                    <span class="market">—</span>
+                    <span class="edge ">—</span>
+                </div>
+                <div class="team-row">
+                    <span class="team-name">CLE</span>
+                    <span class="prob">46.3%</span>
+                    <span class="market">—</span>
+                    <span class="edge ">—</span>
+                </div>
+                
+                
+                
+                <div class="confidence-bar-container">
+                    <div class="confidence-bar" style="width: 7%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="game-card" data-status="live" data-gametime="2026-07-05T20:00:00Z">
+            <div class="game-header">
+                <div class="game-header-left">
+                    <span class="matchup">San Francisco Giants <span class="at">@</span> Colorado Rockies</span>
+                    <span class="game-time">Sun Jul 05, 4:00 PM ET</span>
+                </div>
+                <span class="signal signal-pass">&#8212; NO_ODDS</span>
+            </div>
+            <div class="game-result live">Live: SF 0 — COL 2</div>
+            <div class="game-body">
+                <div class="team-row">
+                    <span class="team-name">SF</span>
+                    <span class="prob">53.7%</span>
+                    <span class="market">—</span>
+                    <span class="edge ">—</span>
+                </div>
+                <div class="team-row">
+                    <span class="team-name">COL</span>
+                    <span class="prob">46.3%</span>
+                    <span class="market">—</span>
+                    <span class="edge ">—</span>
+                </div>
+                
+                
+                
+                <div class="confidence-bar-container">
+                    <div class="confidence-bar" style="width: 7%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="game-card" data-status="live" data-gametime="2026-07-05T19:30:00Z">
+            <div class="game-header">
+                <div class="game-header-left">
+                    <span class="matchup">Tampa Bay Rays <span class="at">@</span> Houston Astros</span>
+                    <span class="game-time">Sun Jul 05, 3:30 PM ET</span>
+                </div>
+                <span class="signal signal-pass">&#8212; NO_ODDS</span>
+            </div>
+            <div class="game-result live">Live: TB 0 — HOU 0</div>
+            <div class="game-body">
+                <div class="team-row">
+                    <span class="team-name">TB</span>
+                    <span class="prob">52.6%</span>
+                    <span class="market">—</span>
+                    <span class="edge ">—</span>
+                </div>
+                <div class="team-row">
+                    <span class="team-name">HOU</span>
+                    <span class="prob">47.4%</span>
+                    <span class="market">—</span>
+                    <span class="edge ">—</span>
+                </div>
+                
+                
+                
+                <div class="confidence-bar-container">
+                    <div class="confidence-bar" style="width: 5%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="game-card" data-status="live" data-gametime="2026-07-05T17:35:00Z">
+            <div class="game-header">
+                <div class="game-header-left">
+                    <span class="matchup">Minnesota Twins <span class="at">@</span> New York Yankees</span>
+                    <span class="game-time">Sun Jul 05, 1:35 PM ET</span>
+                </div>
+                <span class="signal signal-pass">&#8212; NO_ODDS</span>
+            </div>
+            <div class="game-result live">Live: MIN 6 — NYY 0</div>
+            <div class="game-body">
+                <div class="team-row">
+                    <span class="team-name">MIN</span>
+                    <span class="prob">28.4%</span>
+                    <span class="market">—</span>
+                    <span class="edge ">—</span>
+                </div>
+                <div class="team-row">
+                    <span class="team-name">NYY</span>
+                    <span class="prob">71.6%</span>
+                    <span class="market">—</span>
+                    <span class="edge ">—</span>
+                </div>
+                
+                
+                
+                <div class="confidence-bar-container">
+                    <div class="confidence-bar" style="width: 43%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="game-card" data-status="live" data-gametime="2026-07-05T19:30:00Z">
+            <div class="game-header">
+                <div class="game-header-left">
+                    <span class="matchup">Detroit Tigers <span class="at">@</span> Texas Rangers</span>
+                    <span class="game-time">Sun Jul 05, 3:30 PM ET</span>
+                </div>
+                <span class="signal signal-pass">&#8212; NO_ODDS</span>
+            </div>
+            <div class="game-result live">Live: DET 0 — TEX 1</div>
+            <div class="game-body">
+                <div class="team-row">
+                    <span class="team-name">DET</span>
+                    <span class="prob">54.8%</span>
+                    <span class="market">—</span>
+                    <span class="edge ">—</span>
+                </div>
+                <div class="team-row">
+                    <span class="team-name">TEX</span>
+                    <span class="prob">45.2%</span>
+                    <span class="market">—</span>
+                    <span class="edge ">—</span>
+                </div>
+                
+                
+                
+                <div class="confidence-bar-container">
+                    <div class="confidence-bar" style="width: 9%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="game-card" data-status="live" data-gametime="2026-07-05T17:00:00Z">
+            <div class="game-header">
+                <div class="game-header-left">
+                    <span class="matchup">Pittsburgh Pirates <span class="at">@</span> Washington Nationals</span>
+                    <span class="game-time">Sun Jul 05, 1:00 PM ET</span>
+                </div>
+                <span class="signal signal-pass">&#8212; NO_ODDS</span>
+            </div>
+            <div class="game-result live">Live: PIT 11 — WSH 5</div>
+            <div class="game-body">
+                <div class="team-row">
+                    <span class="team-name">PIT</span>
+                    <span class="prob">57.3%</span>
+                    <span class="market">—</span>
+                    <span class="edge ">—</span>
+                </div>
+                <div class="team-row">
+                    <span class="team-name">WSH</span>
+                    <span class="prob">42.7%</span>
+                    <span class="market">—</span>
+                    <span class="edge ">—</span>
+                </div>
+                
+                
+                
+                <div class="confidence-bar-container">
+                    <div class="confidence-bar" style="width: 14%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="game-card" data-status="completed" data-gametime="2026-07-05T17:05:00Z">
+            <div class="game-header">
+                <div class="game-header-left">
+                    <span class="matchup">Baltimore Orioles <span class="at">@</span> Cincinnati Reds</span>
+                    <span class="game-time">Sun Jul 05, 1:05 PM ET</span>
+                </div>
+                <span class="signal signal-pass">&#8212; NO_ODDS</span>
+            </div>
+            <div class="game-result final">Final: BAL 2 — CIN 3 (W: Cincinnati Reds)</div>
+            <div class="game-body">
+                <div class="team-row">
+                    <span class="team-name">BAL</span>
+                    <span class="prob">56.1%</span>
+                    <span class="market">—</span>
+                    <span class="edge ">—</span>
+                </div>
+                <div class="team-row">
+                    <span class="team-name">CIN</span>
+                    <span class="prob">43.9%</span>
+                    <span class="market">—</span>
+                    <span class="edge ">—</span>
+                </div>
+                
+                
+                
+                <div class="confidence-bar-container">
+                    <div class="confidence-bar" style="width: 12%"></div>
+                </div>
+            </div>
+        </div>
+        
 </div>
 
 <div class="footer">
-    MLB Prediction Model v2.0 &mdash; Updated Jul 5, 10:00 AM ET &mdash; commit 9496c4d<br>
+    MLB Prediction Model v2.0 &mdash; Updated Jul 5, 4:31 PM ET &mdash; commit 52883e9<br>
     Stacked Ensemble: LR + XGB + LGB + RF + LGB-Recent + LGB-NoWeight + RunDiff + Poisson | Calibrated
 </div>
 
@@ -1797,7 +2002,8 @@
     var text = document.getElementById('ctl-text');
     var logPre = document.getElementById('ctl-log');
     var btns = [document.getElementById('btn-predict'),
-                document.getElementById('btn-train')];
+                document.getElementById('btn-train'),
+                document.getElementById('btn-evolve')];
 
     function getToken(promptIfMissing) {
         var t = localStorage.getItem('mlb_ctl_token');
@@ -1905,6 +2111,25 @@
             }
         });
     };
+
+    // Embedded database explorer: load the iframe on first expand,
+    // using this device's stored token (never present in page source)
+    var dbDetails = document.getElementById('db-embed');
+    if (dbDetails) {
+        dbDetails.addEventListener('toggle', function() {
+            if (!dbDetails.open) { return; }
+            var holder = document.getElementById('db-frame-holder');
+            if (holder.querySelector('iframe')) { return; }
+            var t = getToken(true);
+            if (!t) { dbDetails.open = false; return; }
+            var f = document.createElement('iframe');
+            f.className = 'db-frame';
+            f.src = BASE + '/db?token=' + encodeURIComponent(t);
+            holder.appendChild(f);
+            var link = document.getElementById('db-open-tab');
+            if (link) { link.href = f.src; }
+        });
+    }
 
     // On load: if this device already has a token, show live status
     if (getToken(false)) { poll(); }
