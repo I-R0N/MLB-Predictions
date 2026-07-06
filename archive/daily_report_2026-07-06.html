@@ -280,6 +280,23 @@
         font-style: italic;
         margin-top: 4px;
     }
+    .consensus-take {
+        margin-top: 6px;
+        padding: 6px 10px;
+        background: rgba(163, 113, 247, 0.06);
+        border: 1px solid rgba(163, 113, 247, 0.25);
+        border-radius: 6px;
+        font-size: 12px;
+        color: var(--text);
+        line-height: 1.45;
+    }
+    .consensus-take .consensus-take-label {
+        color: var(--text-dim);
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-right: 4px;
+    }
     .agent-ops {
         margin-top: 6px;
     }
@@ -574,7 +591,7 @@
     <span class="emoji">&#9918;</span>
     <h1>MLB Predictions</h1>
     <div class="date">Monday, July 06, 2026</div>
-    <div class="updated">Updated Jul 5, 10:03 PM ET &middot; <span class="commit">9661003</span></div>
+    <div class="updated">Updated Jul 5, 10:17 PM ET &middot; <span class="commit">8d024a0</span></div>
 </div>
 
 
@@ -584,6 +601,7 @@
         <button class="action-btn" id="btn-train" onclick="ctlRun('train', 'Start a full model retrain? This takes several minutes on the VM.')">&#8635; Retrain Model</button>
         <button class="action-btn" id="btn-evolve" onclick="ctlRun('evolve', 'Run the strategy evolution cycle for all six agents? Costs roughly $1.50 of API spend and takes a while.')">&#129504; Evolve Agents</button>
         <button class="action-btn" id="btn-sync" onclick="ctlRun('sync', null)">&#11015; Sync Code</button>
+        <button class="action-btn" id="btn-agents" onclick="ctlToggleBlend()">&#129302; Agents: &hellip;</button>
     </div>
     <div class="control-status">
         <span class="status-dot" id="ctl-dot"></span>
@@ -606,7 +624,7 @@
         <div class="label">Strong Edges</div>
     </div>
     <div class="stat-box">
-        <div class="number">13</div>
+        <div class="number">11</div>
         <div class="label">Moderate</div>
     </div>
 </div>
@@ -617,45 +635,95 @@
         <div class="top-play">
             <span class="play-matchup">Kansas City Royals @ New York Mets</span>
             <span class="play-team">NYM</span>
-            <span class="play-prob">72.5%</span>
-            <span class="play-edge">+16.0%</span>
+            <span class="play-prob">69.0%</span>
+            <span class="play-edge">+14.0%</span>
             <span class="play-kelly">—</span>
         </div>
         
         <div class="top-play">
             <span class="play-matchup">Houston Astros @ Washington Nationals</span>
             <span class="play-team">HOU</span>
-            <span class="play-prob">54.4%</span>
-            <span class="play-edge">+9.2%</span>
-            <span class="play-kelly">4.21% $210</span>
+            <span class="play-prob">54.6%</span>
+            <span class="play-edge">+9.1%</span>
+            <span class="play-kelly">4.19% $209</span>
         </div>
         
         <div class="top-play">
             <span class="play-matchup">Houston Astros @ Washington Nationals</span>
             <span class="play-team">HOU</span>
-            <span class="play-prob">54.4%</span>
-            <span class="play-edge">+9.2%</span>
-            <span class="play-kelly">4.21% $210</span>
+            <span class="play-prob">54.6%</span>
+            <span class="play-edge">+9.1%</span>
+            <span class="play-kelly">4.17% $209</span>
         </div>
         
         <div class="top-play">
             <span class="play-matchup">Athletics @ Detroit Tigers</span>
             <span class="play-team">OAK</span>
-            <span class="play-prob">44.7%</span>
-            <span class="play-edge">+9.2%</span>
-            <span class="play-kelly">3.57% $179</span>
+            <span class="play-prob">44.6%</span>
+            <span class="play-edge">+8.1%</span>
+            <span class="play-kelly">1.60% $80</span>
         </div>
         
         <div class="top-play">
-            <span class="play-matchup">Colorado Rockies @ Los Angeles Dodgers</span>
-            <span class="play-team">LAD</span>
-            <span class="play-prob">72.3%</span>
-            <span class="play-edge">+8.8%</span>
-            <span class="play-kelly">—</span>
+            <span class="play-matchup">Cleveland Guardians @ Minnesota Twins</span>
+            <span class="play-team">CLE</span>
+            <span class="play-prob">56.7%</span>
+            <span class="play-edge">+7.8%</span>
+            <span class="play-kelly">3.82% $191</span>
         </div>
         
 </div>
 
+
+<div class="agent-panel">
+    <div class="section-title">Agent Predictions</div>
+    
+        <div class="agent-row">
+            <div class="agent-head">
+                <span class="agent-rank">#1</span>
+                <span class="agent-name">Pitching Guru</span>
+                <span class="agent-acc">unrated</span>
+            </div>
+            <div class="agent-picks">LAD 68% | LAD 68% | ATL 60%</div>
+            <div class="agent-reason">&ldquo;Starters are statistically identical, but LAD is red-hot (70% last-10, +2 streak, recent Elo 1573) against a COL team that's been outscored heavily (6.47 runs a&rdquo;</div>
+        </div>
+        <div class="agent-row">
+            <div class="agent-head">
+                <span class="agent-rank">#2</span>
+                <span class="agent-name">Momentum Trader</span>
+                <span class="agent-acc">unrated</span>
+            </div>
+            <div class="agent-picks">ATL 66% | PHI 66% | PHI 65%</div>
+            <div class="agent-reason">&ldquo;NYM is on a brutal 9-game losing streak with last-10 win% of just 10% and a sharply falling recent Elo (1475.9→1454.4), while ATL's Elo is rising (1526.3→1533.0&rdquo;</div>
+        </div>
+        <div class="agent-row">
+            <div class="agent-head">
+                <span class="agent-rank">#3</span>
+                <span class="agent-name">Contrarian</span>
+                <span class="agent-acc">unrated</span>
+            </div>
+            <div class="agent-picks">TB 58% | MIL 57% | MIL 57%</div>
+            <div class="agent-reason">&ldquo;TB's much better run prevention (3.76 runs allowed/gm season vs NYY 4.29) and Pythagorean win% (62.6% vs 52.6%) support the market's lean toward TB (57.9%), eve&rdquo;</div>
+        </div>
+        <div class="agent-row">
+            <div class="agent-head">
+                <span class="agent-rank">#4</span>
+                <span class="agent-name">Matchup Specialist</span>
+                <span class="agent-acc">unrated</span>
+            </div>
+            <div class="agent-picks">NYM 72% | LAD 72% | LAD 72%</div>
+            
+        </div>
+        <div class="agent-row">
+            <div class="agent-head">
+                <span class="agent-rank">#5</span>
+                <span class="agent-name">Situational Analyst</span>
+                <span class="agent-acc">unrated</span>
+            </div>
+            <div class="agent-picks">LAD 70% | LAD 70% | NYM 60%</div>
+            
+        </div>
+</div>
 
 
 
@@ -696,52 +764,22 @@
             <div class="game-body">
                 <div class="team-row">
                     <span class="team-name">KC</span>
-                    <span class="prob">27.5%</span>
-                    <span class="market">43.5%</span>
-                    <span class="edge edge-negative">-16.0%</span>
+                    <span class="prob">31.0%</span>
+                    <span class="market">45.0%</span>
+                    <span class="edge edge-negative">-14.0%</span>
                 </div>
                 <div class="team-row">
                     <span class="team-name">NYM</span>
-                    <span class="prob">72.5%</span>
-                    <span class="market">56.5%</span>
-                    <span class="edge edge-positive">+16.0%</span>
+                    <span class="prob">69.0%</span>
+                    <span class="market">55.0%</span>
+                    <span class="edge edge-positive">+14.0%</span>
                 </div>
-                
-                
+                <div class="agents-line"><span class="agents-label">Agents</span> 3/4 pick NYM &middot; consensus 58.6% NYM &middot; model alone 72.5% NYM</div>
+                <div class="consensus-take"><span class="consensus-take-label">Consensus take</span> Three of four agents backed NYM despite both teams being ice-cold (NYM on a 9-game skid, KC on a 5-game skid), while momentum_trader dissented slightly favoring KC based on better last-10 form. The blend (69.0%) moderated the model&#x27;s strong 72.5% NYM lean since agents flagged that recent Elo is nearly even (1454 vs 1465), tempering confidence despite the majority pick.</div>
+                <div class="agent-ops"><details class="agent-op"><summary>Pitching Guru &mdash; NYM 55% (low)</summary><div class="op-reason">Baseline heavily favors NYM (72.5%) largely on season Elo, but both teams are ice cold (NYM -9 streak/10% last-10, KC -5 streak/40% last-10) and recent Elo is nearly even (1454.4 vs 1465.4), so I&#x27;m shaving confidence well below the model baseline per the disadvantaged-team-form check.</div></details><details class="agent-op"><summary>Momentum Trader &mdash; KC 53% (low)</summary><div class="op-reason">Both teams are cold (KC -5 streak, NYM -9 streak) with weak recent form; per discipline this is a near-abstain, with a slight lean to KC given its better last-10 win% (40% vs 10%).</div></details><details class="agent-op"><summary>Sabermetrics Purist &mdash; abstained</summary><div class="op-reason">No conviction either way on this game.</div></details><details class="agent-op"><summary>Contrarian &mdash; abstained</summary><div class="op-reason">No conviction either way on this game.</div></details><details class="agent-op"><summary>Matchup Specialist &mdash; NYM 72% (high)</summary><div class="op-reason">No matchup edge in lineup data, but baseline strongly favors NYM, and KC enters on a brutal 9-game losing streak with a worse recent Elo (1454).</div></details><details class="agent-op"><summary>Situational Analyst &mdash; NYM 60% (medium)</summary><div class="op-reason">Despite NYM&#x27;s poor recent streak, the baseline model shows a large edge (72.5%) and both teams show similarly weak underlying Elo, so we moderate confidence toward the home side per the model&#x27;s stronger signal.</div></details></div>
                 
                 <div class="confidence-bar-container">
                     <div class="confidence-bar" style="width: 45%"></div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="game-card" data-status="upcoming" data-gametime="2026-07-06T22:45:00Z">
-            <div class="game-header">
-                <div class="game-header-left">
-                    <span class="matchup">Houston Astros <span class="at">@</span> Washington Nationals</span>
-                    <span class="game-time">Mon Jul 06, 6:45 PM ET</span>
-                </div>
-                <span class="signal signal-strong">&#9733; STRONG</span>
-            </div>
-            
-            <div class="game-body">
-                <div class="team-row">
-                    <span class="team-name">HOU</span>
-                    <span class="prob">54.4%</span>
-                    <span class="market">45.1%</span>
-                    <span class="edge edge-positive">+9.2%</span>
-                </div>
-                <div class="team-row">
-                    <span class="team-name">WSH</span>
-                    <span class="prob">45.6%</span>
-                    <span class="market">54.9%</span>
-                    <span class="edge edge-negative">-9.2%</span>
-                </div>
-                
-                
-                <div class="kelly-line"><span class="kelly-label">Kelly (STRONG)</span> <span class="kelly-value">HOU 4.2% of bankroll ($210)</span></div>
-                <div class="confidence-bar-container">
-                    <div class="confidence-bar" style="width: 8%"></div>
                 </div>
             </div>
         </div>
@@ -758,19 +796,52 @@
             <div class="game-body">
                 <div class="team-row">
                     <span class="team-name">HOU</span>
-                    <span class="prob">54.4%</span>
-                    <span class="market">45.1%</span>
-                    <span class="edge edge-positive">+9.2%</span>
+                    <span class="prob">54.6%</span>
+                    <span class="market">45.5%</span>
+                    <span class="edge edge-positive">+9.1%</span>
                 </div>
                 <div class="team-row">
                     <span class="team-name">WSH</span>
-                    <span class="prob">45.6%</span>
-                    <span class="market">54.9%</span>
-                    <span class="edge edge-negative">-9.2%</span>
+                    <span class="prob">45.4%</span>
+                    <span class="market">54.5%</span>
+                    <span class="edge edge-negative">-9.1%</span>
                 </div>
-                
-                
-                <div class="kelly-line"><span class="kelly-label">Kelly (STRONG)</span> <span class="kelly-value">HOU 4.2% of bankroll ($210)</span></div>
+                <div class="agents-line"><span class="agents-label">Agents</span> 4/5 pick HOU &middot; consensus 44.8% WSH &middot; model alone 45.6% WSH</div>
+                <div class="consensus-take"><span class="consensus-take-label">Consensus take</span> Four of five agents backed HOU, matching the model&#x27;s own HOU lean, while contrarian dissented toward WSH citing better season win% and Pythagorean record as evidence the market overreacts to HOU&#x27;s hot streak. The blended probability (45.4% for WSH) reflected the majority&#x27;s emphasis on HOU&#x27;s stronger Elo and recent form advantage.</div>
+                <div class="agent-ops"><details class="agent-op"><summary>Pitching Guru &mdash; HOU 58% (medium)</summary><div class="op-reason">With starters equal, HOU&#x27;s superior recent form (60% last 10, +1 streak) and higher Elo (1508 vs 1474) against a struggling WSH club (30% last 10) align with the baseline favoring HOU.</div></details><details class="agent-op"><summary>Momentum Trader &mdash; HOU 63% (medium)</summary><div class="op-reason">HOU dominates on last-10 (60% vs 30%), last-30 (56.7% vs 46.7%), and a consistently higher Elo (1508 vs 1474-1477), overriding WSH&#x27;s slight run-differential edge.</div></details><details class="agent-op"><summary>Sabermetrics Purist &mdash; abstained</summary><div class="op-reason">No conviction either way on this game.</div></details><details class="agent-op"><summary>Contrarian &mdash; WSH 57% (medium)</summary><div class="op-reason">Despite HOU being favored at 54.4%, WSH actually has the better season win% (49.4% vs 47.7%) and Pythagorean win% (50.0% vs 44.8%), suggesting the market is overreacting to HOU&#x27;s hot recent streak (+1, 60% last 10) rather than true team quality.</div></details><details class="agent-op"><summary>Matchup Specialist &mdash; HOU 55% (medium)</summary><div class="op-reason">HOU&#x27;s recent form (60% last-10, 56.7% last-30) and superior recent Elo (1508 vs 1477) align with the model baseline favoring HOU (54.4%) over a cold WSH team (30% last-10).</div></details><details class="agent-op"><summary>Situational Analyst &mdash; HOU 57% (medium)</summary><div class="op-reason">HOU carries a clear Elo edge (1508 vs 1474) and much better recent form (60% last-10 vs WSH&#x27;s 30%), aligning with the baseline favoring HOU (54.4%).</div></details></div>
+                <div class="kelly-line"><span class="kelly-label">Kelly (STRONG)</span> <span class="kelly-value">HOU 4.2% of bankroll ($209)</span></div>
+                <div class="confidence-bar-container">
+                    <div class="confidence-bar" style="width: 8%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="game-card" data-status="upcoming" data-gametime="2026-07-06T22:45:00Z">
+            <div class="game-header">
+                <div class="game-header-left">
+                    <span class="matchup">Houston Astros <span class="at">@</span> Washington Nationals</span>
+                    <span class="game-time">Mon Jul 06, 6:45 PM ET</span>
+                </div>
+                <span class="signal signal-strong">&#9733; STRONG</span>
+            </div>
+            
+            <div class="game-body">
+                <div class="team-row">
+                    <span class="team-name">HOU</span>
+                    <span class="prob">54.6%</span>
+                    <span class="market">45.5%</span>
+                    <span class="edge edge-positive">+9.1%</span>
+                </div>
+                <div class="team-row">
+                    <span class="team-name">WSH</span>
+                    <span class="prob">45.4%</span>
+                    <span class="market">54.5%</span>
+                    <span class="edge edge-negative">-9.1%</span>
+                </div>
+                <div class="agents-line"><span class="agents-label">Agents</span> 4/4 pick HOU &middot; consensus 44.9% WSH &middot; model alone 45.6% WSH</div>
+                <div class="consensus-take"><span class="consensus-take-label">Consensus take</span> All four agents unanimously favored HOU over the model&#x27;s own pick of WSH, dropping WSH&#x27;s blended probability to 45.4% from 45.6%. The consensus rationale was HOU&#x27;s stronger recent form (60% last-10) and higher Elo (1508 vs 1474) against a WSH team on a mild slide, with pitching considered even.</div>
+                <div class="agent-ops"><details class="agent-op"><summary>Pitching Guru &mdash; HOU 56% (low)</summary><div class="op-reason">Pitching identical; HOU is playing better recently (60% last-10, 56.7% last-30) than a WSH club at just 30% last-10 and a -1 streak, aligning with the baseline lean to HOU.</div></details><details class="agent-op"><summary>Momentum Trader &mdash; HOU 56% (low)</summary><div class="op-reason">HOU&#x27;s last-10 (60%) and last-30 (56.7%) win rates and higher Elo outpace WSH&#x27;s, though the streak is short and run differential is roughly balanced, capping confidence.</div></details><details class="agent-op"><summary>Sabermetrics Purist &mdash; abstained</summary><div class="op-reason">No conviction either way on this game.</div></details><details class="agent-op"><summary>Contrarian &mdash; abstained</summary><div class="op-reason">No conviction either way on this game.</div></details><details class="agent-op"><summary>Matchup Specialist &mdash; HOU 54% (low)</summary><div class="op-reason">No matchup edge detected; HOU&#x27;s stronger recent form (60% L10) and better Elo (1508 vs 1474) support a modest lean.</div></details><details class="agent-op"><summary>Situational Analyst &mdash; HOU 54% (low)</summary><div class="op-reason">HOU is the better-quality road team by Elo (1508 vs 1474) and recent form (56.7% vs 46.7% last 30), giving a modest edge that keeps this pick capped at low-medium confidence.</div></details></div>
+                <div class="kelly-line"><span class="kelly-label">Kelly (STRONG)</span> <span class="kelly-value">HOU 4.2% of bankroll ($209)</span></div>
                 <div class="confidence-bar-container">
                     <div class="confidence-bar" style="width: 8%"></div>
                 </div>
@@ -789,21 +860,54 @@
             <div class="game-body">
                 <div class="team-row">
                     <span class="team-name">OAK</span>
-                    <span class="prob">44.7%</span>
-                    <span class="market">35.5%</span>
-                    <span class="edge edge-positive">+9.2%</span>
+                    <span class="prob">44.6%</span>
+                    <span class="market">36.5%</span>
+                    <span class="edge edge-positive">+8.1%</span>
                 </div>
                 <div class="team-row">
                     <span class="team-name">DET</span>
-                    <span class="prob">55.3%</span>
-                    <span class="market">64.5%</span>
-                    <span class="edge edge-negative">-9.2%</span>
+                    <span class="prob">55.4%</span>
+                    <span class="market">63.5%</span>
+                    <span class="edge edge-negative">-8.1%</span>
                 </div>
-                
-                
-                <div class="kelly-line"><span class="kelly-label">Kelly (STRONG)</span> <span class="kelly-value">OAK 3.6% of bankroll ($179)</span></div>
+                <div class="agents-line"><span class="agents-label">Agents</span> 4/4 pick DET &middot; consensus 55.6% DET &middot; model alone 55.3% DET</div>
+                <div class="consensus-take"><span class="consensus-take-label">Consensus take</span> All four agents aligned with DET, matching the model&#x27;s 55.3% lean for a 55.4% blend. The rationale centered on DET&#x27;s much better run prevention (3.67 vs 6.77 runs allowed/gm) and stronger recent form, with pitching treated as a wash.</div>
+                <div class="agent-ops"><details class="agent-op"><summary>Pitching Guru &mdash; DET 55% (low)</summary><div class="op-reason">With starters identical, DET&#x27;s better recent form (60% last-10, +1 streak) and lower runs allowed (3.67/gm) versus OAK&#x27;s leaky pitching (6.77 runs allowed/gm) support the baseline lean to DET.</div></details><details class="agent-op"><summary>Momentum Trader &mdash; DET 58% (medium)</summary><div class="op-reason">Despite a dipping Elo, DET&#x27;s run differential (4.43 scored/3.67 allowed) is far stronger than OAK&#x27;s (5.23/6.77), and DET holds the last-10 (60%) and last-30 (50%) edge.</div></details><details class="agent-op"><summary>Sabermetrics Purist &mdash; abstained</summary><div class="op-reason">No conviction either way on this game.</div></details><details class="agent-op"><summary>Contrarian &mdash; abstained</summary><div class="op-reason">No conviction either way on this game.</div></details><details class="agent-op"><summary>Matchup Specialist &mdash; DET 55% (medium)</summary><div class="op-reason">Uniform matchup data; DET&#x27;s much better run prevention (3.67 vs 6.77 RA/gm) and stronger recent form support the lean.</div></details><details class="agent-op"><summary>Situational Analyst &mdash; DET 54% (low)</summary><div class="op-reason">DET is home with a modest Elo edge (1483 vs 1479) and much better run prevention (3.67 vs 6.77 allowed/gm for OAK), aligning with the baseline 55.3% figure.</div></details></div>
+                <div class="kelly-line"><span class="kelly-label">Kelly (MODERATE)</span> <span class="kelly-value">OAK 1.6% of bankroll ($80)</span></div>
                 <div class="confidence-bar-container">
                     <div class="confidence-bar" style="width: 10%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="game-card" data-status="upcoming" data-gametime="2026-07-07T23:40:00Z">
+            <div class="game-header">
+                <div class="game-header-left">
+                    <span class="matchup">Cleveland Guardians <span class="at">@</span> Minnesota Twins</span>
+                    <span class="game-time">Tue Jul 07, 7:40 PM ET</span>
+                </div>
+                <span class="signal signal-strong">&#9733; STRONG</span>
+            </div>
+            
+            <div class="game-body">
+                <div class="team-row">
+                    <span class="team-name">CLE</span>
+                    <span class="prob">56.7%</span>
+                    <span class="market">48.9%</span>
+                    <span class="edge edge-positive">+7.8%</span>
+                </div>
+                <div class="team-row">
+                    <span class="team-name">MIN</span>
+                    <span class="prob">43.3%</span>
+                    <span class="market">51.1%</span>
+                    <span class="edge edge-negative">-7.8%</span>
+                </div>
+                <div class="agents-line"><span class="agents-label">Agents</span> 4/4 pick CLE &middot; consensus 44.0% MIN &middot; model alone 43.1% MIN</div>
+                <div class="consensus-take"><span class="consensus-take-label">Consensus take</span> All four active agents picked CLE against the model&#x27;s own lean toward MIN, dropping the blended MIN probability to 43.3%. The rationale was CLE&#x27;s clearly higher Elo (1510-1513 vs 1476) and MIN&#x27;s poor run prevention (6.37 runs allowed/gm), outweighing MIN&#x27;s home-field status.</div>
+                <div class="agent-ops"><details class="agent-op"><summary>Pitching Guru &mdash; CLE 55% (low)</summary><div class="op-reason">With starters identical, CLE&#x27;s better recent Elo (1510.8 vs 1475.9) and MIN&#x27;s leaky bullpen/allowed runs (6.37/gm) tilt this toward CLE, consistent with the baseline favoring the road team.</div></details><details class="agent-op"><summary>Momentum Trader &mdash; CLE 55% (low)</summary><div class="op-reason">Both teams show flat Elo trajectories and mixed recent form, but CLE holds a notably higher Elo (1513.8 vs 1476.6), giving a modest lean with no strong momentum corroboration.</div></details><details class="agent-op"><summary>Sabermetrics Purist &mdash; abstained</summary><div class="op-reason">No conviction either way on this game.</div></details><details class="agent-op"><summary>Contrarian &mdash; abstained</summary><div class="op-reason">No conviction either way on this game.</div></details><details class="agent-op"><summary>Matchup Specialist &mdash; CLE 57% (medium)</summary><div class="op-reason">Matchup data uniform; CLE favored by baseline despite MIN&#x27;s home field, likely reflecting CLE&#x27;s better run prevention efficiency relative to scoring.</div></details><details class="agent-op"><summary>Situational Analyst &mdash; CLE 57% (medium)</summary><div class="op-reason">CLE&#x27;s baseline edge (56.9%) is backed by MIN&#x27;s poor run prevention (6.37 runs allowed/gm) versus CLE&#x27;s much tighter 4.43, a larger-sample signal outweighing MIN&#x27;s home field.</div></details></div>
+                <div class="kelly-line"><span class="kelly-label">Kelly (STRONG)</span> <span class="kelly-value">CLE 3.8% of bankroll ($191)</span></div>
+                <div class="confidence-bar-container">
+                    <div class="confidence-bar" style="width: 13%"></div>
                 </div>
             </div>
         </div>
@@ -820,18 +924,19 @@
             <div class="game-body">
                 <div class="team-row">
                     <span class="team-name">COL</span>
-                    <span class="prob">27.7%</span>
+                    <span class="prob">28.9%</span>
                     <span class="market">36.5%</span>
-                    <span class="edge edge-negative">-8.8%</span>
+                    <span class="edge edge-negative">-7.6%</span>
                 </div>
                 <div class="team-row">
                     <span class="team-name">LAD</span>
-                    <span class="prob">72.3%</span>
+                    <span class="prob">71.1%</span>
                     <span class="market">63.5%</span>
-                    <span class="edge edge-positive">+8.8%</span>
+                    <span class="edge edge-positive">+7.6%</span>
                 </div>
-                
-                
+                <div class="agents-line"><span class="agents-label">Agents</span> 4/4 pick LAD &middot; consensus 67.6% LAD &middot; model alone 72.3% LAD</div>
+                <div class="consensus-take"><span class="consensus-take-label">Consensus take</span> Mirroring the companion LAD-COL game, all four agents backed LAD unanimously, though their consensus (67.6%) was softer than the model&#x27;s 72.3%, blending to 71.1%. The reasoning repeated LAD&#x27;s strong recent Elo (1573) and run differential edge over a struggling COL pitching staff.</div>
+                <div class="agent-ops"><details class="agent-op"><summary>Pitching Guru &mdash; LAD 68% (medium)</summary><div class="op-reason">Same matchup dynamics as the prior game in this series: LAD&#x27;s hot form (70% last-10) and strong recent Elo (1573.1) versus a struggling COL club (6.47 runs allowed/gm, recent Elo 1426) with pitching neutralized as a factor.</div></details><details class="agent-op"><summary>Momentum Trader &mdash; LAD 60% (medium)</summary><div class="op-reason">Same matchup profile as the prior game: LAD&#x27;s rising Elo and superior run differential (5.37/4.17 vs 6.27/6.47) support the home team despite short streaks.</div></details><details class="agent-op"><summary>Sabermetrics Purist &mdash; abstained</summary><div class="op-reason">No conviction either way on this game.</div></details><details class="agent-op"><summary>Contrarian &mdash; abstained</summary><div class="op-reason">No conviction either way on this game.</div></details><details class="agent-op"><summary>Matchup Specialist &mdash; LAD 72% (high)</summary><div class="op-reason">Same series context as prior LAD-COL game; LAD&#x27;s dominant recent Elo (1573) and COL&#x27;s poor pitching (6.47 RA/gm) drive the edge.</div></details><details class="agent-op"><summary>Situational Analyst &mdash; LAD 70% (high)</summary><div class="op-reason">Same matchup as the prior day: LAD&#x27;s quality gap is large and consistent (Elo 1558 vs 1427, strong 30-day scoring/prevention split), supporting a confident home pick.</div></details></div>
                 
                 <div class="confidence-bar-container">
                     <div class="confidence-bar" style="width: 44%"></div>
@@ -851,52 +956,22 @@
             <div class="game-body">
                 <div class="team-row">
                     <span class="team-name">COL</span>
-                    <span class="prob">27.7%</span>
+                    <span class="prob">28.9%</span>
                     <span class="market">36.5%</span>
-                    <span class="edge edge-negative">-8.8%</span>
+                    <span class="edge edge-negative">-7.6%</span>
                 </div>
                 <div class="team-row">
                     <span class="team-name">LAD</span>
-                    <span class="prob">72.3%</span>
+                    <span class="prob">71.1%</span>
                     <span class="market">63.5%</span>
-                    <span class="edge edge-positive">+8.8%</span>
+                    <span class="edge edge-positive">+7.6%</span>
                 </div>
-                
-                
+                <div class="agents-line"><span class="agents-label">Agents</span> 4/4 pick LAD &middot; consensus 67.6% LAD &middot; model alone 72.3% LAD</div>
+                <div class="consensus-take"><span class="consensus-take-label">Consensus take</span> All four agents unanimously backed LAD, though their consensus (67.6%) was actually a bit softer than the model&#x27;s strong 72.3% lean, pulling the blend down slightly to 71.1%. Agents pointed to LAD&#x27;s hot recent form and rising Elo (1573) versus COL&#x27;s leaky pitching (6.47 runs allowed/gm) as the driving factors, with pitching matchups seen as neutral.</div>
+                <div class="agent-ops"><details class="agent-op"><summary>Pitching Guru &mdash; LAD 68% (medium)</summary><div class="op-reason">Starters are statistically identical, but LAD is red-hot (70% last-10, +2 streak, recent Elo 1573) against a COL team that&#x27;s been outscored heavily (6.47 runs allowed/gm) and carries a weak recent Elo of 1426.</div></details><details class="agent-op"><summary>Momentum Trader &mdash; LAD 60% (medium)</summary><div class="op-reason">Both streaks are short/noisy, but LAD&#x27;s Elo is trending up (1558→1573) while COL&#x27;s is flat, and LAD&#x27;s run differential (5.37 scored/4.17 allowed) is far healthier than COL&#x27;s (6.27/6.47).</div></details><details class="agent-op"><summary>Sabermetrics Purist &mdash; abstained</summary><div class="op-reason">No conviction either way on this game.</div></details><details class="agent-op"><summary>Contrarian &mdash; abstained</summary><div class="op-reason">No conviction either way on this game.</div></details><details class="agent-op"><summary>Matchup Specialist &mdash; LAD 72% (high)</summary><div class="op-reason">Uniform matchup data offers no edge, so lean on baseline driven by LAD&#x27;s strong recent Elo (1573) and 66.7% win rate over last 30 vs COL&#x27;s poor run prevention (6.47 RA/gm).</div></details><details class="agent-op"><summary>Situational Analyst &mdash; LAD 70% (high)</summary><div class="op-reason">LAD&#x27;s quality edge is large and consistent across samples (Elo 1558 vs 1427, 30-day run differential +1.2 vs COL&#x27;s -0.9), not just a short streak, supporting a confident home pick in a neutral park.</div></details></div>
                 
                 <div class="confidence-bar-container">
                     <div class="confidence-bar" style="width: 44%"></div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="game-card" data-status="upcoming" data-gametime="2026-07-07T23:40:00Z">
-            <div class="game-header">
-                <div class="game-header-left">
-                    <span class="matchup">Cleveland Guardians <span class="at">@</span> Minnesota Twins</span>
-                    <span class="game-time">Tue Jul 07, 7:40 PM ET</span>
-                </div>
-                <span class="signal signal-strong">&#9733; STRONG</span>
-            </div>
-            
-            <div class="game-body">
-                <div class="team-row">
-                    <span class="team-name">CLE</span>
-                    <span class="prob">56.9%</span>
-                    <span class="market">49.0%</span>
-                    <span class="edge edge-positive">+7.9%</span>
-                </div>
-                <div class="team-row">
-                    <span class="team-name">MIN</span>
-                    <span class="prob">43.1%</span>
-                    <span class="market">51.0%</span>
-                    <span class="edge edge-negative">-7.9%</span>
-                </div>
-                
-                
-                <div class="kelly-line"><span class="kelly-label">Kelly (STRONG)</span> <span class="kelly-value">CLE 3.9% of bankroll ($195)</span></div>
-                <div class="confidence-bar-container">
-                    <div class="confidence-bar" style="width: 13%"></div>
                 </div>
             </div>
         </div>
@@ -925,6 +1000,7 @@
                 </div>
                 
                 
+                <div class="agent-ops"><details class="agent-op"><summary>Pitching Guru &mdash; PHI 56% (low)</summary><div class="op-reason">Despite an even pitching matchup and CIN&#x27;s park-factor edge, PHI&#x27;s superior recent form (70% last-10, 66.7% last-30, +1 streak) versus CIN&#x27;s cold stretch (40% last-10, -2 streak) outweighs the marginal home baseline.</div></details><details class="agent-op"><summary>Momentum Trader &mdash; PHI 66% (medium)</summary><div class="op-reason">PHI shows strong corroborated momentum: 70% last-10, 66.7% last-30, rising Elo (1543→1556.5), and positive run differential, while CIN is cold with a falling Elo and negative run differential.</div></details><details class="agent-op"><summary>Sabermetrics Purist &mdash; abstained</summary><div class="op-reason">No conviction either way on this game.</div></details><details class="agent-op"><summary>Contrarian &mdash; abstained</summary><div class="op-reason">No conviction either way on this game.</div></details><details class="agent-op"><summary>Matchup Specialist &mdash; abstained</summary><div class="op-reason">No conviction either way on this game.</div></details><details class="agent-op"><summary>Situational Analyst &mdash; PHI 55% (low)</summary><div class="op-reason">PHI shows a consistent quality edge over the larger 30-game sample (66.7% win% and better run prevention) despite CIN&#x27;s slight home-park boost (1.05 run factor), keeping confidence modest given baseline is near even.</div></details></div>
                 <div class="kelly-line"><span class="kelly-label">Kelly (STRONG)</span> <span class="kelly-value">CIN 3.2% of bankroll ($159)</span></div>
                 <div class="confidence-bar-container">
                     <div class="confidence-bar" style="width: 1%"></div>
@@ -956,71 +1032,10 @@
                 </div>
                 
                 
+                
                 <div class="kelly-line"><span class="kelly-label">Kelly (MODERATE)</span> <span class="kelly-value">NYM 3.3% of bankroll ($163)</span></div>
                 <div class="confidence-bar-container">
                     <div class="confidence-bar" style="width: 6%"></div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="game-card" data-status="upcoming" data-gametime="2026-07-08T00:05:00Z">
-            <div class="game-header">
-                <div class="game-header-left">
-                    <span class="matchup">Los Angeles Angels <span class="at">@</span> Texas Rangers</span>
-                    <span class="game-time">Tue Jul 07, 8:05 PM ET</span>
-                </div>
-                <span class="signal signal-moderate">&#9679; MODERATE</span>
-            </div>
-            
-            <div class="game-body">
-                <div class="team-row">
-                    <span class="team-name">LAA</span>
-                    <span class="prob">49.6%</span>
-                    <span class="market">43.0%</span>
-                    <span class="edge edge-positive">+6.6%</span>
-                </div>
-                <div class="team-row">
-                    <span class="team-name">TEX</span>
-                    <span class="prob">50.4%</span>
-                    <span class="market">57.0%</span>
-                    <span class="edge edge-negative">-6.6%</span>
-                </div>
-                
-                
-                <div class="kelly-line"><span class="kelly-label">Kelly (MODERATE)</span> <span class="kelly-value">LAA 2.9% of bankroll ($144)</span></div>
-                <div class="confidence-bar-container">
-                    <div class="confidence-bar" style="width: 0%"></div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="game-card" data-status="upcoming" data-gametime="2026-07-07T01:40:00Z">
-            <div class="game-header">
-                <div class="game-header-left">
-                    <span class="matchup">Arizona Diamondbacks <span class="at">@</span> San Diego Padres</span>
-                    <span class="game-time">Mon Jul 06, 9:40 PM ET</span>
-                </div>
-                <span class="signal signal-moderate">&#9679; MODERATE</span>
-            </div>
-            
-            <div class="game-body">
-                <div class="team-row">
-                    <span class="team-name">ARI</span>
-                    <span class="prob">42.1%</span>
-                    <span class="market">47.8%</span>
-                    <span class="edge edge-negative">-5.6%</span>
-                </div>
-                <div class="team-row">
-                    <span class="team-name">SD</span>
-                    <span class="prob">57.9%</span>
-                    <span class="market">52.2%</span>
-                    <span class="edge edge-positive">+5.6%</span>
-                </div>
-                
-                
-                <div class="kelly-line"><span class="kelly-label">Kelly (MODERATE)</span> <span class="kelly-value">SD 2.9% of bankroll ($147)</span></div>
-                <div class="confidence-bar-container">
-                    <div class="confidence-bar" style="width: 15%"></div>
                 </div>
             </div>
         </div>
@@ -1038,111 +1053,19 @@
                 <div class="team-row">
                     <span class="team-name">ARI</span>
                     <span class="prob">42.1%</span>
-                    <span class="market">47.8%</span>
-                    <span class="edge edge-negative">-5.6%</span>
+                    <span class="market">47.9%</span>
+                    <span class="edge edge-negative">-5.7%</span>
                 </div>
                 <div class="team-row">
                     <span class="team-name">SD</span>
                     <span class="prob">57.9%</span>
-                    <span class="market">52.2%</span>
-                    <span class="edge edge-positive">+5.6%</span>
+                    <span class="market">52.1%</span>
+                    <span class="edge edge-positive">+5.7%</span>
                 </div>
-                
-                
-                <div class="kelly-line"><span class="kelly-label">Kelly (MODERATE)</span> <span class="kelly-value">SD 2.9% of bankroll ($147)</span></div>
-                <div class="confidence-bar-container">
-                    <div class="confidence-bar" style="width: 15%"></div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="game-card" data-status="upcoming" data-gametime="2026-07-06T18:10:00Z">
-            <div class="game-header">
-                <div class="game-header-left">
-                    <span class="matchup">Philadelphia Phillies <span class="at">@</span> Kansas City Royals</span>
-                    <span class="game-time">Mon Jul 06, 2:10 PM ET</span>
-                </div>
-                <span class="signal signal-moderate">&#9679; MODERATE</span>
-            </div>
-            
-            <div class="game-body">
-                <div class="team-row">
-                    <span class="team-name">PHI</span>
-                    <span class="prob">55.1%</span>
-                    <span class="market">60.5%</span>
-                    <span class="edge edge-negative">-5.4%</span>
-                </div>
-                <div class="team-row">
-                    <span class="team-name">KC</span>
-                    <span class="prob">44.9%</span>
-                    <span class="market">39.5%</span>
-                    <span class="edge edge-positive">+5.4%</span>
-                </div>
-                
-                
-                <div class="kelly-line"><span class="kelly-label">Kelly (MODERATE)</span> <span class="kelly-value">KC 2.2% of bankroll ($112)</span></div>
-                <div class="confidence-bar-container">
-                    <div class="confidence-bar" style="width: 10%"></div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="game-card" data-status="upcoming" data-gametime="2026-07-07T22:40:00Z">
-            <div class="game-header">
-                <div class="game-header-left">
-                    <span class="matchup">New York Yankees <span class="at">@</span> Tampa Bay Rays</span>
-                    <span class="game-time">Tue Jul 07, 6:40 PM ET</span>
-                </div>
-                <span class="signal signal-moderate">&#9679; MODERATE</span>
-            </div>
-            
-            <div class="game-body">
-                <div class="team-row">
-                    <span class="team-name">NYY</span>
-                    <span class="prob">42.1%</span>
-                    <span class="market">47.5%</span>
-                    <span class="edge edge-negative">-5.4%</span>
-                </div>
-                <div class="team-row">
-                    <span class="team-name">TB</span>
-                    <span class="prob">57.9%</span>
-                    <span class="market">52.4%</span>
-                    <span class="edge edge-positive">+5.4%</span>
-                </div>
-                
-                
-                <div class="kelly-line"><span class="kelly-label">Kelly (MODERATE)</span> <span class="kelly-value">TB 2.8% of bankroll ($142)</span></div>
-                <div class="confidence-bar-container">
-                    <div class="confidence-bar" style="width: 15%"></div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="game-card" data-status="upcoming" data-gametime="2026-07-06T22:40:00Z">
-            <div class="game-header">
-                <div class="game-header-left">
-                    <span class="matchup">New York Yankees <span class="at">@</span> Tampa Bay Rays</span>
-                    <span class="game-time">Mon Jul 06, 6:40 PM ET</span>
-                </div>
-                <span class="signal signal-moderate">&#9679; MODERATE</span>
-            </div>
-            
-            <div class="game-body">
-                <div class="team-row">
-                    <span class="team-name">NYY</span>
-                    <span class="prob">42.1%</span>
-                    <span class="market">47.5%</span>
-                    <span class="edge edge-negative">-5.4%</span>
-                </div>
-                <div class="team-row">
-                    <span class="team-name">TB</span>
-                    <span class="prob">57.9%</span>
-                    <span class="market">52.4%</span>
-                    <span class="edge edge-positive">+5.4%</span>
-                </div>
-                
-                
-                <div class="kelly-line"><span class="kelly-label">Kelly (MODERATE)</span> <span class="kelly-value">TB 2.8% of bankroll ($142)</span></div>
+                <div class="agents-line"><span class="agents-label">Agents</span> 5/5 pick SD &middot; consensus 58.0% SD &middot; model alone 57.9% SD</div>
+                <div class="consensus-take"><span class="consensus-take-label">Consensus take</span> All five agents unanimously backed SD, closely matching the model&#x27;s 57.9% baseline for a 57.9% blend. Agents cited SD&#x27;s stronger recent Elo (1521 vs 1500), better last-10 form (60%), and superior run prevention, with contrarian noting the edge was consistent across metrics without signs of market mispricing.</div>
+                <div class="agent-ops"><details class="agent-op"><summary>Pitching Guru &mdash; SD 55% (low)</summary><div class="op-reason">Identical starter profiles push this to team quality — SD has the higher Elo (1521 vs 1500) and better last-10 form (60%), consistent with the baseline favoring the Padres.</div></details><details class="agent-op"><summary>Momentum Trader &mdash; SD 62% (medium)</summary><div class="op-reason">SD leads in last-10 (60% vs 50%), Elo (1521 vs 1500, gap stable), and run differential (-0.37 vs -1.26), giving solid multi-signal corroboration over ARI&#x27;s minor +1 streak.</div></details><details class="agent-op"><summary>Sabermetrics Purist &mdash; abstained</summary><div class="op-reason">No conviction either way on this game.</div></details><details class="agent-op"><summary>Contrarian &mdash; SD 57% (medium)</summary><div class="op-reason">SD&#x27;s edge is modest but consistent across metrics (wRC+ 109 vs 100, season win% 52.4% vs 50.6%, Elo-implied 56.5%) and aligns closely with the baseline (57.9%), so there&#x27;s no real market mispricing to fade here - just taking the moderate, capped favorite.</div></details><details class="agent-op"><summary>Matchup Specialist &mdash; SD 58% (medium)</summary><div class="op-reason">SD&#x27;s better recent form (60% last-10), superior Elo (1521 vs 1500), and lower runs allowed (4.20) support the strong baseline edge (57.9%) in an otherwise neutral matchup profile.</div></details><details class="agent-op"><summary>Situational Analyst &mdash; SD 58% (medium)</summary><div class="op-reason">SD is home with a stronger Elo (1521 vs 1499.8) and Petco&#x27;s pitcher-friendly park factors align with SD&#x27;s stronger run prevention (4.20 vs 4.93 allowed).</div></details></div>
+                <div class="kelly-line"><span class="kelly-label">Kelly (MODERATE)</span> <span class="kelly-value">SD 3.0% of bankroll ($150)</span></div>
                 <div class="confidence-bar-container">
                     <div class="confidence-bar" style="width: 15%"></div>
                 </div>
@@ -1161,21 +1084,118 @@
             <div class="game-body">
                 <div class="team-row">
                     <span class="team-name">NYM</span>
-                    <span class="prob">41.4%</span>
+                    <span class="prob">40.9%</span>
                     <span class="market">46.5%</span>
-                    <span class="edge edge-negative">-5.1%</span>
+                    <span class="edge edge-negative">-5.6%</span>
                 </div>
                 <div class="team-row">
                     <span class="team-name">ATL</span>
-                    <span class="prob">58.6%</span>
+                    <span class="prob">59.1%</span>
                     <span class="market">53.5%</span>
-                    <span class="edge edge-positive">+5.1%</span>
+                    <span class="edge edge-positive">+5.6%</span>
                 </div>
-                
-                
-                <div class="kelly-line"><span class="kelly-label">Kelly (MODERATE)</span> <span class="kelly-value">ATL 2.7% of bankroll ($137)</span></div>
+                <div class="agents-line"><span class="agents-label">Agents</span> 4/4 pick ATL &middot; consensus 60.7% ATL &middot; model alone 58.6% ATL</div>
+                <div class="consensus-take"><span class="consensus-take-label">Consensus take</span> All four active agents backed ATL, pushing the blended probability to 59.1% from a 58.6% model baseline. The consensus cited ATL&#x27;s hot form and rising Elo (1533) against NYM&#x27;s brutal 9-game losing streak and collapsing Elo (1454), with pitching considered a wash by all agents.</div>
+                <div class="agent-ops"><details class="agent-op"><summary>Pitching Guru &mdash; ATL 60% (medium)</summary><div class="op-reason">Pitching is a dead heat (identical xFIP 4.15/SIERA 4.10 both sides), so this comes down to form: ATL is +2 on a hot streak with 50% last-10 win rate while NYM is in freefall at -9 streak and 10% last-10, and ATL&#x27;s recent Elo (1533) dwarfs NYM&#x27;s (1454.4).</div></details><details class="agent-op"><summary>Momentum Trader &mdash; ATL 66% (medium)</summary><div class="op-reason">NYM is on a brutal 9-game losing streak with last-10 win% of just 10% and a sharply falling recent Elo (1475.9→1454.4), while ATL&#x27;s Elo is rising (1526.3→1533.0) and allows fewer runs per game — multiple corroborating signals favor ATL.</div></details><details class="agent-op"><summary>Sabermetrics Purist &mdash; abstained</summary><div class="op-reason">No conviction either way on this game.</div></details><details class="agent-op"><summary>Contrarian &mdash; abstained</summary><div class="op-reason">No conviction either way on this game.</div></details><details class="agent-op"><summary>Matchup Specialist &mdash; ATL 59% (medium)</summary><div class="op-reason">No differentiating matchup signal (identical BvP/platoon splits), so default to model baseline reflecting ATL&#x27;s stronger recent Elo (1533 vs 1454) and NYM&#x27;s 9-game losing streak.</div></details><details class="agent-op"><summary>Situational Analyst &mdash; ATL 58% (medium)</summary><div class="op-reason">ATL is at home with a healthy 4 days rest, has a modest Elo edge (1526 vs 1476), and NYM&#x27;s -9 streak/season Elo drop are largely noise but the underlying quality gap favors Atlanta per baseline (58.6%).</div></details></div>
+                <div class="kelly-line"><span class="kelly-label">Kelly (MODERATE)</span> <span class="kelly-value">ATL 3.0% of bankroll ($151)</span></div>
                 <div class="confidence-bar-container">
                     <div class="confidence-bar" style="width: 17%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="game-card" data-status="upcoming" data-gametime="2026-07-07T01:40:00Z">
+            <div class="game-header">
+                <div class="game-header-left">
+                    <span class="matchup">Arizona Diamondbacks <span class="at">@</span> San Diego Padres</span>
+                    <span class="game-time">Mon Jul 06, 9:40 PM ET</span>
+                </div>
+                <span class="signal signal-moderate">&#9679; MODERATE</span>
+            </div>
+            
+            <div class="game-body">
+                <div class="team-row">
+                    <span class="team-name">ARI</span>
+                    <span class="prob">42.5%</span>
+                    <span class="market">47.9%</span>
+                    <span class="edge edge-negative">-5.3%</span>
+                </div>
+                <div class="team-row">
+                    <span class="team-name">SD</span>
+                    <span class="prob">57.5%</span>
+                    <span class="market">52.1%</span>
+                    <span class="edge edge-positive">+5.3%</span>
+                </div>
+                <div class="agents-line"><span class="agents-label">Agents</span> 4/4 pick SD &middot; consensus 56.2% SD &middot; model alone 57.9% SD</div>
+                <div class="consensus-take"><span class="consensus-take-label">Consensus take</span> All four voting agents sided with SD, aligning closely with the model&#x27;s 57.9% lean, resulting in a blended 57.5%. The reasoning centered on SD&#x27;s home-field edge, modestly better Elo (1521 vs 1500), and superior run prevention (4.20 vs 4.93 allowed), with pitching matchups seen as a wash.</div>
+                <div class="agent-ops"><details class="agent-op"><summary>Pitching Guru &mdash; SD 56% (low)</summary><div class="op-reason">With pitching a wash, SD&#x27;s home split and modestly better Elo (1521 vs 1499.8) edge out ARI, though ARI&#x27;s positive streak (+1) tempers confidence.</div></details><details class="agent-op"><summary>Momentum Trader &mdash; SD 54% (low)</summary><div class="op-reason">Both streaks are short (-2/+1) and thus noise; SD holds a modest Elo edge and better run prevention (4.20 vs 4.93 allowed), giving a slight lean with no strong corroboration.</div></details><details class="agent-op"><summary>Sabermetrics Purist &mdash; abstained</summary><div class="op-reason">No conviction either way on this game.</div></details><details class="agent-op"><summary>Contrarian &mdash; abstained</summary><div class="op-reason">No conviction either way on this game.</div></details><details class="agent-op"><summary>Matchup Specialist &mdash; SD 58% (medium)</summary><div class="op-reason">No matchup differentiation; baseline favors SD behind better recent form (60% L10) and lower runs allowed (4.20 vs 4.93).</div></details><details class="agent-op"><summary>Situational Analyst &mdash; SD 57% (medium)</summary><div class="op-reason">SD is home with a modest Elo edge (1521 vs 1500) and better run prevention (4.20 vs 4.93 allowed/gm), aligning with the baseline 57.9% home probability.</div></details></div>
+                <div class="kelly-line"><span class="kelly-label">Kelly (MODERATE)</span> <span class="kelly-value">SD 2.8% of bankroll ($139)</span></div>
+                <div class="confidence-bar-container">
+                    <div class="confidence-bar" style="width: 15%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="game-card" data-status="upcoming" data-gametime="2026-07-06T22:40:00Z">
+            <div class="game-header">
+                <div class="game-header-left">
+                    <span class="matchup">New York Yankees <span class="at">@</span> Tampa Bay Rays</span>
+                    <span class="game-time">Mon Jul 06, 6:40 PM ET</span>
+                </div>
+                <span class="signal signal-moderate">&#9679; MODERATE</span>
+            </div>
+            
+            <div class="game-body">
+                <div class="team-row">
+                    <span class="team-name">NYY</span>
+                    <span class="prob">42.5%</span>
+                    <span class="market">47.5%</span>
+                    <span class="edge edge-negative">-5.0%</span>
+                </div>
+                <div class="team-row">
+                    <span class="team-name">TB</span>
+                    <span class="prob">57.5%</span>
+                    <span class="market">52.4%</span>
+                    <span class="edge edge-positive">+5.0%</span>
+                </div>
+                <div class="agents-line"><span class="agents-label">Agents</span> 4/4 pick TB &middot; consensus 56.2% TB &middot; model alone 57.9% TB</div>
+                <div class="consensus-take"><span class="consensus-take-label">Consensus take</span> All four agents backed TB, roughly matching the model&#x27;s 57.9% favorite status, yielding a 57.5% blend. Agents pointed to TB&#x27;s better recent form (60% last-10) and run scoring/prevention edges, though some flagged conflicting signals like NYY&#x27;s stronger last-30 record.</div>
+                <div class="agent-ops"><details class="agent-op"><summary>Pitching Guru &mdash; TB 56% (low)</summary><div class="op-reason">With starters even, TB&#x27;s better recent form (60% last-10 vs NYY&#x27;s 40%) and home Elo edge support the baseline lean toward TB, though the park&#x27;s pitcher-friendly factor (0.93) adds a bit of caution against overconfidence.</div></details><details class="agent-op"><summary>Momentum Trader &mdash; TB 55% (low)</summary><div class="op-reason">Signals conflict: TB&#x27;s last-10 win% (60%) favors the home team while NYY&#x27;s last-30 and run differential are stronger, so per home-field discipline I lean TB with low confidence.</div></details><details class="agent-op"><summary>Sabermetrics Purist &mdash; abstained</summary><div class="op-reason">No conviction either way on this game.</div></details><details class="agent-op"><summary>Contrarian &mdash; abstained</summary><div class="op-reason">No conviction either way on this game.</div></details><details class="agent-op"><summary>Matchup Specialist &mdash; TB 58% (medium)</summary><div class="op-reason">Uniform matchup inputs; baseline favors TB given superior run scoring (5.30 vs 4.30) and better recent 30-day form (60% vs 46.7%).</div></details><details class="agent-op"><summary>Situational Analyst &mdash; TB 56% (medium)</summary><div class="op-reason">TB&#x27;s baseline edge (57.9%) is supported by better run prevention (4.70 vs NYY&#x27;s 4.17 allowed) and home Elo of 1512, even though Elo-implied win prob is close to even.</div></details></div>
+                <div class="kelly-line"><span class="kelly-label">Kelly (MODERATE)</span> <span class="kelly-value">TB 2.6% of bankroll ($132)</span></div>
+                <div class="confidence-bar-container">
+                    <div class="confidence-bar" style="width: 15%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="game-card" data-status="upcoming" data-gametime="2026-07-08T00:05:00Z">
+            <div class="game-header">
+                <div class="game-header-left">
+                    <span class="matchup">Los Angeles Angels <span class="at">@</span> Texas Rangers</span>
+                    <span class="game-time">Tue Jul 07, 8:05 PM ET</span>
+                </div>
+                <span class="signal signal-moderate">&#9679; MODERATE</span>
+            </div>
+            
+            <div class="game-body">
+                <div class="team-row">
+                    <span class="team-name">LAA</span>
+                    <span class="prob">47.8%</span>
+                    <span class="market">43.0%</span>
+                    <span class="edge edge-positive">+4.8%</span>
+                </div>
+                <div class="team-row">
+                    <span class="team-name">TEX</span>
+                    <span class="prob">52.2%</span>
+                    <span class="market">57.0%</span>
+                    <span class="edge edge-negative">-4.8%</span>
+                </div>
+                <div class="agents-line"><span class="agents-label">Agents</span> 4/4 pick TEX &middot; consensus 57.5% TEX &middot; model alone 50.4% TEX</div>
+                <div class="consensus-take"><span class="consensus-take-label">Consensus take</span> All four active agents unanimously backed TEX, pushing the blended probability up to 52.2% from the model&#x27;s near-even 50.4%. The consensus emphasized TEX&#x27;s clear Elo edge (1496 vs 1447) and better recent form (60% last-10) against a LAA team mired in a 3-game losing streak.</div>
+                <div class="agent-ops"><details class="agent-op"><summary>Pitching Guru &mdash; TEX 56% (low)</summary><div class="op-reason">Pitching wash; TEX has a clear Elo edge (1496 vs 1447) and better recent form (60% last 10) while LAA is cold with a -3 streak, supporting the Elo-implied 60.3% home win probability.</div></details><details class="agent-op"><summary>Momentum Trader &mdash; TEX 61% (medium)</summary><div class="op-reason">TEX leads in last-10 (60% vs 40%), last-30 (53.3% vs 43.3%), and Elo with a widening gap (1494 vs 1432 recent), giving multi-signal corroboration despite LAA&#x27;s superior raw run differential.</div></details><details class="agent-op"><summary>Sabermetrics Purist &mdash; abstained</summary><div class="op-reason">No conviction either way on this game.</div></details><details class="agent-op"><summary>Contrarian &mdash; abstained</summary><div class="op-reason">No conviction either way on this game.</div></details><details class="agent-op"><summary>Matchup Specialist &mdash; TEX 56% (medium)</summary><div class="op-reason">With matchup inputs flat, TEX&#x27;s clear recent-form edge (53.3% vs 43.3% last-30) and much stronger Elo (1495.8 vs 1446.9, 60.3% implied) support the home side over a slumping LAA team on a 3-game losing streak.</div></details><details class="agent-op"><summary>Situational Analyst &mdash; TEX 57% (medium)</summary><div class="op-reason">TEX has a much stronger Elo (1495.8 vs 1446.9) and better last-30 form (53.3% vs 43.3%) while LAA is on a -3 losing streak.</div></details></div>
+                <div class="kelly-line"><span class="kelly-label">Kelly (MODERATE)</span> <span class="kelly-value">LAA 1.1% of bankroll ($53)</span></div>
+                <div class="confidence-bar-container">
+                    <div class="confidence-bar" style="width: 0%"></div>
                 </div>
             </div>
         </div>
@@ -1205,132 +1225,73 @@
                 
                 
                 
+                
                 <div class="confidence-bar-container">
                     <div class="confidence-bar" style="width: 30%"></div>
                 </div>
             </div>
         </div>
         
-        <div class="game-card" data-status="upcoming" data-gametime="2026-07-06T23:45:00Z">
+        <div class="game-card" data-status="upcoming" data-gametime="2026-07-07T22:40:00Z">
             <div class="game-header">
                 <div class="game-header-left">
-                    <span class="matchup">Milwaukee Brewers <span class="at">@</span> St. Louis Cardinals</span>
-                    <span class="game-time">Mon Jul 06, 7:45 PM ET</span>
+                    <span class="matchup">New York Yankees <span class="at">@</span> Tampa Bay Rays</span>
+                    <span class="game-time">Tue Jul 07, 6:40 PM ET</span>
                 </div>
                 <span class="signal signal-moderate">&#9679; MODERATE</span>
             </div>
             
             <div class="game-body">
                 <div class="team-row">
-                    <span class="team-name">MIL</span>
-                    <span class="prob">48.1%</span>
-                    <span class="market">51.5%</span>
-                    <span class="edge edge-negative">-3.4%</span>
+                    <span class="team-name">NYY</span>
+                    <span class="prob">43.1%</span>
+                    <span class="market">47.5%</span>
+                    <span class="edge edge-negative">-4.5%</span>
                 </div>
                 <div class="team-row">
-                    <span class="team-name">STL</span>
-                    <span class="prob">51.9%</span>
-                    <span class="market">48.5%</span>
-                    <span class="edge edge-positive">+3.4%</span>
+                    <span class="team-name">TB</span>
+                    <span class="prob">56.9%</span>
+                    <span class="market">52.4%</span>
+                    <span class="edge edge-positive">+4.5%</span>
                 </div>
-                
-                
-                <div class="kelly-line"><span class="kelly-label">Kelly (MODERATE)</span> <span class="kelly-value">STL 1.7% of bankroll ($83)</span></div>
+                <div class="agents-line"><span class="agents-label">Agents</span> 4/5 pick TB &middot; consensus 54.2% TB &middot; model alone 57.9% TB</div>
+                <div class="consensus-take"><span class="consensus-take-label">Consensus take</span> Four of five agents backed TB, aligning with the model&#x27;s 57.9% lean for a 56.9% blend, while momentum_trader dissented toward NYY citing better last-30 offensive form. The majority cited TB&#x27;s superior run prevention and Pythagorean win%, along with home-field advantage in a pitcher-friendly park.</div>
+                <div class="agent-ops"><details class="agent-op"><summary>Pitching Guru &mdash; TB 56% (low)</summary><div class="op-reason">Starters are indistinguishable, so I lean on the model baseline (TB 57.9%) and TB&#x27;s Elo edge (1539 vs 1512), tempered slightly since NYY has the better 30-day scoring/run prevention trend.</div></details><details class="agent-op"><summary>Momentum Trader &mdash; NYY 58% (low)</summary><div class="op-reason">NYY&#x27;s better last-30 win% (60% vs 46.7%), stronger recent scoring form (5.30 RS/4.17 RA vs 4.30/4.70), and slightly higher Elo (1539 vs 1512) outweigh TB&#x27;s shorter last-10 hot stretch.</div></details><details class="agent-op"><summary>Sabermetrics Purist &mdash; abstained</summary><div class="op-reason">No conviction either way on this game.</div></details><details class="agent-op"><summary>Contrarian &mdash; TB 58% (medium)</summary><div class="op-reason">TB&#x27;s much better run prevention (3.76 runs allowed/gm season vs NYY 4.29) and Pythagorean win% (62.6% vs 52.6%) support the market&#x27;s lean toward TB (57.9%), even though NYY&#x27;s wRC+ is higher; capping confidence since this is a moderate favorite, not a runaway one.</div></details><details class="agent-op"><summary>Matchup Specialist &mdash; TB 57% (medium)</summary><div class="op-reason">No differentiating matchup/platoon data, so the sizable model baseline gap (TB 57.9%) driven by TB&#x27;s better recent run prevention (4.17 RA/gm) is the best signal available.</div></details><details class="agent-op"><summary>Situational Analyst &mdash; TB 58% (medium)</summary><div class="op-reason">TB is home in a pitcher-friendly park (0.93 run factor) with a stronger last-30 record and baseline strongly favors TB (57.9%).</div></details></div>
+                <div class="kelly-line"><span class="kelly-label">Kelly (MODERATE)</span> <span class="kelly-value">TB 2.4% of bankroll ($118)</span></div>
                 <div class="confidence-bar-container">
-                    <div class="confidence-bar" style="width: 3%"></div>
+                    <div class="confidence-bar" style="width: 15%"></div>
                 </div>
             </div>
         </div>
         
-        <div class="game-card" data-status="upcoming" data-gametime="2026-07-07T23:45:00Z">
+        <div class="game-card" data-status="upcoming" data-gametime="2026-07-06T18:10:00Z">
             <div class="game-header">
                 <div class="game-header-left">
-                    <span class="matchup">Milwaukee Brewers <span class="at">@</span> St. Louis Cardinals</span>
-                    <span class="game-time">Tue Jul 07, 7:45 PM ET</span>
+                    <span class="matchup">Philadelphia Phillies <span class="at">@</span> Kansas City Royals</span>
+                    <span class="game-time">Mon Jul 06, 2:10 PM ET</span>
                 </div>
                 <span class="signal signal-moderate">&#9679; MODERATE</span>
             </div>
             
             <div class="game-body">
                 <div class="team-row">
-                    <span class="team-name">MIL</span>
-                    <span class="prob">48.1%</span>
-                    <span class="market">51.5%</span>
-                    <span class="edge edge-negative">-3.4%</span>
+                    <span class="team-name">PHI</span>
+                    <span class="prob">56.1%</span>
+                    <span class="market">60.5%</span>
+                    <span class="edge edge-negative">-4.4%</span>
                 </div>
                 <div class="team-row">
-                    <span class="team-name">STL</span>
-                    <span class="prob">51.9%</span>
-                    <span class="market">48.5%</span>
-                    <span class="edge edge-positive">+3.4%</span>
+                    <span class="team-name">KC</span>
+                    <span class="prob">43.9%</span>
+                    <span class="market">39.5%</span>
+                    <span class="edge edge-positive">+4.4%</span>
                 </div>
-                
-                
-                <div class="kelly-line"><span class="kelly-label">Kelly (MODERATE)</span> <span class="kelly-value">STL 1.7% of bankroll ($83)</span></div>
+                <div class="agents-line"><span class="agents-label">Agents</span> 4/4 pick PHI &middot; consensus 41.0% KC &middot; model alone 44.9% KC</div>
+                <div class="consensus-take"><span class="consensus-take-label">Consensus take</span> Despite the model favoring KC at 44.9% (i.e., PHI as underdog getting value), all four active agents unanimously picked PHI, pulling the blend down to 43.9% for KC. Agents emphasized PHI&#x27;s scorching form (70% last-10, rising Elo to 1556) against KC&#x27;s 5-game losing streak and weak run prevention, calling pitching a wash and momentum/quality signals a strong lean to PHI.</div>
+                <div class="agent-ops"><details class="agent-op"><summary>Pitching Guru &mdash; PHI 58% (medium)</summary><div class="op-reason">Identical starter profiles push this to form: PHI is scorching at 70% last-10/66.7% last-30 with a +1 streak and better recent Elo (1556.5), while KC is reeling at -5 streak and 40% last-10.</div></details><details class="agent-op"><summary>Momentum Trader &mdash; PHI 65% (medium)</summary><div class="op-reason">KC is mired in a 5-game losing streak with falling Elo (1475.6→1465.4) and poor run prevention (6.03 allowed), while PHI&#x27;s last-30 win% (66.7%) and rising Elo (1543.2→1556.5) corroborate strong momentum.</div></details><details class="agent-op"><summary>Sabermetrics Purist &mdash; abstained</summary><div class="op-reason">No conviction either way on this game.</div></details><details class="agent-op"><summary>Contrarian &mdash; abstained</summary><div class="op-reason">No conviction either way on this game.</div></details><details class="agent-op"><summary>Matchup Specialist &mdash; PHI 55% (low)</summary><div class="op-reason">Matchup data is uniform, but PHI&#x27;s 70% L10 win rate and superior recent Elo (1556) versus KC&#x27;s 5-game skid support a mild edge.</div></details><details class="agent-op"><summary>Situational Analyst &mdash; PHI 58% (medium)</summary><div class="op-reason">PHI&#x27;s quality edge is broad-based (30-day win% 66.7% vs KC&#x27;s 40%, recent Elo 1556 vs 1465, and KC allowing 6.03 runs/gm), not just a hot streak, supporting the road favorite despite no home/road split data.</div></details></div>
+                <div class="kelly-line"><span class="kelly-label">Kelly (MODERATE)</span> <span class="kelly-value">KC 0.9% of bankroll ($46)</span></div>
                 <div class="confidence-bar-container">
-                    <div class="confidence-bar" style="width: 3%"></div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="game-card" data-status="upcoming" data-gametime="2026-07-07T18:15:00Z">
-            <div class="game-header">
-                <div class="game-header-left">
-                    <span class="matchup">Milwaukee Brewers <span class="at">@</span> St. Louis Cardinals</span>
-                    <span class="game-time">Tue Jul 07, 2:15 PM ET</span>
-                </div>
-                <span class="signal signal-moderate">&#9679; MODERATE</span>
-            </div>
-            
-            <div class="game-body">
-                <div class="team-row">
-                    <span class="team-name">MIL</span>
-                    <span class="prob">48.1%</span>
-                    <span class="market">51.5%</span>
-                    <span class="edge edge-negative">-3.4%</span>
-                </div>
-                <div class="team-row">
-                    <span class="team-name">STL</span>
-                    <span class="prob">51.9%</span>
-                    <span class="market">48.5%</span>
-                    <span class="edge edge-positive">+3.4%</span>
-                </div>
-                
-                
-                <div class="kelly-line"><span class="kelly-label">Kelly (MODERATE)</span> <span class="kelly-value">STL 1.7% of bankroll ($83)</span></div>
-                <div class="confidence-bar-container">
-                    <div class="confidence-bar" style="width: 3%"></div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="game-card" data-status="upcoming" data-gametime="2026-07-07T23:40:00Z">
-            <div class="game-header">
-                <div class="game-header-left">
-                    <span class="matchup">Boston Red Sox <span class="at">@</span> Chicago White Sox</span>
-                    <span class="game-time">Tue Jul 07, 7:40 PM ET</span>
-                </div>
-                <span class="signal signal-moderate">&#9679; MODERATE</span>
-            </div>
-            
-            <div class="game-body">
-                <div class="team-row">
-                    <span class="team-name">BOS</span>
-                    <span class="prob">54.3%</span>
-                    <span class="market">51.2%</span>
-                    <span class="edge edge-positive">+3.1%</span>
-                </div>
-                <div class="team-row">
-                    <span class="team-name">CWS</span>
-                    <span class="prob">45.7%</span>
-                    <span class="market">48.8%</span>
-                    <span class="edge edge-negative">-3.1%</span>
-                </div>
-                
-                
-                <div class="kelly-line"><span class="kelly-label">Kelly (MODERATE)</span> <span class="kelly-value">BOS 1.6% of bankroll ($80)</span></div>
-                <div class="confidence-bar-container">
-                    <div class="confidence-bar" style="width: 8%"></div>
+                    <div class="confidence-bar" style="width: 10%"></div>
                 </div>
             </div>
         </div>
@@ -1341,25 +1302,26 @@
                     <span class="matchup">Seattle Mariners <span class="at">@</span> Miami Marlins</span>
                     <span class="game-time">Tue Jul 07, 6:40 PM ET</span>
                 </div>
-                <span class="signal signal-pass">&#8212; PASS</span>
+                <span class="signal signal-moderate">&#9679; MODERATE</span>
             </div>
             
             <div class="game-body">
                 <div class="team-row">
                     <span class="team-name">SEA</span>
-                    <span class="prob">47.9%</span>
+                    <span class="prob">47.1%</span>
                     <span class="market">50.5%</span>
-                    <span class="edge ">-2.6%</span>
+                    <span class="edge edge-negative">-3.4%</span>
                 </div>
                 <div class="team-row">
                     <span class="team-name">MIA</span>
-                    <span class="prob">52.1%</span>
+                    <span class="prob">52.9%</span>
                     <span class="market">49.5%</span>
-                    <span class="edge ">+2.6%</span>
+                    <span class="edge edge-positive">+3.4%</span>
                 </div>
-                
-                
-                
+                <div class="agents-line"><span class="agents-label">Agents</span> 4/4 pick MIA &middot; consensus 55.5% MIA &middot; model alone 52.1% MIA</div>
+                <div class="consensus-take"><span class="consensus-take-label">Consensus take</span> All four agents sided with MIA, slightly exceeding the model&#x27;s 52.1% baseline to produce a 52.9% blend. Agents cited MIA&#x27;s hot recent form (80% last-10) and modestly better Elo (1528 vs 1519), though most flagged the edge as thin, keeping confidence low.</div>
+                <div class="agent-ops"><details class="agent-op"><summary>Pitching Guru &mdash; MIA 55% (low)</summary><div class="op-reason">Pitching is even; MIA&#x27;s strong recent form (80% last-10, +2 streak) and superior recent Elo (1528.3 vs 1519.1) give it a modest edge over SEA.</div></details><details class="agent-op"><summary>Momentum Trader &mdash; MIA 62% (medium)</summary><div class="op-reason">MIA&#x27;s last-10 win% (80%) is corroborated by a strongly rising Elo (1508→1528.3) and a positive run differential, giving multi-signal support over SEA&#x27;s flatter profile.</div></details><details class="agent-op"><summary>Sabermetrics Purist &mdash; abstained</summary><div class="op-reason">No conviction either way on this game.</div></details><details class="agent-op"><summary>Contrarian &mdash; abstained</summary><div class="op-reason">No conviction either way on this game.</div></details><details class="agent-op"><summary>Matchup Specialist &mdash; MIA 52% (low)</summary><div class="op-reason">No matchup differentiation; MIA&#x27;s stronger recent form (80% L10, +2 streak) gives a slight edge over SEA.</div></details><details class="agent-op"><summary>Situational Analyst &mdash; MIA 53% (low)</summary><div class="op-reason">MIA is home with a strong recent run (80% last 10) and slightly better recent Elo (1528 vs 1519), but the gap is thin so confidence stays low.</div></details></div>
+                <div class="kelly-line"><span class="kelly-label">Kelly (MODERATE)</span> <span class="kelly-value">MIA 1.7% of bankroll ($85)</span></div>
                 <div class="confidence-bar-container">
                     <div class="confidence-bar" style="width: 4%"></div>
                 </div>
@@ -1372,27 +1334,60 @@
                     <span class="matchup">Atlanta Braves <span class="at">@</span> Pittsburgh Pirates</span>
                     <span class="game-time">Tue Jul 07, 6:40 PM ET</span>
                 </div>
-                <span class="signal signal-pass">&#8212; PASS</span>
+                <span class="signal signal-moderate">&#9679; MODERATE</span>
             </div>
             
             <div class="game-body">
                 <div class="team-row">
                     <span class="team-name">ATL</span>
                     <span class="prob">49.3%</span>
-                    <span class="market">47.0%</span>
-                    <span class="edge ">+2.3%</span>
+                    <span class="market">46.0%</span>
+                    <span class="edge edge-positive">+3.3%</span>
                 </div>
                 <div class="team-row">
                     <span class="team-name">PIT</span>
                     <span class="prob">50.7%</span>
-                    <span class="market">53.0%</span>
-                    <span class="edge ">-2.3%</span>
+                    <span class="market">54.0%</span>
+                    <span class="edge edge-negative">-3.3%</span>
                 </div>
                 
                 
-                
+                <div class="agent-ops"><details class="agent-op"><summary>Pitching Guru &mdash; ATL 53% (low)</summary><div class="op-reason">Pitching is a wash and the baseline is essentially even (50.7/49.3); ATL&#x27;s notably higher recent Elo (1533.0 vs 1494.5) provides a slight tiebreaker edge.</div></details><details class="agent-op"><summary>Momentum Trader &mdash; ATL 56% (low)</summary><div class="op-reason">Streaks are short for both teams, but ATL holds a higher and similarly rising Elo (1526.3→1533.0 vs 1489.1→1494.5), giving a mild edge.</div></details><details class="agent-op"><summary>Sabermetrics Purist &mdash; abstained</summary><div class="op-reason">No conviction either way on this game.</div></details><details class="agent-op"><summary>Contrarian &mdash; abstained</summary><div class="op-reason">No conviction either way on this game.</div></details><details class="agent-op"><summary>Matchup Specialist &mdash; abstained</summary><div class="op-reason">No conviction either way on this game.</div></details><details class="agent-op"><summary>Situational Analyst &mdash; abstained</summary><div class="op-reason">No conviction either way on this game.</div></details></div>
+                <div class="kelly-line"><span class="kelly-label">Kelly (MODERATE)</span> <span class="kelly-value">ATL 1.5% of bankroll ($77)</span></div>
                 <div class="confidence-bar-container">
                     <div class="confidence-bar" style="width: 1%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="game-card" data-status="upcoming" data-gametime="2026-07-06T23:45:00Z">
+            <div class="game-header">
+                <div class="game-header-left">
+                    <span class="matchup">Milwaukee Brewers <span class="at">@</span> St. Louis Cardinals</span>
+                    <span class="game-time">Mon Jul 06, 7:45 PM ET</span>
+                </div>
+                <span class="signal signal-pass">&#8212; PASS</span>
+            </div>
+            
+            <div class="game-body">
+                <div class="team-row">
+                    <span class="team-name">MIL</span>
+                    <span class="prob">49.1%</span>
+                    <span class="market">51.5%</span>
+                    <span class="edge ">-2.4%</span>
+                </div>
+                <div class="team-row">
+                    <span class="team-name">STL</span>
+                    <span class="prob">50.9%</span>
+                    <span class="market">48.5%</span>
+                    <span class="edge ">+2.4%</span>
+                </div>
+                <div class="agents-line"><span class="agents-label">Agents</span> 2/4 pick STL &middot; consensus 48.0% STL &middot; model alone 51.9% STL</div>
+                <div class="consensus-take"><span class="consensus-take-label">Consensus take</span> Agents split 2-2, with pitching_guru and momentum_trader favoring MIL on the strength of its much higher recent Elo (1578 vs 1510) and better run differential, while matchup_specialist and situational_analyst leaned STL on home-field defaults given no clear matchup edge. The blended pick sided with STL (50.9%) but confidence was low across the board given the near coin-flip signals.</div>
+                <div class="agent-ops"><details class="agent-op"><summary>Pitching Guru &mdash; MIL 54% (low)</summary><div class="op-reason">Pitching wash; MIL&#x27;s recent form (60% last-10, 63.3% last-30) and notably stronger recent Elo (1578.3 vs 1509.8) outweigh STL&#x27;s marginal home-field baseline edge.</div></details><details class="agent-op"><summary>Momentum Trader &mdash; MIL 58% (medium)</summary><div class="op-reason">MIL&#x27;s last-30 win% (63.3%) and Elo (1560.5, rising to 1578.3) plus a better run differential (5.60/4.03) outweigh a meaningless -1 streak, giving edge over STL&#x27;s more modest recent form.</div></details><details class="agent-op"><summary>Sabermetrics Purist &mdash; abstained</summary><div class="op-reason">No conviction either way on this game.</div></details><details class="agent-op"><summary>Contrarian &mdash; abstained</summary><div class="op-reason">No conviction either way on this game.</div></details><details class="agent-op"><summary>Matchup Specialist &mdash; STL 52% (low)</summary><div class="op-reason">No lineup/platoon edge present; slight baseline lean to STL despite MIL&#x27;s better recent Elo, reflecting near coin-flip conditions.</div></details><details class="agent-op"><summary>Situational Analyst &mdash; STL 52% (low)</summary><div class="op-reason">Signals are mixed: MIL has better recent Elo and run differential, but STL is home with no split data to override, so we lean slightly to the home team per baseline (51.9%).</div></details></div>
+                
+                <div class="confidence-bar-container">
+                    <div class="confidence-bar" style="width: 3%"></div>
                 </div>
             </div>
         </div>
@@ -1410,20 +1405,53 @@
                 <div class="team-row">
                     <span class="team-name">CHC</span>
                     <span class="prob">49.3%</span>
-                    <span class="market">51.6%</span>
-                    <span class="edge ">-2.3%</span>
+                    <span class="market">50.9%</span>
+                    <span class="edge ">-1.6%</span>
                 </div>
                 <div class="team-row">
                     <span class="team-name">BAL</span>
                     <span class="prob">50.7%</span>
-                    <span class="market">48.4%</span>
-                    <span class="edge ">+2.3%</span>
+                    <span class="market">49.0%</span>
+                    <span class="edge ">+1.6%</span>
                 </div>
                 
                 
+                <div class="agent-ops"><details class="agent-op"><summary>Pitching Guru &mdash; BAL 52% (low)</summary><div class="op-reason">Pitching is a total wash and recent form is split (both 60% last 10), so I only slightly favor BAL given their better 30-day record (53.3%) and +3 streak, matching the marginal baseline edge.</div></details><details class="agent-op"><summary>Momentum Trader &mdash; BAL 64% (medium)</summary><div class="op-reason">BAL&#x27;s +3 streak, better last-30 (53.3% vs 50%), and much stronger run differential (+1.10 vs -0.17) corroborate each other and outweigh CHC&#x27;s slight Elo edge and matching last-10.</div></details><details class="agent-op"><summary>Sabermetrics Purist &mdash; abstained</summary><div class="op-reason">No conviction either way on this game.</div></details><details class="agent-op"><summary>Contrarian &mdash; abstained</summary><div class="op-reason">No conviction either way on this game.</div></details><details class="agent-op"><summary>Matchup Specialist &mdash; BAL 53% (low)</summary><div class="op-reason">Matchup data is generic, but BAL&#x27;s active +3 win streak and superior run prevention (4.00 RA/gm vs 5.10) give a slight edge matching the near-even baseline (50.7%).</div></details><details class="agent-op"><summary>Situational Analyst &mdash; abstained</summary><div class="op-reason">No conviction either way on this game.</div></details></div>
                 
                 <div class="confidence-bar-container">
                     <div class="confidence-bar" style="width: 1%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="game-card" data-status="upcoming" data-gametime="2026-07-07T23:40:00Z">
+            <div class="game-header">
+                <div class="game-header-left">
+                    <span class="matchup">Boston Red Sox <span class="at">@</span> Chicago White Sox</span>
+                    <span class="game-time">Tue Jul 07, 7:40 PM ET</span>
+                </div>
+                <span class="signal signal-pass">&#8212; PASS</span>
+            </div>
+            
+            <div class="game-body">
+                <div class="team-row">
+                    <span class="team-name">BOS</span>
+                    <span class="prob">53.4%</span>
+                    <span class="market">52.0%</span>
+                    <span class="edge ">+1.4%</span>
+                </div>
+                <div class="team-row">
+                    <span class="team-name">CWS</span>
+                    <span class="prob">46.6%</span>
+                    <span class="market">47.9%</span>
+                    <span class="edge ">-1.4%</span>
+                </div>
+                <div class="agents-line"><span class="agents-label">Agents</span> 3/5 pick BOS &middot; consensus 49.2% CWS &middot; model alone 45.7% CWS</div>
+                <div class="consensus-take"><span class="consensus-take-label">Consensus take</span> Agents split 2-3, with contrarian and momentum_trader favoring CWS based on season win% and narrowing Elo gap, while pitching_guru, matchup_specialist, and situational_analyst leaned BOS on its hot streak (+3) and higher Elo. The blend ultimately favored BOS lean-adjusted down to 46.6% for CWS, reflecting the closely divided and low-confidence nature of the pick.</div>
+                <div class="agent-ops"><details class="agent-op"><summary>Pitching Guru &mdash; BOS 56% (low)</summary><div class="op-reason">Pitching wash; BOS is hot (60% last 10, +3 streak) with a higher Elo (1504 vs 1467) than CWS, matching the baseline lean toward BOS.</div></details><details class="agent-op"><summary>Momentum Trader &mdash; CWS 56% (low)</summary><div class="op-reason">BOS&#x27;s hot last-10/streak isn&#x27;t corroborated by Elo (CWS&#x27;s recent Elo is rising sharply, narrowing the gap) or run differential (CWS +1.10 vs BOS +0.63), so per home-field-respect rule we lean toward the home team at modest confidence.</div></details><details class="agent-op"><summary>Sabermetrics Purist &mdash; abstained</summary><div class="op-reason">No conviction either way on this game.</div></details><details class="agent-op"><summary>Contrarian &mdash; CWS 55% (low)</summary><div class="op-reason">BOS is favored at 54.3% largely on recent form (streak +3) and wRC+, but CWS has the notably better season win% (51.8% vs 43.2%) and a similar Pythagorean win%, suggesting the market is overweighting BOS&#x27;s short-term hot streak.</div></details><details class="agent-op"><summary>Matchup Specialist &mdash; BOS 54% (medium)</summary><div class="op-reason">BOS carries a hot recent streak (+3, 60% last-10) and higher recent Elo (1504 vs 1489), consistent with the baseline favoring BOS (54.3%) despite flat matchup indicators.</div></details><details class="agent-op"><summary>Situational Analyst &mdash; BOS 55% (low)</summary><div class="op-reason">BOS&#x27;s larger-sample Elo edge and baseline (54.3%) outweigh CWS&#x27;s home last-30 form, though the signals are mixed enough to keep confidence modest.</div></details></div>
+                
+                <div class="confidence-bar-container">
+                    <div class="confidence-bar" style="width: 8%"></div>
                 </div>
             </div>
         </div>
@@ -1452,9 +1480,74 @@
                 </div>
                 
                 
+                <div class="agent-ops"><details class="agent-op"><summary>Pitching Guru &mdash; SF 52% (low)</summary><div class="op-reason">Starters are a wash and the baseline is essentially a coin flip (50.8/49.2); SF&#x27;s slight home Elo edge is the only tiebreaker, so I&#x27;m not going beyond a low-confidence lean.</div></details><details class="agent-op"><summary>Momentum Trader &mdash; TOR 55% (low)</summary><div class="op-reason">Streaks are short/noisy for both, but TOR&#x27;s Elo is higher and declining less steeply than SF&#x27;s, and last-30 win% (50% vs 40%) gives a marginal edge.</div></details><details class="agent-op"><summary>Sabermetrics Purist &mdash; abstained</summary><div class="op-reason">No conviction either way on this game.</div></details><details class="agent-op"><summary>Contrarian &mdash; abstained</summary><div class="op-reason">No conviction either way on this game.</div></details><details class="agent-op"><summary>Matchup Specialist &mdash; abstained</summary><div class="op-reason">No conviction either way on this game.</div></details><details class="agent-op"><summary>Situational Analyst &mdash; abstained</summary><div class="op-reason">No conviction either way on this game.</div></details></div>
                 
                 <div class="confidence-bar-container">
                     <div class="confidence-bar" style="width: 1%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="game-card" data-status="upcoming" data-gametime="2026-07-07T18:15:00Z">
+            <div class="game-header">
+                <div class="game-header-left">
+                    <span class="matchup">Milwaukee Brewers <span class="at">@</span> St. Louis Cardinals</span>
+                    <span class="game-time">Tue Jul 07, 2:15 PM ET</span>
+                </div>
+                <span class="signal signal-pass">&#8212; PASS</span>
+            </div>
+            
+            <div class="game-body">
+                <div class="team-row">
+                    <span class="team-name">MIL</span>
+                    <span class="prob">50.5%</span>
+                    <span class="market">51.5%</span>
+                    <span class="edge ">-1.0%</span>
+                </div>
+                <div class="team-row">
+                    <span class="team-name">STL</span>
+                    <span class="prob">49.5%</span>
+                    <span class="market">48.5%</span>
+                    <span class="edge ">+1.0%</span>
+                </div>
+                <div class="agents-line"><span class="agents-label">Agents</span> 5/5 pick MIL &middot; consensus 42.4% STL &middot; model alone 51.9% STL</div>
+                <div class="consensus-take"><span class="consensus-take-label">Consensus take</span> All five agents unanimously picked MIL over the model&#x27;s own STL lean, dragging the blended STL probability down to 49.5% from 51.9%. Agents—including contrarian—argued MIL&#x27;s fundamentals (higher wRC+, season win%, and recent Elo of 1578 vs 1510) clearly outweigh STL&#x27;s marginal home-field edge, calling the model&#x27;s STL favoritism a mispricing.</div>
+                <div class="agent-ops"><details class="agent-op"><summary>Pitching Guru &mdash; MIL 57% (low)</summary><div class="op-reason">Pitching is an exact wash, so recent form decides — MIL is hot (60% last 10, 63.3% last 30) with a much higher recent Elo (1578 vs 1510) than STL, overriding the small model baseline edge for STL.</div></details><details class="agent-op"><summary>Momentum Trader &mdash; MIL 63% (medium)</summary><div class="op-reason">MIL&#x27;s last-10 (60% vs 50%), last-30 (63.3% vs 53.3%), Elo trajectory (1578 recent vs 1509 recent), and run differential (+1.57 vs +0.77) all corroborate a momentum edge despite STL&#x27;s short +3 streak.</div></details><details class="agent-op"><summary>Sabermetrics Purist &mdash; abstained</summary><div class="op-reason">No conviction either way on this game.</div></details><details class="agent-op"><summary>Contrarian &mdash; MIL 57% (medium)</summary><div class="op-reason">MIL&#x27;s fundamentals (wRC+ 115 vs 101, season win% 62.2% vs 54.9%, Pythag 65.3% vs 52.4%, recent Elo 1578 vs 1510) dwarf STL&#x27;s, yet the baseline only gives STL a slim 51.9% edge - the market is underpricing the clearly superior road team.</div></details><details class="agent-op"><summary>Matchup Specialist &mdash; MIL 54% (low)</summary><div class="op-reason">Matchup data is identical for both sides, but MIL&#x27;s recent form (60% last-10, 63.3% last-30) and notably higher recent Elo (1578 vs 1510) outweigh STL&#x27;s marginal baseline edge.</div></details><details class="agent-op"><summary>Situational Analyst &mdash; MIL 57% (medium)</summary><div class="op-reason">MIL has a clear Elo edge (1560 vs 1506) and stronger last-30 form (63.3% vs 53.3%) with no home/road split data to protect STL&#x27;s home field.</div></details></div>
+                
+                <div class="confidence-bar-container">
+                    <div class="confidence-bar" style="width: 3%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="game-card" data-status="upcoming" data-gametime="2026-07-07T23:45:00Z">
+            <div class="game-header">
+                <div class="game-header-left">
+                    <span class="matchup">Milwaukee Brewers <span class="at">@</span> St. Louis Cardinals</span>
+                    <span class="game-time">Tue Jul 07, 7:45 PM ET</span>
+                </div>
+                <span class="signal signal-pass">&#8212; PASS</span>
+            </div>
+            
+            <div class="game-body">
+                <div class="team-row">
+                    <span class="team-name">MIL</span>
+                    <span class="prob">50.5%</span>
+                    <span class="market">51.5%</span>
+                    <span class="edge ">-1.0%</span>
+                </div>
+                <div class="team-row">
+                    <span class="team-name">STL</span>
+                    <span class="prob">49.5%</span>
+                    <span class="market">48.5%</span>
+                    <span class="edge ">+1.0%</span>
+                </div>
+                <div class="agents-line"><span class="agents-label">Agents</span> 5/5 pick MIL &middot; consensus 42.4% STL &middot; model alone 51.9% STL</div>
+                <div class="consensus-take"><span class="consensus-take-label">Consensus take</span> As a duplicate of the companion MIL-STL matchup, all five agents again unanimously backed MIL, pulling the blended STL probability down to 49.5%. The same reasoning applied: MIL&#x27;s superior recent Elo, run differential, and quality metrics were seen as underpriced by the model&#x27;s slight STL favoritism.</div>
+                <div class="agent-ops"><details class="agent-op"><summary>Pitching Guru &mdash; MIL 57% (low)</summary><div class="op-reason">Same identical pitching wash as the companion game; MIL&#x27;s superior recent form (63.3% last 30, +higher recent Elo) outweighs STL&#x27;s marginal baseline edge.</div></details><details class="agent-op"><summary>Momentum Trader &mdash; MIL 63% (medium)</summary><div class="op-reason">Same matchup as above: MIL&#x27;s superior last-10/30 win rates, rising Elo, and better run differential trend all align, satisfying multi-signal corroboration for a moderate-confidence pick.</div></details><details class="agent-op"><summary>Sabermetrics Purist &mdash; abstained</summary><div class="op-reason">No conviction either way on this game.</div></details><details class="agent-op"><summary>Contrarian &mdash; MIL 57% (medium)</summary><div class="op-reason">Same matchup as the earlier MIL@STL game - MIL&#x27;s quality metrics (wRC+, Pythag, recent Elo) are substantially better than STL&#x27;s despite the baseline nearly favoring the home team, a mispricing worth fading.</div></details><details class="agent-op"><summary>Matchup Specialist &mdash; MIL 54% (low)</summary><div class="op-reason">Duplicate matchup with identical inputs; MIL&#x27;s stronger recent form and Elo trend again tip the edge over STL&#x27;s slim model baseline.</div></details><details class="agent-op"><summary>Situational Analyst &mdash; MIL 57% (medium)</summary><div class="op-reason">Same matchup context: MIL&#x27;s larger-sample Elo and run-differential edge outweighs STL&#x27;s home field given no established venue split.</div></details></div>
+                
+                <div class="confidence-bar-container">
+                    <div class="confidence-bar" style="width: 3%"></div>
                 </div>
             </div>
         </div>
@@ -1471,18 +1564,19 @@
             <div class="game-body">
                 <div class="team-row">
                     <span class="team-name">TOR</span>
-                    <span class="prob">49.2%</span>
+                    <span class="prob">49.6%</span>
                     <span class="market">50.5%</span>
-                    <span class="edge ">-1.3%</span>
+                    <span class="edge ">-0.9%</span>
                 </div>
                 <div class="team-row">
                     <span class="team-name">SF</span>
-                    <span class="prob">50.8%</span>
+                    <span class="prob">50.4%</span>
                     <span class="market">49.5%</span>
-                    <span class="edge ">+1.3%</span>
+                    <span class="edge ">+0.9%</span>
                 </div>
-                
-                
+                <div class="agents-line"><span class="agents-label">Agents</span> 2/4 pick SF &middot; consensus 49.2% SF &middot; model alone 50.8% SF</div>
+                <div class="consensus-take"><span class="consensus-take-label">Consensus take</span> Agents split 2-2, with pitching_guru and momentum_trader favoring TOR based on stronger Elo (1506 vs 1474) and better recent form, while matchup_specialist and situational_analyst leaned SF on the model&#x27;s near-even baseline (50.8%) and home-field context. The blend narrowly sided with SF (50.4%), reflecting the essentially coin-flip nature of the matchup.</div>
+                <div class="agent-ops"><details class="agent-op"><summary>Pitching Guru &mdash; TOR 53% (low)</summary><div class="op-reason">Starters are identical on every metric (4.15 xFIP each), a complete wash, so I defer to team quality signals: TOR has a stronger Elo (1506 vs 1474) and better 30-day form (50% vs 40%) than SF.</div></details><details class="agent-op"><summary>Momentum Trader &mdash; TOR 54% (low)</summary><div class="op-reason">Streaks are within noise range (+1/-1), but TOR&#x27;s better last-30 win% (50% vs 40%) and stronger Elo (1506 vs 1474, with a rising recent trajectory) give a mild edge over SF.</div></details><details class="agent-op"><summary>Sabermetrics Purist &mdash; abstained</summary><div class="op-reason">No conviction either way on this game.</div></details><details class="agent-op"><summary>Contrarian &mdash; abstained</summary><div class="op-reason">No conviction either way on this game.</div></details><details class="agent-op"><summary>Matchup Specialist &mdash; SF 52% (low)</summary><div class="op-reason">All matchup indicators are flat/generic, so we lean on the marginal model baseline (SF 50.8%) and home-field context in a game with no real platoon or BvP edge.</div></details><details class="agent-op"><summary>Situational Analyst &mdash; SF 52% (low)</summary><div class="op-reason">Baseline is nearly even (50.8/49.2) with no venue splits and mixed recent form; slight nod to home team SF in a mild pitcher&#x27;s park.</div></details></div>
                 
                 <div class="confidence-bar-container">
                     <div class="confidence-bar" style="width: 1%"></div>
@@ -1512,6 +1606,7 @@
                     <span class="market">—</span>
                     <span class="edge ">—</span>
                 </div>
+                
                 
                 
                 
@@ -1546,6 +1641,7 @@
                 
                 
                 
+                
                 <div class="confidence-bar-container">
                     <div class="confidence-bar" style="width: 11%"></div>
                 </div>
@@ -1574,6 +1670,7 @@
                     <span class="market">—</span>
                     <span class="edge ">—</span>
                 </div>
+                
                 
                 
                 
@@ -1608,6 +1705,7 @@
                 
                 
                 
+                
                 <div class="confidence-bar-container">
                     <div class="confidence-bar" style="width: 17%"></div>
                 </div>
@@ -1636,6 +1734,7 @@
                     <span class="market">—</span>
                     <span class="edge ">—</span>
                 </div>
+                
                 
                 
                 
@@ -1670,6 +1769,7 @@
                 
                 
                 
+                
                 <div class="confidence-bar-container">
                     <div class="confidence-bar" style="width: 1%"></div>
                 </div>
@@ -1698,6 +1798,7 @@
                     <span class="market">—</span>
                     <span class="edge ">—</span>
                 </div>
+                
                 
                 
                 
@@ -1732,6 +1833,7 @@
                 
                 
                 
+                
                 <div class="confidence-bar-container">
                     <div class="confidence-bar" style="width: 8%"></div>
                 </div>
@@ -1760,6 +1862,7 @@
                     <span class="market">—</span>
                     <span class="edge ">—</span>
                 </div>
+                
                 
                 
                 
@@ -1794,6 +1897,7 @@
                 
                 
                 
+                
                 <div class="confidence-bar-container">
                     <div class="confidence-bar" style="width: 33%"></div>
                 </div>
@@ -1822,6 +1926,7 @@
                     <span class="market">—</span>
                     <span class="edge ">—</span>
                 </div>
+                
                 
                 
                 
@@ -1856,6 +1961,7 @@
                 
                 
                 
+                
                 <div class="confidence-bar-container">
                     <div class="confidence-bar" style="width: 35%"></div>
                 </div>
@@ -1887,6 +1993,7 @@
                 
                 
                 
+                
                 <div class="confidence-bar-container">
                     <div class="confidence-bar" style="width: 8%"></div>
                 </div>
@@ -1896,7 +2003,7 @@
 </div>
 
 <div class="footer">
-    MLB Prediction Model v2.0 &mdash; Updated Jul 5, 10:03 PM ET &mdash; commit 9661003<br>
+    MLB Prediction Model v2.0 &mdash; Updated Jul 5, 10:17 PM ET &mdash; commit 8d024a0<br>
     Stacked Ensemble: LR + XGB + LGB + RF + LGB-Recent + LGB-NoWeight + RunDiff + Poisson | Calibrated
 </div>
 
@@ -1912,7 +2019,9 @@
     var btns = [document.getElementById('btn-predict'),
                 document.getElementById('btn-train'),
                 document.getElementById('btn-evolve'),
-                document.getElementById('btn-sync')];
+                document.getElementById('btn-sync'),
+                document.getElementById('btn-agents')];
+    var agentsBtn = document.getElementById('btn-agents');
 
     function getToken(promptIfMissing) {
         var t = localStorage.getItem('mlb_ctl_token');
@@ -2001,6 +2110,42 @@
         if (pollTimer) { clearInterval(pollTimer); pollTimer = null; }
     }
 
+    // Agent blend toggle: the page is static, so live state is fetched
+    // from /api/blend/status (once a token is available) and the button
+    // label updated after every toggle.
+    function renderBlend(st) {
+        if (!agentsBtn) { return; }
+        agentsBtn.innerHTML = '&#129302; Agents: ' + (st.enabled ? 'ON' : 'OFF');
+        agentsBtn.title = 'Agent blend is ' + (st.enabled ? 'ON' : 'OFF') +
+            ' (source: ' + st.source + ') \u2014 tap to toggle';
+    }
+
+    function refreshBlend() {
+        var t = getToken(false);
+        if (!t || !agentsBtn) { return; }
+        api('/blend/status', t).then(renderBlend).catch(function() {
+            agentsBtn.innerHTML = '&#129302; Agents: ?';
+        });
+    }
+
+    window.ctlToggleBlend = function() {
+        var t = getToken(true);
+        if (!t) { return; }
+        api('/blend/status', t).then(function(st) {
+            var msg = st.enabled
+                ? 'Turn the agent blend OFF? Future pipeline runs will use the pure statistical model only (no agent API spend).'
+                : 'Turn the agent blend ON? Future pipeline runs will call the Claude agents and blend their consensus into the predictions.';
+            if (!confirm(msg)) { renderBlend(st); return; }
+            return api('/blend/toggle', t).then(renderBlend);
+        }).catch(function(e) {
+            if (e.message === 'bad-token') {
+                setStatus('error', 'Token rejected \u2014 tap Run to re-enter');
+            } else {
+                setStatus('error', 'Could not reach control server');
+            }
+        });
+    };
+
     window.ctlRun = function(action, confirmMsg) {
         if (confirmMsg && !confirm(confirmMsg)) { return; }
         var t = getToken(true);
@@ -2041,7 +2186,8 @@
     }
 
     // On load: if this device already has a token, show live status
-    if (getToken(false)) { poll(); }
+    // and the current agent-blend state
+    if (getToken(false)) { poll(); refreshBlend(); }
 })();
 </script>
 
