@@ -800,7 +800,7 @@
     <span class="emoji">&#9918;</span>
     <h1>MLB Predictions</h1>
     <div class="date">Wednesday, July 29, 2026</div>
-    <div class="updated">Updated Jul 29, 9:29 PM ET &middot; <span class="commit">bef0dbd</span></div>
+    <div class="updated">Updated Jul 29, 11:09 PM ET &middot; <span class="commit">730c62d</span></div>
 </div>
 
 
@@ -2680,7 +2680,7 @@
 </div>
 
 <div class="footer">
-    MLB Prediction Model v2.0 &mdash; Updated Jul 29, 9:29 PM ET &mdash; commit bef0dbd<br>
+    MLB Prediction Model v2.0 &mdash; Updated Jul 29, 11:09 PM ET &mdash; commit 730c62d<br>
     Stacked Ensemble: LR + XGB + LGB + RF + LGB-Recent + LGB-NoWeight + RunDiff + Poisson | Calibrated
 </div>
 
@@ -2909,8 +2909,8 @@
         modelSel.title = (st.warning ? st.warning + ' \u2014 ' : '') +
             'Live agent model: ' + st.model + ' (' +
             (provs[st.model] || 'anthropic') + ', source: ' + st.source +
-            ') \u2014 applies to live predictions + slate summaries on ' +
-            'future runs';
+            ') \u2014 applies to live predictions, slate summaries ' +
+            'and backtests on future runs (reflection keeps its own tier)';
         if (st.warning) { setStatus('error', st.warning); }
     }
 
