@@ -800,7 +800,7 @@
     <span class="emoji">&#9918;</span>
     <h1>MLB Predictions</h1>
     <div class="date">Monday, August 03, 2026</div>
-    <div class="updated">Updated Aug 7, 8:38 PM ET &middot; <span class="commit">7dc65a9</span></div>
+    <div class="updated">Updated Aug 7, 9:13 PM ET &middot; <span class="commit">f29df3c</span></div>
 </div>
 
 
@@ -2263,7 +2263,7 @@
 </div>
 
 <div class="footer">
-    MLB Prediction Model v2.0 &mdash; Updated Aug 7, 8:38 PM ET &mdash; commit 7dc65a9 &mdash; model trained 2026-08-03<br>
+    MLB Prediction Model v2.0 &mdash; Updated Aug 7, 9:13 PM ET &mdash; commit f29df3c &mdash; model trained 2026-08-03<br>
     Stacked Ensemble: LR + XGB + LGB + RF + LGB-Recent + LGB-NoWeight + RunDiff + Poisson | Calibrated
 </div>
 
@@ -2643,6 +2643,15 @@
             var winner = g.home_score > g.away_score ? (g.home_name || g.home) : (g.away_name || g.away);
             result = '<div class="game-result final">Final: ' + hEsc(g.away) + ' ' + g.away_score +
                      ' \u2014 ' + hEsc(g.home) + ' ' + g.home_score + ' (W: ' + hEsc(winner) + ')</div>';
+            // Verdict segments arrive finished from /api/db/games, which
+            // builds them with prediction.verdict.verdict_segments() —
+            // the same function the baked card and the X result reply
+            // use. Naming which estimator a number belongs to is not
+            // something this renderer gets its own copy of.
+            if (g.verdict && g.verdict.length) {
+                result += '<div class="result-grade">' + hEsc(g.verdict_icon || '') +
+                          ' ' + g.verdict.map(hEsc).join(' \u00b7 ') + '</div>';
+            }
         }
 
         var agentsLine = '';
@@ -2705,6 +2714,13 @@
                         confidence: a.confidence, reasoning: a.reasoning, abstained: false};
             });
         }
+        // Winner abbrev for the postgame marks (null until decided) —
+        // the same ✅/❌ the baked card puts on each opinion.
+        var winAb = null;
+        if (s === 'final' && g.home_score != null && g.away_score != null
+            && g.home_score !== g.away_score) {
+            winAb = g.home_score > g.away_score ? g.home : g.away;
+        }
         var opsHtml = '';
         if (ops && ops.length) {
             opsHtml = '<div class="agent-ops">' + ops.map(function(op) {
@@ -2714,6 +2730,9 @@
                     : hEsc(name) + ' \u2014 ' + hEsc(op.pick || '?') + ' ' +
                       (op.probability != null ? Math.round(100 * op.probability) + '%' : '') +
                       ' (' + hEsc(op.confidence || '') + ')';
+                if (winAb && !op.abstained) {
+                    head += op.pick === winAb ? ' \u2705' : ' \u274c';
+                }
                 var reason = op.abstained ? 'No conviction either way on this game.' : hEsc(op.reasoning || '');
                 return '<details class="agent-op"><summary>' + head + '</summary><div class="op-reason">' + reason + '</div></details>';
             }).join('') + '</div>';
