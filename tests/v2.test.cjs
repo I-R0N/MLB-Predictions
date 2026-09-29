@@ -1,0 +1,8 @@
+const test=require('node:test');const assert=require('node:assert/strict');const {renderCard,esc}=require('../v2/app.js');
+const base={schema_version:'mlb.prediction.v2.1',game_id:'1',start_at:'2026-09-17T23:00:00Z',home:'Home',away:'Away',predicted_side:'away',predicted_side_probability:.61,final_home_probability:.39,collaborative_home_probability:.4,model_home_probability:.38,market_home_probability:.5,edge:.11,status:'experimental',specialists:[],featured_analysts:[],uncertainty:{level:'normal',probability_range:.02,answered_specialists:0,eligible_specialists:6},evidence_quality:{domain_coverage:.5,missing_domains:['bullpen'],excluded:[]},evidence:[],analysis:{headline:'Away is the lean.',evidence:[],risks:['Missing bullpen'],counter_evidence:[],method:'Frozen evidence'}};
+test('one renderer consumes current and historical contracts identically',()=>assert.equal(renderCard(base),renderCard(JSON.parse(JSON.stringify(base)))));
+test('away probability and edge use canonical fields',()=>{const h=renderCard(base);assert.match(h,/61.0%/);assert.match(h,/11.0 pp/);assert.match(h,/Statistical model only/);});
+test('missing states render without inventing numbers',()=>{const h=renderCard({...base,market_home_probability:null,edge:null,final_home_probability:null,predicted_side:null,predicted_side_probability:null});assert.match(h,/No directional forecast/);assert.match(h,/Unavailable/);});
+test('untrusted evidence is escaped',()=>assert.equal(esc('<script>"'), '&lt;script&gt;&quot;'));
+test('cold starts have no featured analyst',()=>assert.doesNotMatch(renderCard(base),/FEATURED ·/));
+test('reject unknown contract',()=>assert.throws(()=>renderCard({...base,schema_version:'old'})));
