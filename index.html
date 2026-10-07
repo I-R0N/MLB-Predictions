@@ -333,6 +333,35 @@
     .agent-panel {
         margin-bottom: 24px;
     }
+    /* The section and each agent are both <details>, nested, and both
+       ship closed. Same marker suppression as the cards — Safari needs
+       the WebKit rule. */
+    .agent-panel-title {
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+        cursor: pointer;
+        list-style: none;
+        user-select: none;
+    }
+    .agent-panel-title::-webkit-details-marker { display: none; }
+    .agent-panel-title::marker { content: ""; }
+    .agent-panel-title::after {
+        content: "BE";
+        color: var(--text-dim);
+        font-size: 11px;
+        transition: transform 0.15s ease;
+    }
+    .agent-panel[open] > .agent-panel-title::after {
+        transform: rotate(180deg);
+    }
+    .agent-panel-count {
+        color: var(--text-dim);
+        font-size: 12px;
+        font-weight: 400;
+        text-transform: none;
+        letter-spacing: 0;
+    }
     .agent-row {
         background: var(--card-bg);
         border: 1px solid var(--border);
@@ -345,6 +374,28 @@
         gap: 8px;
         align-items: baseline;
         font-size: 14px;
+        cursor: pointer;
+        list-style: none;
+        user-select: none;
+    }
+    .agent-head::-webkit-details-marker { display: none; }
+    .agent-head::marker { content: ""; }
+    .agent-head::after {
+        content: "BE";
+        color: var(--text-dim);
+        font-size: 11px;
+        transition: transform 0.15s ease;
+        flex: 0 0 auto;
+    }
+    .agent-row[open] > .agent-head::after { transform: rotate(180deg); }
+    .agent-count {
+        color: var(--text-dim);
+        font-size: 12px;
+    }
+    .agent-acc {
+        margin-left: auto;
+        color: var(--text-dim);
+        font-size: 12px;
     }
     .agent-rank {
         color: var(--text-dim);
@@ -353,15 +404,14 @@
     .agent-name {
         font-weight: 700;
     }
-    .agent-acc {
-        margin-left: auto;
-        color: var(--text-dim);
-        font-size: 12px;
-    }
     .agent-picks {
         color: var(--accent);
         font-size: 13px;
-        margin-top: 4px;
+        margin-top: 6px;
+    }
+    .agent-pick {
+        padding: 2px 0;
+        font-variant-numeric: tabular-nums;
     }
     /* States the anchor once, so the panel's numbers can be compared
        with the cards' instead of looking like they disagree. */
@@ -892,7 +942,7 @@
     <span class="emoji">&#9918;</span>
     <h1>MLB Predictions</h1>
     <div class="date">Wednesday, October 07, 2026</div>
-    <div class="updated">Updated Oct 7, 10:01 AM ET &middot; <span class="commit">e5166ec</span></div>
+    <div class="updated">Updated Oct 7, 4:36 PM ET &middot; <span class="commit">aad7882</span></div>
     <div class="sportnav"><a class="on" href="#">MLB</a><a href="nfl.html">NFL</a></div>
 </div>
 
@@ -977,69 +1027,78 @@
 <div class="accountability"><div class="section-title">&#128202; Accountability</div><div class="acct-blocks"><div class="acct-block"><div class="acct-title">Yesterday&rsquo;s edge picks</div><div class="acct-line">none posted</div><div class="acct-line">Season: 61-67 (48%)</div><div class="acct-line acct-dim">Full slate: Model+Agents 2-0 (100%) &middot; Model alone 2-0 (100%) &middot; Market 1-1 (50%)</div></div><div class="acct-block"><div class="acct-title">Week in review (Sep 28–Oct 4)</div><div class="acct-line acct-dim">Full slate: Model+Agents 4-2 (67%) &middot; Model alone 4-2 (67%) &middot; Market 4-2 (67%)</div><div class="acct-subtitle">Agent Leaderboard</div><div class="acct-line acct-agent">1. Matchup Specialist 5-1</div><div class="acct-line acct-agent">2. Momentum Trader 4-2</div><div class="acct-line acct-agent">3. Pitching Guru 4-2</div></div></div></div>
 
 
-<div class="agent-panel">
-    <div class="section-title">Agent Predictions</div>
-    <div class="agent-panel-note">Each agent&rsquo;s most confident calls.
+<details class="agent-panel">
+    <summary class="section-title agent-panel-title">Agent Predictions
+        <span class="agent-panel-count">6 agents
+        &middot; 18 top picks</span></summary>
+    <div class="agent-panel-note">Each agent&rsquo;s most confident calls,
+    with the game and first pitch for each.
     Percentages are that agent&rsquo;s probability for the <em>home</em>
     team, matching the cards above &mdash; so an agent picking the away
     side while giving the home team the majority is making a deliberate
     value pick.</div>
     
-        <div class="agent-row">
-            <div class="agent-head">
+        <details class="agent-row">
+            <summary class="agent-head">
                 <span class="agent-rank">#1</span>
                 <span class="agent-name">Pitching Guru</span>
+                <span class="agent-count">3 shown</span>
                 <span class="agent-acc">unrated</span>
-            </div>
-            <div class="agent-picks">TB@NYY NYY (56% NYY) | MIL@SD SD (55% SD) | CLE@CWS CWS (55% CWS)</div>
+            </summary>
+            <div class="agent-picks"><div class="agent-pick">TB@NYY NYY (56% NYY)</div><div class="agent-pick">MIL@SD SD (55% SD)</div><div class="agent-pick">CLE@CWS CWS (55% CWS)</div></div>
             
-        </div>
-        <div class="agent-row">
-            <div class="agent-head">
+        </details>
+        <details class="agent-row">
+            <summary class="agent-head">
                 <span class="agent-rank">#2</span>
                 <span class="agent-name">Momentum Trader</span>
+                <span class="agent-count">3 shown</span>
                 <span class="agent-acc">unrated</span>
-            </div>
-            <div class="agent-picks">MIL@SD MIL (48% SD) | LAD@ATL LAD (49% ATL) | CLE@CWS CWS (51% CWS)</div>
-            <div class="agent-reason">&ldquo;The Brewers are on a seven‑game winning streak, satisfying the momentum floor, but their run‑differential advantage is weaker than San Diego's and the run‑scori&rdquo;</div>
-        </div>
-        <div class="agent-row">
-            <div class="agent-head">
+            </summary>
+            <div class="agent-picks"><div class="agent-pick">MIL@SD MIL (48% SD)</div><div class="agent-pick">LAD@ATL LAD (49% ATL)</div><div class="agent-pick">CLE@CWS CWS (51% CWS)</div></div>
+            <div class="agent-reason">&ldquo;The Brewers are on a seven‑game winning streak, satisfying the momentum floor, but their run‑differential advantage is weaker than San Diego&#x27;s and the run‑scori&rdquo;</div>
+        </details>
+        <details class="agent-row">
+            <summary class="agent-head">
                 <span class="agent-rank">#3</span>
                 <span class="agent-name">Sabermetrics Purist</span>
+                <span class="agent-count">3 shown</span>
                 <span class="agent-acc">unrated</span>
-            </div>
-            <div class="agent-picks">LAD@ATL ATL (52% ATL) | MIL@SD SD (52% SD) | CLE@CWS CLE (48% CWS)</div>
+            </summary>
+            <div class="agent-picks"><div class="agent-pick">LAD@ATL ATL (52% ATL)</div><div class="agent-pick">MIL@SD SD (52% SD)</div><div class="agent-pick">CLE@CWS CLE (48% CWS)</div></div>
             <div class="agent-reason">&ldquo;Adding the home‑field bonus of roughly six percent pushes the estimate just above a coin flip, so the pick leans to the home team.&rdquo;</div>
-        </div>
-        <div class="agent-row">
-            <div class="agent-head">
+        </details>
+        <details class="agent-row">
+            <summary class="agent-head">
                 <span class="agent-rank">#4</span>
                 <span class="agent-name">Contrarian</span>
+                <span class="agent-count">3 shown</span>
                 <span class="agent-acc">unrated</span>
-            </div>
-            <div class="agent-picks">LAD@ATL LAD (48% ATL) | MIL@SD SD (52% SD) | CLE@CWS CWS (52% CWS)</div>
-            
-        </div>
-        <div class="agent-row">
-            <div class="agent-head">
+            </summary>
+            <div class="agent-picks"><div class="agent-pick">LAD@ATL LAD (48% ATL)</div><div class="agent-pick">MIL@SD SD (52% SD)</div><div class="agent-pick">CLE@CWS CWS (52% CWS)</div></div>
+            <div class="agent-reason">&ldquo;This is a close matchup with no decisive statistical signal; leaning slightly toward the underdog LAD here.&rdquo;</div>
+        </details>
+        <details class="agent-row">
+            <summary class="agent-head">
                 <span class="agent-rank">#5</span>
                 <span class="agent-name">Matchup Specialist</span>
+                <span class="agent-count">3 shown</span>
                 <span class="agent-acc">unrated</span>
-            </div>
-            <div class="agent-picks">CLE@CWS CLE (45% CWS) | TB@NYY NYY (55% NYY) | CLE@CWS CLE (45% CWS)</div>
-            
-        </div>
-        <div class="agent-row">
-            <div class="agent-head">
+            </summary>
+            <div class="agent-picks"><div class="agent-pick">CLE@CWS CLE (45% CWS)</div><div class="agent-pick">TB@NYY NYY (55% NYY)</div><div class="agent-pick">CLE@CWS CLE (45% CWS)</div></div>
+            <div class="agent-reason">&ldquo;There is no BvP or platoon edge, so the pick relies on the baseline which favors Cleveland by a modest margin. The teams’ recent form is evenly matched, and the&rdquo;</div>
+        </details>
+        <details class="agent-row">
+            <summary class="agent-head">
                 <span class="agent-rank">#6</span>
                 <span class="agent-name">Situational Analyst</span>
+                <span class="agent-count">3 shown</span>
                 <span class="agent-acc">unrated</span>
-            </div>
-            <div class="agent-picks">MIL@SD MIL (45% SD) | CLE@CWS CLE (45% CWS) | TB@NYY NYY (55% NYY)</div>
-            
-        </div>
-</div>
+            </summary>
+            <div class="agent-picks"><div class="agent-pick">MIL@SD MIL (45% SD)</div><div class="agent-pick">CLE@CWS CLE (45% CWS)</div><div class="agent-pick">TB@NYY NYY (55% NYY)</div></div>
+            <div class="agent-reason">&ldquo;Milwaukee’s Elo (1579) and 30‑game scoring edge outweigh San Diego’s pitcher‑friendly park, and there are no travel or rest disadvantages; the advantage comes f&rdquo;</div>
+        </details>
+</details>
 
 
 
@@ -2985,7 +3044,7 @@ BASELINE:
 </div>
 
 <div class="footer">
-    MLB Prediction Model v2.0 &mdash; Updated Oct 7, 10:01 AM ET &mdash; commit e5166ec &mdash; model trained 2026-10-05<br>
+    MLB Prediction Model v2.0 &mdash; Updated Oct 7, 4:36 PM ET &mdash; commit aad7882 &mdash; model trained 2026-10-05<br>
     Stacked Ensemble: LR + XGB + LGB + RF + LGB-Recent + LGB-NoWeight + RunDiff + Poisson | Calibrated
 </div>
 
